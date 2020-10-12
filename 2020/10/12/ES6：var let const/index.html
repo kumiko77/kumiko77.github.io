@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <!--Description-->
+
+    
+
+    
+        <meta name="description" content="Kumiko77"/>
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Kumiko77"/>
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="ES6：var let const"/>
+    
+
+    <!--Open Graph Description-->
+    
+        <meta property="og:description" content="Kumiko77"/>
+    
+
+    <!--Open Graph Site Name-->
+        <meta property="og:site_name" content="Kumiko77"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article"/>
+    
+
+    <!--Page Cover-->
+    
+    
+        <meta property="og:image" content="http://yoursite.comhttp://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg"/>
+    
+
+        <meta name="twitter:card" content="summary_large_image"/>
+
+    
+
+    
+        <meta name="twitter:image" content="http://yoursite.comhttp://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg"/>
+    
+
+    <!-- Title -->
+    
+    <title>ES6：var let const - Kumiko77</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css"/>
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css"/>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet"/>
+
+    <!-- Google Analytics -->
+    
+
+
+    <!-- favicon -->
+    
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Configurable Title</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/tags">
+                            
+                                Tags
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/categories">
+                            
+                                Categories
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/klugjo/hexo-theme-clean-blog" target="_blank" rel="noopener">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>ES6：var let const</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2020-10-12
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul>
+<li>首先声明一点，js中声明之后无法修改的变量称为常量反之可以修改的称为变量</li>
+<li>在ES6之前常量与变量的声明都是使用var，例如：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var a &#x3D; 1;</span><br><span class="line">a &#x3D; 10;</span><br><span class="line">console.log(a);  &#x2F;&#x2F;10</span><br></pre></td></tr></table></figure>
+<h2 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h2>let/const 和 var的区别</li>
+</ul>
+<ul>
+<li>不可变量提升</li>
+<li>块级作用域</li>
+<li>不可重复声明</li>
+<li>暂存性死区</li>
+<li>let、const声明的变量均不会挂在在window对象上</li>
+</ul>
+<p><strong>tips:</strong></p>
+<p>1:通过const声明的变量必须马上赋值，否则会报错(Missing initializer in const declaration)</p>
+<p>2:通过const声明的数据不可更改除了对象、数组（其修改的是内部数据、而不是指针指向地址</p>
+<h2 id="不使用块级作用域的弊端"><a href="#不使用块级作用域的弊端" class="headerlink" title="不使用块级作用域的弊端"></a>不使用块级作用域的弊端</h2><ol>
+<li><p>如果使用ES5的var来声明变量，内层变量会覆盖外层变量从而造成全局污染</p>
+</li>
+<li><p>同第一点，用于循环记数的变量会泄漏为全局变量</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var time &#x3D; new Date();</span><br><span class="line">function tFunc() &#123;</span><br><span class="line">  console.log(time); </span><br><span class="line">  var time &#x3D; ‘123’;</span><br><span class="line">&#125;</span><br><span class="line">tFunc();  &#x2F;&#x2F;undefined</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var arr &#x3D; [1, 2, 3, 4, 5];</span><br><span class="line">for(var i &#x3D; 0; i &lt; arr.length; i++)&#123;</span><br><span class="line">  console.log(arr[i]);</span><br><span class="line">&#125;</span><br><span class="line">console.log(i)  &#x2F;&#x2F;5(此处的i全局范围内都可以读取到）</span><br></pre></td></tr></table></figure>
+<h2 id="关于块级作用域"><a href="#关于块级作用域" class="headerlink" title="关于块级作用域"></a>关于块级作用域</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function func()&#123;</span><br><span class="line">  let a &#x3D; 1;</span><br><span class="line">  if(true)&#123;</span><br><span class="line">    let a &#x3D; 2</span><br><span class="line">    console.log(a)  &#x2F;&#x2F;2 内层a</span><br><span class="line">  &#125;</span><br><span class="line">  console.log(a)  &#x2F;&#x2F;1 外层的a</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  let a &#x3D; &#39;Hello World&#39;</span><br><span class="line">&#125;</span><br><span class="line">console.log(a); &#x2F;&#x2F; 报错 获取不到子作用域的变量</span><br></pre></td></tr></table></figure>
+<h2 id="不可变量提升"><a href="#不可变量提升" class="headerlink" title="不可变量提升"></a>不可变量提升</h2><p>何为变量提升？在统一作用域下变量可在声明前使用且值为undefined</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; var</span><br><span class="line">console.log(a); &#x2F;&#x2F; 输出undefined</span><br><span class="line">var a &#x3D; 2;	</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; let</span><br><span class="line">console.log(b); &#x2F;&#x2F; 报错ReferenceError</span><br><span class="line">let b &#x3D; 2;</span><br></pre></td></tr></table></figure>
+<h2 id="暂存性死区"><a href="#暂存性死区" class="headerlink" title="暂存性死区"></a>暂存性死区</h2><p>只要块级作用域内存在let命令，它所声明的变量就“绑定”（binding）这个区域，不再受外部的影响</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var a &#x3D; 123;</span><br><span class="line">if (true) &#123;</span><br><span class="line">  a &#x3D; &#39;abc&#39;; &#x2F;&#x2F; 报错 因为本区域有tmp声明变量</span><br><span class="line">  let a; &#x2F;&#x2F; 绑定if这个块级的作用域 不能出现tmp变量</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="不可重复声明变量"><a href="#不可重复声明变量" class="headerlink" title="不可重复声明变量"></a>不可重复声明变量</h2><p>let、const不允许在相同作用域内，重复声明同一个变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function func(arg) &#123;</span><br><span class="line">  let arg; &#x2F;&#x2F; 报错</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function func(arg) &#123;</span><br><span class="line">  &#123;</span><br><span class="line">    let arg; &#x2F;&#x2F; 不报错</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="let、const声明的全局变量不会挂载在顶层对象下面"><a href="#let、const声明的全局变量不会挂载在顶层对象下面" class="headerlink" title="let、const声明的全局变量不会挂载在顶层对象下面"></a>let、const声明的全局变量不会挂载在顶层对象下面</h2><p>1.浏览器环境顶层对象是: window</p>
+<p>2.var声明的全局变量会挂在顶层对象下面，而let、const不会挂在顶层对象下面。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var a &#x3D; 1;</span><br><span class="line">window.a &#x2F;&#x2F; 1</span><br><span class="line">let b &#x3D; 1;</span><br><span class="line">window.b &#x2F;&#x2F; undefined</span><br></pre></td></tr></table></figure>
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr />
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="https://github.com/klugjo/hexo-theme-clean-blog" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+
+                    
+                </ul>
+                <p class="copyright text-muted">&copy; 2020 Kumiko77<br></p>
+                <p class="copyright text-muted">Original Theme <a target="_blank" href="http://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a> from <a href="http://startbootstrap.com/" target="_blank">Start Bootstrap</a></p>
+                <p class="copyright text-muted">Adapted for <a target="_blank" href="https://hexo.io/">Hexo</a> by <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>
