@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <!--Description-->
+
+    
+
+    
+        <meta name="description" content="Kumiko77"/>
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Kumiko77"/>
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="防抖与节流"/>
+    
+
+    <!--Open Graph Description-->
+    
+        <meta property="og:description" content="Kumiko77"/>
+    
+
+    <!--Open Graph Site Name-->
+        <meta property="og:site_name" content="Kumiko77"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article"/>
+    
+
+    <!--Page Cover-->
+    
+    
+        <meta property="og:image" content="http://yoursite.comhttp://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg"/>
+    
+
+        <meta name="twitter:card" content="summary_large_image"/>
+
+    
+
+    
+        <meta name="twitter:image" content="http://yoursite.comhttp://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg"/>
+    
+
+    <!-- Title -->
+    
+    <title>防抖与节流 - Kumiko77</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css"/>
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css"/>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet"/>
+
+    <!-- Google Analytics -->
+    
+
+
+    <!-- favicon -->
+    
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Configurable Title</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/tags">
+                            
+                                Tags
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/categories">
+                            
+                                Categories
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/klugjo/hexo-theme-clean-blog" target="_blank" rel="noopener">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>防抖与节流</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2020-10-12
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>防抖函数和节流函数是在日常开发中使用频率比较高的两个函数，可以有效的优化浏览器性能</p>
+<h1 id="防抖函数-debounce"><a href="#防抖函数-debounce" class="headerlink" title="防抖函数(debounce)"></a>防抖函数(debounce)</h1><p>在事件被触发 n 秒后再执行回调，如果在这 n 秒内又被触发，则重新计时</p>
+<h4 id="例子1"><a href="#例子1" class="headerlink" title="例子1"></a>例子1</h4><p>如果有人进电梯（触发事件），那电梯将在 10 秒钟后启动（执行事件），这时如果又有人进电梯了（在 10 秒内再次触发该事件），我们又得等 10 秒再启动（重新计时）</p>
+<h4 id="例子2"><a href="#例子2" class="headerlink" title="例子2"></a>例子2</h4><p>** 滚动条监听 ** ，对于这么一个常用的功能来说，很多网站都会提供一个返回顶部的按钮。这个按钮只会在滚动到距离顶部一定位置之后才出现，假设说我们现在有这么一个需求，监听浏览器滚动事件，返回当前滚条与顶部的距离</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function showTop  () &#123;</span><br><span class="line">    var scrollTop &#x3D; document.body.scrollTop || document.documentElement.scrollTop;</span><br><span class="line">　　console.log(&#39;滚动条位置：&#39; + scrollTop);</span><br><span class="line">&#125;</span><br><span class="line">window.onscroll  &#x3D; showTop</span><br></pre></td></tr></table></figure>
+<p>但是这样写代码，在运行的时候会发现存在一个问题：这个函数的默认执行频率，<strong>太！高！了！</strong>。 高到什么程度呢？以chrome为例，我们可以点击选中一个页面的滚动条，然后点击一次键盘的【向下方向键】，会发现函数执行了8-9次</p>
+<p>然而实际上我们并不需要如此高频的反馈，毕竟浏览器的性能是有限的，不应该浪费在这里。所以这里就需要防抖函数来处理</p>
+<p>基于上述场景给出一种思路，在第一次触发时不执行该操作，给出一个延迟值比如<strong>200ms</strong>，接着</p>
+<ul>
+<li>如果在200ms内没有再次触发滚动条操作，则执行该操作</li>
+<li>如果在200ms内再次触发滚动条操作则清楚计时器重新计时</li>
+</ul>
+<p><strong>效果：</strong> 在短时间内重复执行相同操作，只执行一次</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">function debounce(fn,delay)&#123;</span><br><span class="line">    let timer &#x3D; null &#x2F;&#x2F;闭包</span><br><span class="line">    return function() &#123;</span><br><span class="line">        if(timer)&#123;</span><br><span class="line">            clearTimeout(timer) </span><br><span class="line">        &#125;</span><br><span class="line">        timer &#x3D; setTimeout(fn,delay)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">function showTop  () &#123;</span><br><span class="line">    var scrollTop &#x3D; document.body.scrollTop || document.documentElement.scrollTop;</span><br><span class="line">　　console.log(&#39;滚动条位置：&#39; + scrollTop);</span><br><span class="line">&#125;</span><br><span class="line">window.onscroll &#x3D; debounce(showTop,1000) &#x2F;&#x2F; 为了方便观察效果我们取个大点的间断值，实际使用根据需要来配置</span><br></pre></td></tr></table></figure>
+<p>此时会发现，必须在停止滚动1秒以后，才会打印出滚动条位置。</p>
+<h1 id="节流函数-throttle"><a href="#节流函数-throttle" class="headerlink" title="节流函数(throttle)"></a>节流函数(throttle)</h1><p>继续说上面的问题，上述场景出现的问题用防抖来解决也会出现一个问题：</p>
+<p>如果在限定时间，有个用户闲着无聊一直拖着滚动条移来移去不断触发滚动条时间，理论上是永远不会当前距离顶部的距离</p>
+<p>但是万一需求提出就算用户不断拖动滚动条，也能在某个时间间隔给出反馈</p>
+<p>对于此需求，我们可以设计一种类似控制阀门一样定期开放的函数，也就是让函数执行一次后，在某个时间段内暂时失效，过了这段时间后再重新激活</p>
+<p><strong>效果：</strong> 如果短时间内大量触发同一事件，那么在函数执行一次之后，该函数在指定的时间期限内不再工作，直至过了这段时间才重新生效。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">function throttle(fn,delay)&#123;</span><br><span class="line">    let valid &#x3D; true</span><br><span class="line">    return function() &#123;</span><br><span class="line">       if(!valid)&#123;</span><br><span class="line">           &#x2F;&#x2F;休息时间</span><br><span class="line">           return false </span><br><span class="line">       &#125;</span><br><span class="line">       &#x2F;&#x2F; 工作时间，执行函数并且在间隔期内把状态位设为无效</span><br><span class="line">        valid &#x3D; false</span><br><span class="line">        setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line">            fn()</span><br><span class="line">            valid &#x3D; true;</span><br><span class="line">        &#125;, delay)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">function showTop  () &#123;</span><br><span class="line">    var scrollTop &#x3D; document.body.scrollTop || document.documentElement.scrollTop;</span><br><span class="line">　　console.log(&#39;滚动条位置：&#39; + scrollTop);</span><br><span class="line">&#125;</span><br><span class="line">window.onscroll &#x3D; throttle(showTop,1000)</span><br></pre></td></tr></table></figure>
+<p>如果一直拖着滚动条进行滚动，那么会以1s的时间间隔，持续输出当前位置和顶部的距离</p>
+<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><h4 id="节流"><a href="#节流" class="headerlink" title="节流"></a>节流</h4><p>1.搜索框input事件，例如要支持输入实时搜索可以使用节流方案（间隔一段时间就必须查询相关内容），或者实现输入间隔大于某个值（如500ms），就当做用户输入完成，然后开始搜索，具体使用哪种方案要看业务需求。</p>
+<ol start="2">
+<li>自动保存草稿功能，当用户在输入的时候(一直触发事件),单位时间内只保存一次草稿<h4 id="防抖"><a href="#防抖" class="headerlink" title="防抖"></a>防抖</h4></li>
+<li>表单的连续点击，防止重复提交。比如重复发送一篇文章。</li>
+</ol>
+<p>2.类百度的搜索，连续输入等输入停止后再搜索。</p>
+
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr />
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="https://github.com/klugjo/hexo-theme-clean-blog" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+
+                    
+                </ul>
+                <p class="copyright text-muted">&copy; 2020 Kumiko77<br></p>
+                <p class="copyright text-muted">Original Theme <a target="_blank" href="http://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a> from <a href="http://startbootstrap.com/" target="_blank">Start Bootstrap</a></p>
+                <p class="copyright text-muted">Adapted for <a target="_blank" href="https://hexo.io/">Hexo</a> by <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>
