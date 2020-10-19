@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <!--Description-->
+
+    
+
+    
+        <meta name="description" content="Kumiko77"/>
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Kumiko77"/>
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="ES6：async await"/>
+    
+
+    <!--Open Graph Description-->
+    
+        <meta property="og:description" content="Kumiko77"/>
+    
+
+    <!--Open Graph Site Name-->
+        <meta property="og:site_name" content="Kumiko77"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article"/>
+    
+
+    <!--Page Cover-->
+    
+    
+        <meta property="og:image" content="http://yoursite.comhttp://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg"/>
+    
+
+        <meta name="twitter:card" content="summary_large_image"/>
+
+    
+
+    
+        <meta name="twitter:image" content="http://yoursite.comhttp://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg"/>
+    
+
+    <!-- Title -->
+    
+    <title>ES6：async await - Kumiko77</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css"/>
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css"/>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet"/>
+
+    <!-- Google Analytics -->
+    
+
+
+    <!-- favicon -->
+    
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Configurable Title</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/tags">
+                            
+                                Tags
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/categories">
+                            
+                                Categories
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/klugjo/hexo-theme-clean-blog" target="_blank" rel="noopener">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>ES6：async await</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2020-10-19
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h2 id="ES6：async-await"><a href="#ES6：async-await" class="headerlink" title="ES6：async/await"></a>ES6：async/await</h2><p>在ES6中我们可以使用Generator来控制执行流程</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function* foo(x) &#123;</span><br><span class="line">    yield x + 1;</span><br><span class="line">    yield x + 2;</span><br><span class="line">    return x + 3;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们可以不断调用Generator对象的next()方法来控制函数的流程，但是这样好像不是特别的语义化。所以终于在ES7中有来Generator函数的语法糖async函数，用关键字Async来表示，其函数内部用await来表示异步操作该函数有效的解决来JavaScript中的异步操作问题。</p>
+<p>相较于 Generator，Async函数的优点在于：Generator 函数的执行必须依靠执行器，而 Async（） 函数自带执行器，调用方式跟普通函数的调用一样。Async 和 await相较于 * 和 yield 更加语义化。async 函数返回值是 Promise 对象，比 Generator函数返回的 Iterator 对象方便，可以直接使用 then（）方法进行调用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;未使用async&#x2F;await</span><br><span class="line">fn &#x3D; () &#x3D;&gt; &#123;</span><br><span class="line">  return new Promise((resolve, reject) &#x3D;&gt; &#123;</span><br><span class="line">    setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line">      resolve(1)</span><br><span class="line">    &#125;, 2000)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line">const Fn &#x3D; () &#x3D;&gt;&#123;</span><br><span class="line">  fn().then((res) &#x3D;&gt; &#123;</span><br><span class="line">    console.log(res)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line">Fn()</span><br><span class="line">console.log(2)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;输出</span><br><span class="line">&#x2F;&#x2F;先打印2</span><br><span class="line">&#x2F;&#x2F;两秒后打印1</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;使用async&#x2F;await</span><br><span class="line">fn &#x3D; () &#x3D;&gt; &#123;</span><br><span class="line">  return new Promise((resolve, reject) &#x3D;&gt; &#123;</span><br><span class="line">    setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line">      resolve(1)</span><br><span class="line">    &#125;, 2000)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line">const Fn &#x3D; async () &#x3D;&gt; &#123;</span><br><span class="line">  await fn().then((res) &#x3D;&gt; &#123;</span><br><span class="line">    console.log(res)</span><br><span class="line">  &#125;)</span><br><span class="line">  console.log(2)</span><br><span class="line">&#125;</span><br><span class="line">Fn()</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;输出</span><br><span class="line">&#x2F;&#x2F;过两秒输出1</span><br><span class="line">&#x2F;&#x2F;2</span><br></pre></td></tr></table></figure>
+<p>async的字面意思是异步，其用于定义一个异步函数，返回的是一个Promise对象。await的意思是等待，Promise是一个承诺，其承诺的是无论成功与否都会将返回值传递到then()的回调函数中，await也是一个承诺，其承诺的是不管怎样我都会等待你的操作执行完成在执行下一步操作。上述代码运行了async/await的作用就是等待fn()执行完成之后，在执行之后的操作</p>
+<h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><p>在写JS循环时，JS提供了许多好用数组api接口，forEach就是其中一个，但是碰上了async/await，可能就悲剧了，得到了不是你想要的结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">function getUserInfo (id) &#123;</span><br><span class="line">  return new Promise(resolve &#x3D;&gt; &#123;</span><br><span class="line">    setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line">      resolve(&#123;</span><br><span class="line">        id: id,</span><br><span class="line">        name: &#39;xxx&#39;,</span><br><span class="line">        age: &#39;xxx&#39;</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;, 200)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line">const users &#x3D; [&#123;id: 1&#125;, &#123;id: 2&#125;, &#123;id: 3&#125;]</span><br><span class="line">let userInfos &#x3D; []</span><br><span class="line">users.forEach(async user &#x3D;&gt; &#123;</span><br><span class="line">  let info &#x3D; await getUserInfo(user.id)</span><br><span class="line">  userInfos.push(info)</span><br><span class="line">&#125;)</span><br><span class="line">console.log(userInfos) &#x2F;&#x2F; []</span><br></pre></td></tr></table></figure>
+<p>上面这段代码是不是很熟悉，模拟获取多个用户的用户信息，然后得到一个用户信息数组，但是很遗憾，上面的userInfos得到的是一个空数组，上面这段代码加上了async/await后，forEach循环就变成了异步的，因此不会等到所有用户信息都请求完才打印userInfos，想要等待结果的返回再打印，还是要回到老式的for循环，来看代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">function getUserInfo (id) &#123;</span><br><span class="line">  return new Promise(resolve &#x3D;&gt; &#123;</span><br><span class="line">    setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line">      resolve(&#123;</span><br><span class="line">        id: id,</span><br><span class="line">        name: &#39;xxx&#39;,</span><br><span class="line">        age: &#39;xxx&#39;</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;, 200)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line">const users &#x3D; [&#123;id: 1&#125;, &#123;id: 2&#125;, &#123;id: 3&#125;]</span><br><span class="line">let userInfos &#x3D; []</span><br><span class="line">async function call() &#123;</span><br><span class="line">  for (user of users) &#123;</span><br><span class="line">    let info &#x3D; await getUserInfo(user.id)</span><br><span class="line">    userInfos.push(info)</span><br><span class="line">  &#125;</span><br><span class="line">  console.log(userInfos)</span><br><span class="line">&#125;</span><br><span class="line">call()</span><br></pre></td></tr></table></figure>
+<p>上面这种写法是继发式的，也就是会等前面一个任务执行完，再执行下一个，但是也许你并不关心执行过程，只要拿到想要的结果就行了，这时并发式的效率会更高，来看代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">function getUserInfo (id) &#123;</span><br><span class="line">  return new Promise(resolve &#x3D;&gt; &#123;</span><br><span class="line">    setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line">      resolve(&#123;</span><br><span class="line">        id: id,</span><br><span class="line">        name: &#39;xxx&#39;,</span><br><span class="line">        age: &#39;xxx&#39;</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;, 200)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line">const users &#x3D; [&#123;id: 1&#125;, &#123;id: 2&#125;, &#123;id: 3&#125;]</span><br><span class="line">let userInfos &#x3D; []</span><br><span class="line">const promises &#x3D; users.map(user &#x3D;&gt; getUserInfo(user.id))</span><br><span class="line">Promise.all(promises).then(res &#x3D;&gt; &#123;</span><br><span class="line">  userInfos &#x3D; res</span><br><span class="line">  console.log(userInfos)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr />
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="https://github.com/klugjo/hexo-theme-clean-blog" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+
+                    
+                </ul>
+                <p class="copyright text-muted">&copy; 2020 Kumiko77<br></p>
+                <p class="copyright text-muted">Original Theme <a target="_blank" href="http://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a> from <a href="http://startbootstrap.com/" target="_blank">Start Bootstrap</a></p>
+                <p class="copyright text-muted">Adapted for <a target="_blank" href="https://hexo.io/">Hexo</a> by <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>
