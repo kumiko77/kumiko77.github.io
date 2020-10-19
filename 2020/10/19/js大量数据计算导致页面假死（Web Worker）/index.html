@@ -23,7 +23,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Kumiko77"/>
+        <meta property="og:title" content="js大量数据计算导致页面假死（Web Worker）"/>
     
 
     <!--Open Graph Description-->
@@ -36,7 +36,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website"/>
+        <meta property="og:type" content="article"/>
     
 
     <!--Page Cover-->
@@ -55,7 +55,7 @@
 
     <!-- Title -->
     
-    <title>Kumiko77</title>
+    <title>js大量数据计算导致页面假死（Web Worker） - Kumiko77</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
@@ -160,156 +160,72 @@
 
     <!-- Main Content -->
     <!-- Page Header -->
-<!-- Set your background image for this header in the theme's configuration: index_cover -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
 <header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading">
-                    <h1>Kumiko77</h1>
-                    <hr class="small">
-                    <span class="subheading">Kumiko77</span>
+                <div class="post-heading">
+                    <h1>js大量数据计算导致页面假死（Web Worker）</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2020-10-19
+                        
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            
-                <div class="post-preview">
-    <a href="/2020/10/19/js大量数据计算导致页面假死（Web Worker）/">
-        <h2 class="post-title">
-            js大量数据计算导致页面假死（Web Worker）
-        </h2>
-        
-    </a>
-    <p class="post-meta">
-        <!-- Date and Author -->
-        
-        2020-10-19
-    </p>
-</div>
-<hr>
-            
-                <div class="post-preview">
-    <a href="/2020/10/19/如何搭建本博客/">
-        <h2 class="post-title">
-            如何搭建本博客
-        </h2>
-        
-    </a>
-    <p class="post-meta">
-        <!-- Date and Author -->
-        
-        2020-10-19
-    </p>
-</div>
-<hr>
-            
-                <div class="post-preview">
-    <a href="/2020/10/19/ES6：async await/">
-        <h2 class="post-title">
-            ES6：async await
-        </h2>
-        
-    </a>
-    <p class="post-meta">
-        <!-- Date and Author -->
-        
-        2020-10-19
-    </p>
-</div>
-<hr>
-            
-                <div class="post-preview">
-    <a href="/2020/10/15/Promise/">
-        <h2 class="post-title">
-            Promise
-        </h2>
-        
-    </a>
-    <p class="post-meta">
-        <!-- Date and Author -->
-        
-        2020-10-15
-    </p>
-</div>
-<hr>
-            
-                <div class="post-preview">
-    <a href="/2020/10/12/防抖与节流/">
-        <h2 class="post-title">
-            防抖与节流
-        </h2>
-        
-    </a>
-    <p class="post-meta">
-        <!-- Date and Author -->
-        
-        2020-10-12
-    </p>
-</div>
-<hr>
-            
-                <div class="post-preview">
-    <a href="/2020/10/12/ES6：var let const/">
-        <h2 class="post-title">
-            ES6：var let const
-        </h2>
-        
-    </a>
-    <p class="post-meta">
-        <!-- Date and Author -->
-        
-        2020-10-12
-    </p>
-</div>
-<hr>
-            
-                <div class="post-preview">
-    <a href="/2020/06/18/关于$emit的理解/">
-        <h2 class="post-title">
-            关于$emit的理解
-        </h2>
-        
-    </a>
-    <p class="post-meta">
-        <!-- Date and Author -->
-        
-        2020-06-18
-    </p>
-</div>
-<hr>
-            
-                <div class="post-preview">
-    <a href="/2020/06/12/hello-world/">
-        <h2 class="post-title">
-            Hello World
-        </h2>
-        
-    </a>
-    <p class="post-meta">
-        <!-- Date and Author -->
-        
-        2020-06-12
-    </p>
-</div>
-<hr>
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+
+            <!-- Gallery -->
             
 
-            <ul class="pager">
-    
-    
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>为什么页面会卡顿呢，以60Hz为例，即一秒钟的动画就是由60张静态图片连在一起。60fps是动画播放比较理想、比较基础的要求，windows系统有个刷新频率也是这个意思。60fps就要求一帧的时间为1s/60=16.67ms。浏览器显示页面的时候，要处理js逻辑，还要做渲染，每个执行片段的时间不能超过16.67ms。实际上，浏览器内核自身支撑体系运行也需要消耗一些时间，所以留给我们的时间差不多只有10ms。并且在处理js计算时，浏览器不会响应用户的操作，所以就造成了页面“假死”。<br>#Web Worker<br>#####什么是Web Worker<br>Web Work，就是为JavaScript创造多线程环境，允许主线程创建Web Worker线程，将一些任务分配给后台运行。在主线程运行的同事，Work线程在后台运行，两者互不干扰。等到Work线程完成计算任务再把结果返回给主线程。这样的好处是，一些密集或者高延迟的计算任务，被Work线程给分担了，这样主线程就会很流程。<br>Worker线程一旦创建成功，就会始终运行，不会被主线程上的活动打断取消。这样有利于随时响应主线程的通信。但是，这也造成了Worker比较耗费资源，不应该过度使用，所以一旦使用完毕，就应该关闭。<br>#####注意点：<br>1.同源限制：分配给Worker线程运行的脚本文件，必须与主线程的脚本文件同源。<br>2.DOM限制：Work线程所在的全局对象和主线程不一样，所以无法读取主线程所在网页的DOM对象，也无法使用document，window，parent这些对象。但是可以使用navigator和location。<br>3.通信联系：Worker线程和主线程不在同一个上下文环境，他们不能直接通信，必须通过消息完成。<br>4.脚本限制：Worker线程不能执行alert和confirm方法，但是可以使用XMLHttpRequest对象发出的AJAX请求。<br>5.文件限制：Work线程不能读取本地文件，它所加载的脚本必须来自网络。<br>#####用法</p>
+<ul>
+<li>创建<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var worker &#x3D; new Worker(“work.js”)</span><br></pre></td></tr></table></figure></li>
+<li>主线程通过postMessage向Work线程发送消息<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;postMessage()参数就是传送的数据，支持各种数据类型</span><br><span class="line">worker.postMessage(&#39;Hello World&#39;); </span><br><span class="line">worker.postMessage(&#123;method: &#39;echo&#39;, args: [&#39;Work&#39;]&#125;);</span><br></pre></td></tr></table></figure></li>
+<li>主线程通过onmessage()指定监听函数，接收子线程发回来的消息<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">worker.onmessage &#x3D; function (event) &#123;</span><br><span class="line">  console.log(&#39;Received message &#39; + event.data);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>主线程关闭Work线程</li>
 </ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">worker.terminate();</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Worker 线程内部需要有一个监听函数，监听message事件。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">self.addEventListener(&#39;message&#39;, function (e) &#123;</span><br><span class="line">  self.postMessage(&#39;You said: &#39; + e.data);</span><br><span class="line">&#125;, false);</span><br><span class="line">&#x2F;&#x2F;上面代码中，self代表子线程自身，即子线程的全局对象。因此，等同于下面两种写法</span><br><span class="line">&#x2F;&#x2F; 写法一</span><br><span class="line">this.addEventListener(&#39;message&#39;, function (e) &#123;</span><br><span class="line">  this.postMessage(&#39;You said: &#39; + e.data);</span><br><span class="line">&#125;, false);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 写法二</span><br><span class="line">addEventListener(&#39;message&#39;, function (e) &#123;</span><br><span class="line">  postMessage(&#39;You said: &#39; + e.data);</span><br><span class="line">&#125;, false);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Work线程内部关闭<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self.close();</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
         </div>
     </div>
-</div>
-
-
+</article>
 
     <!-- Footer -->
     <hr />
