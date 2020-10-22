@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <!--Description-->
+
+    
+
+    
+        <meta name="description" content="Kumiko77"/>
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Kumiko77"/>
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Vue-Router基础"/>
+    
+
+    <!--Open Graph Description-->
+    
+        <meta property="og:description" content="Kumiko77"/>
+    
+
+    <!--Open Graph Site Name-->
+        <meta property="og:site_name" content="Kumiko77"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article"/>
+    
+
+    <!--Page Cover-->
+    
+    
+        <meta property="og:image" content="http://yoursite.comhttp://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg"/>
+    
+
+        <meta name="twitter:card" content="summary_large_image"/>
+
+    
+
+    
+        <meta name="twitter:image" content="http://yoursite.comhttp://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg"/>
+    
+
+    <!-- Title -->
+    
+    <title>Vue-Router基础 - Kumiko77</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css"/>
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css"/>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet"/>
+
+    <!-- Google Analytics -->
+    
+
+
+    <!-- favicon -->
+    
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Configurable Title</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/tags">
+                            
+                                Tags
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/categories">
+                            
+                                Categories
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/klugjo/hexo-theme-clean-blog" target="_blank" rel="noopener">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>Vue-Router基础</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2020-10-22
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h2 id="什么是路由？"><a href="#什么是路由？" class="headerlink" title="什么是路由？"></a>什么是路由？</h2><ul>
+<li>路由(routing)就是通过互联的网络把信息从源地址传输到目的地址的过程</li>
+<li>路由是根据不同的ulr地址展示不同的内容或页面<h5 id="后端路由"><a href="#后端路由" class="headerlink" title="后端路由"></a>后端路由</h5>在早起开发时整个HTML页面是由服务端来渲染的，后端直接将渲染好的HTML页面响应给客户端</li>
+<li>浏览器在地址栏中输入不同的URL时，每次都向后端发起请求，后端再响应请求</li>
+<li>在后台拼接出不同的HTML页面返回给前端显示</li>
+<li>意味着浏览器会刷新页面，如果网速不好的话，页面会全空白再显示出内容，后端路由有一个极大的问题就是前后端不分离<h5 id="前端路由"><a href="#前端路由" class="headerlink" title="前端路由"></a>前端路由</h5></li>
+<li>随着AJAX的出现，有了前后端分离</li>
+<li>后端通过API来返回数据，前端通过AJAX来请求数据，然后用JS将数据渲染到页面上</li>
+<li>这样的模式使得，前后端任务分工明确，后端注重数据处理，前端注重交互和数据可视化</li>
+<li>并且移动端（Android、IOS）出现后，可使用同一套API，无需做任何处理<h6 id="SPA"><a href="#SPA" class="headerlink" title="SPA"></a>SPA</h6></li>
+<li>SPA（single page web application）,译为单页Web应用</li>
+<li>简单说 SPA 就是一个 web 项目只有一个 html 页面, 一旦页面加载完成, SPA 不会因为用户的操作进行页面的重新加载或跳转</li>
+<li>取而代之的是利用 JS 动态的变换 html 的内容, 从而模拟多个视图间跳转<h6 id="前端路由的核心"><a href="#前端路由的核心" class="headerlink" title="前端路由的核心"></a>前端路由的核心</h6>改变URL，但是页面不进行整体的刷新q<h2 id="前端路由的规则"><a href="#前端路由的规则" class="headerlink" title="前端路由的规则"></a>前端路由的规则</h2><h4 id="url的hash模式"><a href="#url的hash模式" class="headerlink" title="url的hash模式"></a>url的hash模式</h4>也就是锚点（#），本质上是改变window.location的href属性</li>
+</ul>
+<p>2.我们可以直接赋值location.hash改变href但是页面不发生刷新</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">location.href</span><br><span class="line">&#x2F;&#x2F;  &quot;http:&#x2F;&#x2F;localhost:8080&quot;</span><br><span class="line">location.hash &#x3D; &quot;&#x2F;home&quot;</span><br><span class="line">&#x2F;&#x2F;  &quot;&#x2F;home&quot;</span><br></pre></td></tr></table></figure>
+<h4 id="HTML5的history模式"><a href="#HTML5的history模式" class="headerlink" title="HTML5的history模式"></a>HTML5的history模式</h4><p>history模式是HTML5新增的, 它有五种模式改变URL而不刷新页面</p>
+<h6 id="1-history-pushState"><a href="#1-history-pushState" class="headerlink" title="1.history.pushState()"></a>1.history.pushState()</h6><p>可回退</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">history.pushState(&#123;&#125;, &#39;&#39;, &#39;foo&#39;)</span><br><span class="line">&#x2F;&#x2F;  undefined</span><br><span class="line">history.pushState(&#123;&#125;, &#39;&#39;, &#39;test&#39;)</span><br><span class="line">&#x2F;&#x2F;  undefined</span><br><span class="line">history.pushState(&#123;&#125;, &#39;&#39;, &#39;a&#39;)</span><br><span class="line">&#x2F;&#x2F;  undefined</span><br></pre></td></tr></table></figure>
+<h6 id="2-history-replaceState"><a href="#2-history-replaceState" class="headerlink" title="2.history.replaceState()"></a>2.history.replaceState()</h6><p>替换URL，不可回退</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">history.replaceState(&#123;&#125;, &#39;&#39;, &#39;&#x2F;foo&#39;)</span><br><span class="line">&#x2F;&#x2F;  undefined</span><br><span class="line">history.replaceState(&#123;&#125;, &#39;&#39;, &#39;&#x2F;test&#39;)</span><br><span class="line">&#x2F;&#x2F;  undefined</span><br></pre></td></tr></table></figure>
+<h6 id="3-history-back"><a href="#3-history-back" class="headerlink" title="3.history.back()"></a>3.history.back()</h6><p>回退到上一次的URL</p>
+<h6 id="4-history-forward"><a href="#4-history-forward" class="headerlink" title="4.history.forward()"></a>4.history.forward()</h6><p>前进到上一次的URL</p>
+<h6 id="5-history-go-Number"><a href="#5-history-go-Number" class="headerlink" title="5.history.go(Number)"></a>5.history.go(Number)</h6><p>前往指定URL</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">history.go(2)</span><br><span class="line">&#x2F;&#x2F;  undefined</span><br></pre></td></tr></table></figure>
+<h2 id="Vue-Router基础"><a href="#Vue-Router基础" class="headerlink" title="Vue-Router基础"></a>Vue-Router基础</h2><p>vue-router是Vue.js官方的路由插件, 它和vue.js是深度继承的, 用于构建单页面应用vue-router是基于路由和组件的</p>
+<p>路由用于设定访问路径, 将路径和组件映射起来在vue-router的单页面应用中, 页面的路径的改变就是组件的切换</p>
+<ul>
+<li>步骤一：npm安装<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install vue-router --save</span><br></pre></td></tr></table></figure></li>
+<li>步骤二：在项目中引用它</li>
+</ul>
+<p>导入路由对象, 并且调用Vue.use(VueRouter)安装路由功能</p>
+<p>创建路由实例, 并传入路由映射配置</p>
+<p>在主入口文件: 引入创建的路由实例, Vue实例中挂载路由实例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">router&#x2F;index.js</span><br><span class="line"></span><br><span class="line">import VueRouter from &#39;vue-router&#39;</span><br><span class="line">import Vue from &#39;vue&#39;</span><br><span class="line">import Home from &#39;..&#x2F;components&#x2F;Home.vue&#39;</span><br><span class="line">import About from &#39;..&#x2F;components&#x2F;About.vue&#39;</span><br><span class="line"></span><br><span class="line">Vue.use(VueRouter)</span><br><span class="line"></span><br><span class="line">const routes &#x3D; [</span><br><span class="line">  &#123;</span><br><span class="line">    path: &#39;.&#x2F;home&#39;,</span><br><span class="line">    components: Home</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    path: &#39;.&#x2F;about&#39;,</span><br><span class="line">    components: About</span><br><span class="line">  &#125;</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">const router &#x3D; new VueRouter(&#123;</span><br><span class="line">  routes</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">export default router</span><br><span class="line"></span><br><span class="line">.&#x2F;math.js</span><br><span class="line">import Vue from &#39;vue&#39;</span><br><span class="line">import App from &#39;.&#x2F;App.vue&#39;</span><br><span class="line">import router from &#39;.&#x2F;router&#39;</span><br><span class="line"></span><br><span class="line">new Vue(&#123;</span><br><span class="line">  render: h &#x3D;&gt; h(App),</span><br><span class="line">  router</span><br><span class="line">&#125;).$(&#39;#app&#39;)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>步骤三：使用vue-router</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;使用路由&lt;router-link to&#x3D;&quot;&#x2F;path&quot;&gt;和 &lt;router-view&gt;</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;router-link to&#x3D;&quot;&#x2F;home&quot;&gt;首页&lt;&#x2F;router-link&gt;</span><br><span class="line">    &lt;router-link to&#x3D;&quot;&#x2F;about&quot;&gt;关闭&lt;&#x2F;router-link&gt;</span><br><span class="line">    &lt;router-view&gt;&lt;&#x2F;router-view&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="路由组件详解"><a href="#路由组件详解" class="headerlink" title="路由组件详解"></a>路由组件详解</h3><ul>
+<li><p>router-link 该标签是已经内置全局的组件, 它会被渲染成一个a标签</p>
+</li>
+<li><p>to=”path”: 该属性会被渲染为href属性to=”path”: 属性的值会渲染为 # 开头的 hash 地址</p>
+</li>
+<li><p>path: 在路由中配置的 path 路径</p>
+</li>
+<li><p>router-view 该标签会根据当前的路径, 动态渲染出相对应的组件<br>在路由切换时, 切换的是router-view挂载的组件, 其他内容不会发生改变</p>
+<h2 id="路由配置其他补充"><a href="#路由配置其他补充" class="headerlink" title="路由配置其他补充"></a>路由配置其他补充</h2><h4 id="1-路由默认路径"><a href="#1-路由默认路径" class="headerlink" title="1.路由默认路径"></a>1.路由默认路径</h4><p>进入网站首页, 希望router-view渲染首页的内容</p>
+</li>
+</ul>
+<p>在路由规则中添加默认路径的重定向</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const routes &#x3D; [</span><br><span class="line">    &#123;</span><br><span class="line">      &#x2F;&#x2F; 配置默认路径</span><br><span class="line">      path: &#39;&#x2F;&#39;,</span><br><span class="line">      &#x2F;&#x2F; 重定向到&#x2F;home路径</span><br><span class="line">      redirect: &#39;&#x2F;home&#39;</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<h4 id="2-路径的History模式"><a href="#2-路径的History模式" class="headerlink" title="2.路径的History模式"></a>2.路径的History模式</h4><p>页面显示的URL, 不希望是哈希值带 #/home, 希望显示正常的URL: /home</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 创建VueRouter对象</span><br><span class="line">const router &#x3D; new VueRouter(&#123;</span><br><span class="line">  routes,&#x2F;&#x2F; 路由规则</span><br><span class="line">  mode: &#39;history&#39;&#x2F;&#x2F; URL显示的模式</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="3-router-link和配置路由的属性补充"><a href="#3-router-link和配置路由的属性补充" class="headerlink" title="3.router-link和配置路由的属性补充"></a>3.router-link和配置路由的属性补充</h4><p>route-link其他的属性</p>
+<ul>
+<li>tag=””: tab可以指定router-link组件渲染成什么元素</li>
+<li>replace: 没有回退history记录, 前进没有效果</li>
+<li>active class=””: 当router-link对应的路径匹配成功时, 会自动给当前元素添加一个router-link-active的class, 设置active-class可以更改默认的名称</li>
+</ul>
+<h4 id="4-编程式导航"><a href="#4-编程式导航" class="headerlink" title="4.编程式导航"></a>4.编程式导航</h4><p>没有使用router-link全局组件, 来跳转URL</p>
+<ul>
+<li>this.$router.push(‘path’): 来实现跳转URL, 有回退history记录</li>
+<li>this.$router.replace(‘path’): 来实现跳转URL, 没有回退history记录<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">methods: &#123;    </span><br><span class="line">    home() &#123;      </span><br><span class="line">      &#x2F;&#x2F; 没有使用&lt;router-link&gt;全局组件,来跳转URL,如何实现      </span><br><span class="line">      &#x2F;&#x2F; this.$router.push(&#39;&#x2F;home&#39;) &#x2F;&#x2F; 有回退记录      </span><br><span class="line">      this.$router.replace(&#39;&#x2F;home&#39;) &#x2F;&#x2F; 没有回退记录</span><br><span class="line">      &#125;,    </span><br><span class="line">    about() &#123;      </span><br><span class="line">      &#x2F;&#x2F; this.$router.push(&#39;&#x2F;about&#39;)      </span><br><span class="line">      this.$router.replace(&#39;&#x2F;about&#39;)   </span><br><span class="line">    &#125;&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="路由传参"><a href="#路由传参" class="headerlink" title="路由传参"></a>路由传参</h2>一般路由有两种传参方式，分为 params 和 query<h4 id="params"><a href="#params" class="headerlink" title="params"></a>params</h4>这个 params 是和 name 配合使用的。跳转过去之后路径不会带上参数。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">router.push(&#123; name: &#39;user&#39;, params: &#123; userId: &#39;123&#39; &#125;&#125;) &#x2F;&#x2F;参数传递</span><br><span class="line">this.$route.params.id  &#x2F;&#x2F;参数接收</span><br></pre></td></tr></table></figure>
+<h4 id="query"><a href="#query" class="headerlink" title="query"></a>query</h4>这个 query 是和 path 配合使用的，跳转过去之后路径会带上参数变成 /search?id=1 般使用在查询方面。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">router.push(&#123; path: &#39;search&#39;, query: &#123; id: &#39;1&#39; &#125;&#125;)  &#x2F;&#x2F;参数传递</span><br><span class="line">this.$route.query.id  &#x2F;&#x2F;参数接收</span><br></pre></td></tr></table></figure>
+<h2 id="路由守卫"><a href="#路由守卫" class="headerlink" title="路由守卫"></a>路由守卫</h2>当路由进行需要进行导航的时候，我们可以通过路由守卫的方式，来进行路由的跳转和和取消跳转。</li>
+</ul>
+<p>路由守卫有三种，一种是全局的守卫，一种是路由的守卫，一种是组件的守卫。</p>
+<h4 id="全局守卫"><a href="#全局守卫" class="headerlink" title="全局守卫"></a>全局守卫</h4><p>全局守卫一般用来验证是否已经登陆。如果登陆，就进行，没有登录就跳转到登录页面。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">router.beforeEach((to, from, next) &#x3D;&gt; &#123;</span><br><span class="line">  next()</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">router.beforeResolve((to, from, next) &#x3D;&gt; &#123;</span><br><span class="line">  next()</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">router.afterEach((to, from) &#x3D;&gt; &#123;</span><br><span class="line">  &#x2F;* 这是全局后置钩子，不会接受 next 函数，也不改变导航*&#x2F;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="路由独享守卫"><a href="#路由独享守卫" class="headerlink" title="路由独享守卫"></a>路由独享守卫</h4><p>跟全局路由一样，只不过是针对单个路由，来进行设置。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">routes: [</span><br><span class="line">    &#123;</span><br><span class="line">      path: &#39;&#x2F;foo&#39;,</span><br><span class="line">      component: Foo,</span><br><span class="line">      beforeEnter: (to, from, next) &#x3D;&gt; &#123;</span><br><span class="line">        &#x2F;&#x2F; ...</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br></pre></td></tr></table></figure>
+<h4 id="组件守卫"><a href="#组件守卫" class="headerlink" title="组件守卫"></a>组件守卫</h4><p>组件的守卫，一共有三个</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">beforeRouteEnter (to, from, next) &#123;</span><br><span class="line">  &#x2F;&#x2F; 在渲染该组件的对应路由被 confirm 前调用</span><br><span class="line">  &#x2F;&#x2F; 不！能！获取组件实例 &#96;this&#96;</span><br><span class="line">  &#x2F;&#x2F; 因为当守卫执行前，组件实例还没被创建</span><br><span class="line">&#125;,</span><br><span class="line">beforeRouteUpdate (to, from, next) &#123;</span><br><span class="line">  &#x2F;&#x2F; 在当前路由改变，但是该组件被复用时调用</span><br><span class="line">  &#x2F;&#x2F; 举例来说，对于一个带有动态参数的路径 &#x2F;foo&#x2F;:id，在 &#x2F;foo&#x2F;1 和 &#x2F;foo&#x2F;2 之间跳转的时候，</span><br><span class="line">  &#x2F;&#x2F; 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。</span><br><span class="line">  &#x2F;&#x2F; 可以访问组件实例 &#96;this&#96;</span><br><span class="line">&#125;,</span><br><span class="line">beforeRouteLeave (to, from, next) &#123;</span><br><span class="line">  &#x2F;&#x2F; 导航离开该组件的对应路由时调用</span><br><span class="line">  &#x2F;&#x2F; 可以访问组件实例 &#96;this&#96;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr />
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="https://github.com/klugjo/hexo-theme-clean-blog" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+
+                    
+                </ul>
+                <p class="copyright text-muted">&copy; 2020 Kumiko77<br></p>
+                <p class="copyright text-muted">Original Theme <a target="_blank" href="http://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a> from <a href="http://startbootstrap.com/" target="_blank">Start Bootstrap</a></p>
+                <p class="copyright text-muted">Adapted for <a target="_blank" href="https://hexo.io/">Hexo</a> by <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>
