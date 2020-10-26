@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <!--Description-->
+
+    
+
+    
+        <meta name="description" content="Kumiko77"/>
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Kumiko77"/>
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Vuex基础"/>
+    
+
+    <!--Open Graph Description-->
+    
+        <meta property="og:description" content="Kumiko77"/>
+    
+
+    <!--Open Graph Site Name-->
+        <meta property="og:site_name" content="Kumiko77"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article"/>
+    
+
+    <!--Page Cover-->
+    
+    
+        <meta property="og:image" content="http://yoursite.comhttp://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg"/>
+    
+
+        <meta name="twitter:card" content="summary_large_image"/>
+
+    
+
+    
+        <meta name="twitter:image" content="http://yoursite.comhttp://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg"/>
+    
+
+    <!-- Title -->
+    
+    <title>Vuex基础 - Kumiko77</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css"/>
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css"/>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet"/>
+
+    <!-- Google Analytics -->
+    
+
+
+    <!-- favicon -->
+    
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Configurable Title</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/tags">
+                            
+                                Tags
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/categories">
+                            
+                                Categories
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/klugjo/hexo-theme-clean-blog" target="_blank" rel="noopener">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>Vuex基础</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2020-10-26
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h2 id="1-关于Vuex"><a href="#1-关于Vuex" class="headerlink" title="1. 关于Vuex"></a>1. 关于Vuex</h2><h3 id="1-1-为什么要使用Vuex"><a href="#1-1-为什么要使用Vuex" class="headerlink" title="1.1 为什么要使用Vuex"></a>1.1 为什么要使用Vuex</h3><p>我们在Vue开发过程中，难免会有一些状态要在多个组件中使用的情况，比如用户昵称、头像等其他用户信息。这些信息在多个组件中会使用到，所以我们就希望其状态一旦发现改变，其他组件也跟着变化,比如用户充值了一百元或是改变了头像，所以这个时候就需要状态管理模式来集中来管理</p>
+<h3 id="1-2-基本结构"><a href="#1-2-基本结构" class="headerlink" title="1.2 基本结构"></a>1.2 基本结构</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">import Vue from &#39;vue&#39;</span><br><span class="line">import Vuex from &#39;vuex&#39;</span><br><span class="line"></span><br><span class="line">Vue.use(Vuex)</span><br><span class="line"></span><br><span class="line">export default new Vuex.Store(&#123;</span><br><span class="line">  state: &#123;</span><br><span class="line">    count: 0</span><br><span class="line">  &#125;,</span><br><span class="line">  mutations: &#123;</span><br><span class="line">    SET_COUNT:(state) &#x3D;&gt; &#123;</span><br><span class="line">      state.count ++</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  actions: &#123;</span><br><span class="line">    count(&#123; commit &#125;) &#123;</span><br><span class="line">      commit(&#39;SET_COUNT&#39;)</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  getters: &#123;</span><br><span class="line">    getCountValue: state &#x3D;&gt; state.count,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="2-State"><a href="#2-State" class="headerlink" title="2. State"></a>2. State</h2><p>Vuex的核心就是store仓库，这个store实例会被注入到所有子组件中，里边的state保存着我们的状态，比如我们定义一个状态count</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">export default new Vuex.Store(&#123;</span><br><span class="line">  state: &#123;</span><br><span class="line">    count: 10</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>这样我们就有一个集中管理的状态count，那其他组件如何取到这个count呢，可以计算属性来获得</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">export default &#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    </span><br><span class="line">  &#125;,</span><br><span class="line">  computed: &#123;</span><br><span class="line">    count() &#123;</span><br><span class="line">      return this.$store.state.count;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-1-mapState"><a href="#2-1-mapState" class="headerlink" title="2.1 mapState"></a>2.1 mapState</h3><p>有的时候一个组件内要获取多个状态，使用计算属性需要调用多次，那就很烦，这里可以使用辅助函数mapState。使用mapState需要在页面中引入此方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import &#123; mapState &#125; from &#39;vuex&#39;;</span><br></pre></td></tr></table></figure>
+<p>但是使用mapState的话computed的写法会和之前有一些差别</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;不使用mapState</span><br><span class="line">data()&#123;</span><br><span class="line">  return&#123;</span><br><span class="line">    </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">computed: &#123;</span><br><span class="line">  msg() &#123;</span><br><span class="line">    return this.$store.state.count;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;使用mapState</span><br><span class="line">computed: &#123; </span><br><span class="line">  msg() &#123;</span><br><span class="line">    return this.$store.state.msg;</span><br><span class="line">  &#125;,</span><br><span class="line">  &#x2F;&#x2F; 这里返回一个状态count</span><br><span class="line">  ...mapState([&#39;count&#39;])</span><br><span class="line">  &#x2F;&#x2F; 返回多个你可以这样写...mapState([&#39;count&#39;, &#39;firstName&#39;, &#39;lastName&#39;])</span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="3-Getter"><a href="#3-Getter" class="headerlink" title="3. Getter"></a>3. Getter</h2><p>getter就是对状态进行处理之后在提取出来的公共部分，当状态需要进行筛选这些操作时，我们就可以使用getter将数据处理之后在返回给组件使用，假设在state里定义一个数组</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">export default new Vuex.Store(&#123;</span><br><span class="line">  state: &#123;</span><br><span class="line">    list: [1, 2, 3, 4, 5, 6, 7, 8]</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>我们想要将list数组里的数字筛选出偶数在组件中使用，那就可以把这个操作放在getter里进行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">export default new Vuex.Store(&#123;</span><br><span class="line">  state: &#123;</span><br><span class="line">    list: [1, 2, 3, 4, 5, 6, 7, 8]</span><br><span class="line">  &#125;,</span><br><span class="line">  getters: &#123;</span><br><span class="line">    modifyArr(state) &#123; </span><br><span class="line">      return state.list.filter((item, index, arr) &#x3D;&gt; &#123;</span><br><span class="line">        return item % 2 &#x3D;&#x3D; 0;</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>之后再在其他组件的computed里面去调用getter来获取想要的状态</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">computed: &#123;</span><br><span class="line">    list() &#123;</span><br><span class="line">      return this.$store.getters.modifyArr;</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-1-mapGetters"><a href="#3-1-mapGetters" class="headerlink" title="3.1 mapGetters"></a>3.1 mapGetters</h3><p>mapGetters 辅助函数仅仅是将 store 中的 getter 映射到局部计算属性，当我们想在组件里面引入多个getter时，可以使用mapGetter</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import &#123;mapGetters&#125; from &#39;vuex&#39;;</span><br><span class="line">computed: &#123;</span><br><span class="line">  ...mapGetter([&#39;modifyArr&#39;, &#39;getLength&#39;])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>也可以为其自定义名字不一定要用getter里设置的名字</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">computed: &#123;</span><br><span class="line">  ...mapGetter(&#123;</span><br><span class="line">    arr: &#39;modifyArr&#39;,   &#x2F;&#x2F; 把 &#96;this.arr&#96; 映射为 &#96;this.$store.getters.modifyArr&#96;,下面同理</span><br><span class="line">    length: &#39;getLength&#39;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="4-Mutation"><a href="#4-Mutation" class="headerlink" title="4.Mutation"></a>4.Mutation</h2><p>当我们需要改变state里的属性时，我们是不能直接在组件里对其进行修改的，我们需要借助mutation里的里的方法来对其进行修改。比如state里有一个状态count我们要对其进行计数操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">state: &#123;</span><br><span class="line">  count: 0</span><br><span class="line">&#125;,</span><br><span class="line">mutations: &#123;</span><br><span class="line">  add(state) &#123;</span><br><span class="line">    state.count++;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<p>在其他组件里我们通过method来触发mutation，这里需要使用commit</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">methods: &#123;</span><br><span class="line">  add() &#123;</span><br><span class="line">    this.$store.commit(&#39;add&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-1-参数传递"><a href="#4-1-参数传递" class="headerlink" title="4.1 参数传递"></a>4.1 参数传递</h3><p>比如我需要在计数时传递自己想要的数字</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mutations: &#123;</span><br><span class="line">  add(state, num) &#123;</span><br><span class="line">    state.count +&#x3D; num;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在组件中使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">methods: &#123;</span><br><span class="line">  loadAdd() &#123;</span><br><span class="line">    this.$store.commit(&#39;loadAdd&#39;, 100); &#x2F;&#x2F; 传递额外参数</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>官方文档建议额外传参最好写成对象的方式,这样可以传递多个字段，代码看起来也会更清晰</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">this.$store.commit(&#39;add&#39;, &#123;</span><br><span class="line">  num: 100</span><br><span class="line">&#125;); &#x2F;&#x2F; 传递额外参数</span><br></pre></td></tr></table></figure>
+<h3 id="4-2-Mutation需要遵循Vue的响应规则"><a href="#4-2-Mutation需要遵循Vue的响应规则" class="headerlink" title="4.2 Mutation需要遵循Vue的响应规则"></a>4.2 Mutation需要遵循Vue的响应规则</h3><p>在开发中向state增加额外数据时，需要遵循Vue的响应规则</p>
+<ol>
+<li><p>最好提前在你的 store 中初始化好所有所需属性</p>
+</li>
+<li><p>当需要在对象上添加新属性时，你应该使用 Vue.set(obj, ‘newProp’, 123), 或者以新对象替换老对象。例如，利用 ES6的对象展开运算符</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">addNewState(state, payload) &#123; &#x2F;&#x2F; 我打算再这儿添加新的属性到state</span><br><span class="line">  &#x2F;&#x2F; Vue.set(state, &#39;newProp&#39;, &#39;添加一个新值！&#39;); &#x2F;&#x2F; 这是一种写法</span><br><span class="line">  &#x2F;&#x2F; 这种写法用新对象替换老对象</span><br><span class="line">  this.replaceState(&#123;...state, newProp: &#39;添加一个新值！&#39;&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-3-Mutation里必须是同步操作"><a href="#4-3-Mutation里必须是同步操作" class="headerlink" title="4.3 Mutation里必须是同步操作"></a>4.3 Mutation里必须是同步操作</h3><p>下面这种操作必须避免</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mutations: &#123;</span><br><span class="line">  someMutation (state) &#123;</span><br><span class="line">    api.callAsyncMethod(() &#x3D;&gt; &#123;</span><br><span class="line">      &#x2F;&#x2F;.....</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-4-mapMutations"><a href="#4-4-mapMutations" class="headerlink" title="4.4 mapMutations"></a>4.4 mapMutations</h3><p>同前</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import &#123;mapMutations&#125; from &#39;vuex&#39;;</span><br><span class="line">export default &#123;</span><br><span class="line">  methods: &#123;</span><br><span class="line">    ...mapMutations([</span><br><span class="line">      &#39;increment&#39;, &#x2F;&#x2F; 将 &#96;this.increment()&#96; 映射为 &#96;this.$store.commit(&#39;increment&#39;)&#96;</span><br><span class="line"></span><br><span class="line">      &#x2F;&#x2F; &#96;mapMutations&#96; 也支持载荷：</span><br><span class="line">      &#39;incrementBy&#39; &#x2F;&#x2F; 将 &#96;this.incrementBy(amount)&#96; 映射为 &#96;this.$store.commit(&#39;incrementBy&#39;, amount)&#96;</span><br><span class="line">    ]),</span><br><span class="line">    ...mapMutations(&#123;</span><br><span class="line">      add: &#39;increment&#39; &#x2F;&#x2F; 将 &#96;this.add()&#96; 映射为 &#96;this.$store.commit(&#39;increment&#39;)&#96;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="5-Action"><a href="#5-Action" class="headerlink" title="5. Action"></a>5. Action</h2><p>action与mutation类似，不同点在于</p>
+</li>
+<li><p>action用于提交mutation</p>
+</li>
+<li><p>action支持任意的异步操作，之前提到mutation只支持同步操作，所以将异步操作放在action里执行，然后再调用mutation中的方法来改变state中的状态<br>首先在state中定义一个状态</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">state: &#123;</span><br><span class="line">  product: &#39;car&#39;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接着在mutation中定义一个方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">changeProduct(state, payload) &#123;</span><br><span class="line">  state.product &#x3D; payload.change;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后在action中定义一个方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">actions: &#123;</span><br><span class="line">  changeProduct(&#123;commit&#125;, payload) &#123; &#x2F;&#x2F; 这个context是一个与 store 实例具有相同方法和属性的对象</span><br><span class="line">    &#x2F;&#x2F; 调用mutation里的changeProduct方法</span><br><span class="line">    &#x2F;&#x2F; commit(&#39;changeProduct&#39;, &#123;change: &#39;ship&#39;&#125;);</span><br><span class="line">    &#x2F;&#x2F; 改成异步方式</span><br><span class="line">    &#x2F;&#x2F; setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line">    &#x2F;&#x2F;   commit(&#39;changeProduct&#39;, &#123;change: &#39;ship&#39;&#125;);</span><br><span class="line">    &#x2F;&#x2F; &#125;, 1500)</span><br><span class="line">    &#x2F;&#x2F; 使用载荷</span><br><span class="line">    let temp &#x3D; &#39;ship+&#39; + payload.extraInfo; </span><br><span class="line">    setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line">      commit(&#39;changeProduct&#39;, &#123;change: temp&#125;);</span><br><span class="line">    &#125;, 1500)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后在methods中定义事件触发</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">methods: &#123;</span><br><span class="line">  selectProduct() &#123;</span><br><span class="line">    &#x2F;&#x2F; this.$store.dispatch(&#39;changeProduct&#39;)</span><br><span class="line">    &#x2F;&#x2F; 载荷方式分发</span><br><span class="line">    &#x2F;&#x2F; this.$store.dispatch(&#39;changeProduct&#39;, &#123;</span><br><span class="line">    &#x2F;&#x2F;   extraInfo: &#39;sportcar&#39;</span><br><span class="line">    &#x2F;&#x2F; &#125;)</span><br><span class="line">    &#x2F;&#x2F; 或者这种</span><br><span class="line">    this.$store.dispatch(&#123;</span><br><span class="line">      type: &#39;changeProduct&#39;,</span><br><span class="line">      extraInfo: &#39;-&gt;sportcar&#39;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="5-1-mapActions"><a href="#5-1-mapActions" class="headerlink" title="5.1 mapActions"></a>5.1 mapActions</h3><p>具体用法同前，不做具体说明</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">import &#123;mapActions&#125; from &#39;vuex&#39;;</span><br><span class="line">export default &#123;</span><br><span class="line">  &#x2F;&#x2F; ...</span><br><span class="line">  methods: &#123;</span><br><span class="line">    ...mapActions([</span><br><span class="line">      &#39;increment&#39;, &#x2F;&#x2F; 将 &#96;this.increment()&#96; 映射为 &#96;this.$store.dispatch(&#39;increment&#39;)&#96;</span><br><span class="line"></span><br><span class="line">      &#x2F;&#x2F; &#96;mapActions&#96; 也支持载荷：</span><br><span class="line">      &#39;incrementBy&#39; &#x2F;&#x2F; 将 &#96;this.incrementBy(amount)&#96; 映射为 &#96;this.$store.dispatch(&#39;incrementBy&#39;, amount)&#96;</span><br><span class="line">    ]),</span><br><span class="line">    ...mapActions(&#123;</span><br><span class="line">      add: &#39;increment&#39; &#x2F;&#x2F; 将 &#96;this.add()&#96; 映射为 &#96;this.$store.dispatch(&#39;increment&#39;)&#96;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>有时候我们想获取action里面异步执行后的状态然后再去修改其他信息，这个可以借助Promise来实现。这里在state里面声明一个状态</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">state: &#123;</span><br><span class="line">  userInfo: &#123; &#x2F;&#x2F; 这个变量用来测试组合变量</span><br><span class="line">    name: &#39;lee&#39;,</span><br><span class="line">    age: 23</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>复制代码接着声明mutation</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mutations: &#123;</span><br><span class="line">    &#x2F;&#x2F; 以下用来测试组合action</span><br><span class="line">    changeInfo(state, payload) &#123;</span><br><span class="line">      state.userInfo.name &#x3D; &#39;lee haha&#39;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>复制代码声明action</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">actions: &#123;</span><br><span class="line">  changeInfo(context, payload) &#123;</span><br><span class="line">    return new Promise((resolve, reject) &#x3D;&gt; &#123;</span><br><span class="line">      setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line">        context.commit(&#39;changeInfo&#39;);</span><br><span class="line">        resolve();</span><br><span class="line">      &#125;, 2000)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>复制代码这时我们在组件里面定义方法去派发这个action</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">data() &#123;</span><br><span class="line">  return &#123;</span><br><span class="line">    status: &#39;信息还没修改！&#39;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">methods: &#123;</span><br><span class="line">  modifyInfo() &#123;</span><br><span class="line">    this.$store.dispatch(&#39;changeInfo&#39;).then(() &#x3D;&gt; &#123;</span><br><span class="line">      this.status &#x3D; &#39;信息修改成功&#39;;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr />
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="https://github.com/klugjo/hexo-theme-clean-blog" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+
+                    
+                </ul>
+                <p class="copyright text-muted">&copy; 2020 Kumiko77<br></p>
+                <p class="copyright text-muted">Original Theme <a target="_blank" href="http://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a> from <a href="http://startbootstrap.com/" target="_blank">Start Bootstrap</a></p>
+                <p class="copyright text-muted">Adapted for <a target="_blank" href="https://hexo.io/">Hexo</a> by <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>
