@@ -74,6 +74,60 @@
                 
     
         <article class="box post post-item">
+            <div class="post-title"><a href="/2020/10/26/Vuex%E6%A8%A1%E5%9D%97%E5%8C%96/">Vuex模块化</a></div>
+            <div class="post-meta">
+                
+                <i class="fa fa-calendar"></i> <time>2020-10-26</time>
+                <span class="dotted">|</span>
+                <i class="fa fa-user"></i> 
+            </div>
+
+            <div class="post-excerpt">
+                <a href="/2020/10/26/Vuex%E6%A8%A1%E5%9D%97%E5%8C%96/">
+                    <p>
+                        
+                            1. Vuex模块化（module）模块这部分正如其名，当所有状态集中在一个对象中时，会变的相当臃肿，这个时候就需要对其进行模块化管理。比如我在store里面定义了两个模块
+12345678910111213141516171819const moduleA &#x3D; &#123;  state: &#123;    name: &#39;lee&#39;,    age: 23,  &#125;,  mutations: &#123;&#125;,  getters: &#123;&#125;,  actions: &#123;&#125;&#125;;const moduleB &#x3D; &#123;  state: &#123;    name: &#39;wang&#39;,    age: 22  &#125;,  mutations: &#123;&#125;,  getters: &#123;&#125;,  actions: &#123;&#125;&#125;
+然后接着在store里声明模块
+123456789export default new Vuex.Store(&#123;  modules: &#123;    ma: moduleA,    mb: moduleB  &#125;,  state: &#123;    ........... &#x2F;&#x2F; 其他状态  &#125;&#125;);
+这样一来，如果我们想要在组件里面访问其他模块的状态，可以这样，比如这里我想调用B模块里的状态
+12345computed: &#123;  msg() &#123;    return this.$store.mb; &#x2F;&#x2F; 这里返回的是：&#123;name: &#39;wang&#39;, age: 22&#125;  &#125;&#125;
+复制代码关于模块内部的局部状态，这里跟普通的store用法没有多大的区别，主要区别以下外部传进来的状态，比如对于模块内部的 action，局部状态通过 context.state 暴露出来，根节点状态则为 context.rootState，这里截取官方代码
+12345678910const moduleA &#x3D; &#123;  &#x2F;&#x2F; ...  actions: &#123;    incrementIfOddOnRootSum (&#123; state, commit, rootState &#125;) &#123;      if ((state.count + rootState.count) % 2 &#x3D;&#x3D;&#x3D; 1) &#123;        commit(&#39;increment&#39;)      &#125;    &#125;  &#125;&#125;
+对于模块内部的 getter，根节点状态会作为第三个参数暴露出来：
+12345678const moduleA &#x3D; &#123;  &#x2F;&#x2F; ...  getters: &#123;    sumWithRootCount (state, getters, rootState) &#123;      return state.count + rootState.count    &#125;  &#125;&#125;
+复制代码那么对于getters、mutations、actions里面的方法我们像基本的store那样调用就可以了，不存在作用域限制，还是贴代码栗子吧，下面是我在store.js里面定义的模块B：
+123456789101112131415161718const moduleB &#x3D; &#123;  state: &#123;    name: &#39;wang&#39;,    age: 22,    desc: &#39;nope&#39;  &#125;,  mutations: &#123;    modifyDesc(state, payload) &#123;      state.desc &#x3D; payload.newMsg;    &#125;  &#125;,  getters: &#123;  &#125;,  actions: &#123;  &#125;&#125;
+复制代码在组件里面，我定义了以下内容：
+1234567891011121314151617181920212223242526272829303132&lt;template&gt;  &lt;div&gt;    &lt;h2&gt;7、module使用示例&lt;&#x2F;h2&gt;    &lt;div&gt;      &lt;p&gt;名字：&#123;&#123; name &#125;&#125;&lt;&#x2F;p&gt;      &lt;p&gt;描述：&#123;&#123; desc &#125;&#125;&lt;&#x2F;p&gt;      &lt;button @click&#x3D;&quot;handleClick&quot;&gt;修改描述&lt;&#x2F;button&gt;    &lt;&#x2F;div&gt;  &lt;&#x2F;div&gt;&lt;&#x2F;template&gt;&lt;script&gt;export default &#123;  data() &#123;    return &#123;      name: this.$store.state.mb.name,      &#x2F;&#x2F; desc: this.$store.state.mb.desc 注意这个如果涉及到要在store里面会被改变的状态，一定要写在      &#x2F;&#x2F; computed属性里面，不然不能及时反馈到视图上    &#125;  &#125;,  computed: &#123;    desc() &#123;      return this.$store.state.mb.desc;    &#125;  &#125;,  methods: &#123;    handleClick() &#123;      this.$store.commit(&#39;modifyDesc&#39;, &#123;newMsg: &#39;lao wang is beautiful!&#39;&#125;);    &#125;  &#125;,&#125;&lt;&#x2F;script&gt;
+这样，就可以调用mutation里面的方法了，getters和actions同理
+2.命名空间模块默认情况下，mutations、actions、getters这些都是注册在全局上面的，你可以直接调用，如果希望你的模块具有更高的封装度和复用性，你可以通过添加 namespaced: true 的方式使其成为带命名空间的模块。当模块被注册后，它的所有 getter、action 及 mutation 都会自动根据模块注册的路径调整命名。首先我新建一个js文件用来声明模块C：
+1234567891011121314151617181920212223export const moduleC &#x3D; &#123;  namespaced: true,  state: &#123;    name: &#39;moduleC&#39;,    desc: &#39;这是模块C，用来测试命名空间的！&#39;,    list: [1, 2, 3, 4]  &#125;,  getters: &#123;    filterList(state) &#123;      return state.list.filter((item, index, arrSelf) &#x3D;&gt; &#123;        return item % 2 !&#x3D;&#x3D; 0;      &#125;);    &#125;  &#125;,  mutations: &#123;    modifyName(state, payload) &#123;      state.name &#x3D; payload.newName;    &#125;  &#125;,  actions: &#123;      &#125;&#125;
+复制代码然后在store.js里面引入
+1234567import &#123; moduleC &#125; from &#39;.&#x2F;module_c.js&#39;;export default new Vuex.Store(&#123;  modules: &#123;    mc: moduleC  &#125;,&#125;);
+要想这个模块成为带有命名空间的模块，在上面声明属性namespaced: true就可以了，那么里面的mutations、getters和actions里面的方法的调用就要多走一层路径，比如我在组件里面去调用mutations里面的方法（getters和actions同理）
+1234567891011methods: &#123;  modify() &#123;    &#x2F;&#x2F; this.$store.commit(&#39;mc&#x2F;modifyName&#39;, &#123;    &#x2F;&#x2F;   newName: &#39;命名空间模块C&#39;    &#x2F;&#x2F; &#125;)    this.$store.commit(&#123;      type: &#39;mc&#x2F;modifyName&#39;,      newName: &#39;命名空间模块C&#39;    &#125;)  &#125;&#125;
+复制代码当然模块里面再嵌套模块也可以，路径要不要多走一层主要看你的namespaced: true有没有声明，这里贴一下官方的代码：
+12345678910111213141516171819202122232425262728293031323334353637383940const store &#x3D; new Vuex.Store(&#123;  modules: &#123;    account: &#123;      namespaced: true,      &#x2F;&#x2F; 模块内容（module assets）      state: &#123; ... &#125;, &#x2F;&#x2F; 模块内的状态已经是嵌套的了，使用 &#96;namespaced&#96; 属性不会对其产生影响      getters: &#123;        isAdmin () &#123; ... &#125; &#x2F;&#x2F; -&gt; getters[&#39;account&#x2F;isAdmin&#39;]      &#125;,      actions: &#123;        login () &#123; ... &#125; &#x2F;&#x2F; -&gt; dispatch(&#39;account&#x2F;login&#39;)      &#125;,      mutations: &#123;        login () &#123; ... &#125; &#x2F;&#x2F; -&gt; commit(&#39;account&#x2F;login&#39;)      &#125;,      &#x2F;&#x2F; 嵌套模块      modules: &#123;        &#x2F;&#x2F; 继承父模块的命名空间        myPage: &#123;          state: &#123; ... &#125;,          getters: &#123;            profile () &#123; ... &#125; &#x2F;&#x2F; -&gt; getters[&#39;account&#x2F;profile&#39;]          &#125;        &#125;,        &#x2F;&#x2F; 进一步嵌套命名空间        posts: &#123;          namespaced: true,          state: &#123; ... &#125;,          getters: &#123;            popular () &#123; ... &#125; &#x2F;&#x2F; -&gt; getters[&#39;account&#x2F;posts&#x2F;popular&#39;]          &#125;        &#125;      &#125;    &#125;  &#125;&#125;)
+在带命名空间的模块内访问全局内容如果想要在模块内部的getters、mutations和actions里面访问到全局的内容，这儿Vuex已经封装好了，你只需要多传几个参数即可
+12345678910111213141516171819202122232425262728293031modules: &#123;  foo: &#123;    namespaced: true,    getters: &#123;      &#x2F;&#x2F; 在这个模块的 getter 中，&#96;getters&#96; 被局部化了      &#x2F;&#x2F; 你可以使用 getter 的第四个参数来调用 &#96;rootGetters&#96;      someGetter (state, getters, rootState, rootGetters) &#123;        getters.someOtherGetter &#x2F;&#x2F; -&gt; &#39;foo&#x2F;someOtherGetter&#39;        rootGetters.someOtherGetter &#x2F;&#x2F; -&gt; &#39;someOtherGetter&#39;      &#125;,      someOtherGetter: state &#x3D;&gt; &#123; ... &#125;    &#125;,    actions: &#123;      &#x2F;&#x2F; 在这个模块中， dispatch 和 commit 也被局部化了      &#x2F;&#x2F; 他们可以接受 &#96;root&#96; 属性以访问根 dispatch 或 commit      someAction (&#123; dispatch, commit, getters, rootGetters &#125;) &#123;        getters.someGetter &#x2F;&#x2F; -&gt; &#39;foo&#x2F;someGetter&#39;        rootGetters.someGetter &#x2F;&#x2F; -&gt; &#39;someGetter&#39;        dispatch(&#39;someOtherAction&#39;) &#x2F;&#x2F; -&gt; &#39;foo&#x2F;someOtherAction&#39;        dispatch(&#39;someOtherAction&#39;, null, &#123; root: true &#125;) &#x2F;&#x2F; -&gt; &#39;someOtherAction&#39;        commit(&#39;someMutation&#39;) &#x2F;&#x2F; -&gt; &#39;foo&#x2F;someMutation&#39;        commit(&#39;someMutation&#39;, null, &#123; root: true &#125;) &#x2F;&#x2F; -&gt; &#39;someMutation&#39;      &#125;,      someOtherAction (ctx, payload) &#123; ... &#125;    &#125;  &#125;&#125;
+复制代码在模块里面使用辅助函数mapState、mapGetters、mapMutations和mapActions由于存在命名空间，在组件里面采用上面的写法会出现问题，这里要想使用辅助函数来映射模块里面的东西需要指定空间名称来告诉辅助函数应该去哪儿找这些。这儿我以上面我的C模块为例，首先对于mapSatate函数可以这样玩，我在全局的modules里面声明了mc，那我的空间名称就是mc
+123computed: &#123;  ...mapState(&#39;mc&#39;, [&#39;name&#39;, &#39;desc&#39;]) &#x2F;&#x2F; 这里模块里面要使用辅助函数的话要多传一个参数才行&#125;
+复制代码然后在模版里面写name，desc即可，或者可以这样
+12345678910computed: &#123;  ...mapState(&#39;mc&#39;, &#123;    name(state) &#123;      return state.name;    &#125;,    desc(state) &#123;      return state.desc;    &#125;  &#125;)&#125;,
+复制代码对于actions、mutations和getters方式类似，主要是要指定空间名称
+
+                        
+                    </p>
+                </a>
+            </div>
+
+            
+        </article>
+    
+
+    
+        <article class="box post post-item">
             <div class="post-title"><a href="/2020/10/26/Vuex%E5%9F%BA%E7%A1%80/">Vuex基础</a></div>
             <div class="post-meta">
                 
@@ -606,44 +660,11 @@ eventName：这是一个事件名，会绑定一个方法。当组件触发事�
         </article>
     
 
-    
-        <article class="box post post-item">
-            <div class="post-title"><a href="/2020/06/12/hello-world/">Hello World</a></div>
-            <div class="post-meta">
-                
-                <i class="fa fa-calendar"></i> <time>2020-06-12</time>
-                <span class="dotted">|</span>
-                <i class="fa fa-user"></i> 
-            </div>
-
-            <div class="post-excerpt">
-                <a href="/2020/06/12/hello-world/">
-                    <p>
-                        
-                            Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick StartCreate a new post1$ hexo new "My New Post"
-
-More info: Writing
-Run server1$ hexo server
-
-More info: Server
-Generate static files1$ hexo generate
-
-More info: Generating
-Deploy to remote sites1$ hexo deploy
-
-More info: Deployment
-
-                        
-                    </p>
-                </a>
-            </div>
-
-            
-        </article>
-    
 
 
+    <nav class="page-nav">
+        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next</a>
+    </nav>
 
             </div>
             <div class="aside">
@@ -662,6 +683,10 @@ More info: Deployment
 <div class="box widget">
     <div class="title">Recent</div>
     <ul class="item-box">
+        
+            
+                <li><a href="/2020/10/26/Vuex%E6%A8%A1%E5%9D%97%E5%8C%96/">Vuex模块化</a></li>
+            
         
             
                 <li><a href="/2020/10/26/Vuex%E5%9F%BA%E7%A1%80/">Vuex基础</a></li>
@@ -691,10 +716,6 @@ More info: Deployment
                 <li><a href="/2020/10/12/%E9%98%B2%E6%8A%96%E4%B8%8E%E8%8A%82%E6%B5%81/">防抖与节流</a></li>
             
         
-            
-                <li><a href="/2020/10/12/ES6%EF%BC%9Avar%20let%20const/">ES6：var let const</a></li>
-            
-        
     </ul>
 </div>
 
@@ -704,7 +725,7 @@ More info: Deployment
         
   <div class="box widget">
     <div class="title">Archives</div>
-    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">2020-10</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">2020-06</a><span class="archive-list-count">2</span></li></ul>
+    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">2020-10</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">2020-06</a><span class="archive-list-count">2</span></li></ul>
   </div>
 
     

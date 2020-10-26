@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+
+
+
+
+    <meta name="keywords" content=""/>
+
+
+
+    <meta name="description" content="1. Vuex模块化（module）模块这部分正如其名，当所有状态集中在一个对象中时，会变的相当臃肿，这个时候就需要对其进行模块化管理。比如我在store里面定义了两个模块
+12345678910111213141516171819const moduleA &#x3D; &#123;  st..."/>
+
+
+<meta name="Robots" content="all">
+
+
+    <title>Kumiko77 | Vuex模块化</title>
+
+
+<link rel="icon" href="/images/favicon.ico">
+
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+
+<link rel="stylesheet" href="/css/atom-one-dark.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script src="/js/highlight.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body>
+    <div class="main-container">
+        <header class="header">
+    <div class="global-width">
+        <nav class="nav-box">
+            
+                <a class="nav-item" href="/"
+                
+                >Home</a>
+            
+                <a class="nav-item" href="/resume"
+                
+                >Resume</a>
+            
+                <a class="nav-item" href="/mood"
+                
+                   target="_blank"
+                
+                >Mood</a>
+            
+                <a class="nav-item" href="/amusement/tetris"
+                
+                   target="_blank"
+                
+                >Amusement</a>
+            
+                <a class="nav-item" href="/about"
+                
+                >About</a>
+            
+        </nav>
+    </div>
+</header>
+
+        <section class="content global-width">
+            <div class="main">
+                <article class="box post">
+    <div class="post-title align-center detail-title">Vuex模块化</div>
+    <div class="post-meta align-center">
+        
+        <i class="fa fa-calendar"></i> <time>2020-10-26</time>
+        <span class="dotted">|</span>
+        <i class="fa fa-user"></i> 
+        
+    </div>
+
+    <div class="post-content">
+        <h2 id="1-Vuex模块化（module）"><a href="#1-Vuex模块化（module）" class="headerlink" title="1. Vuex模块化（module）"></a>1. Vuex模块化（module）</h2><p>模块这部分正如其名，当所有状态集中在一个对象中时，会变的相当臃肿，这个时候就需要对其进行模块化管理。比如我在store里面定义了两个模块</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">const moduleA &#x3D; &#123;</span><br><span class="line">  state: &#123;</span><br><span class="line">    name: &#39;lee&#39;,</span><br><span class="line">    age: 23,</span><br><span class="line">  &#125;,</span><br><span class="line">  mutations: &#123;&#125;,</span><br><span class="line">  getters: &#123;&#125;,</span><br><span class="line">  actions: &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">const moduleB &#x3D; &#123;</span><br><span class="line">  state: &#123;</span><br><span class="line">    name: &#39;wang&#39;,</span><br><span class="line">    age: 22</span><br><span class="line">  &#125;,</span><br><span class="line">  mutations: &#123;&#125;,</span><br><span class="line">  getters: &#123;&#125;,</span><br><span class="line">  actions: &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后接着在store里声明模块</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">export default new Vuex.Store(&#123;</span><br><span class="line">  modules: &#123;</span><br><span class="line">    ma: moduleA,</span><br><span class="line">    mb: moduleB</span><br><span class="line">  &#125;,</span><br><span class="line">  state: &#123;</span><br><span class="line">    ........... &#x2F;&#x2F; 其他状态</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>这样一来，如果我们想要在组件里面访问其他模块的状态，可以这样，比如这里我想调用B模块里的状态</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">computed: &#123;</span><br><span class="line">  msg() &#123;</span><br><span class="line">    return this.$store.mb; &#x2F;&#x2F; 这里返回的是：&#123;name: &#39;wang&#39;, age: 22&#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>复制代码关于模块内部的局部状态，这里跟普通的store用法没有多大的区别，主要区别以下外部传进来的状态，比如对于模块内部的 action，局部状态通过 context.state 暴露出来，根节点状态则为 context.rootState，这里截取官方代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">const moduleA &#x3D; &#123;</span><br><span class="line">  &#x2F;&#x2F; ...</span><br><span class="line">  actions: &#123;</span><br><span class="line">    incrementIfOddOnRootSum (&#123; state, commit, rootState &#125;) &#123;</span><br><span class="line">      if ((state.count + rootState.count) % 2 &#x3D;&#x3D;&#x3D; 1) &#123;</span><br><span class="line">        commit(&#39;increment&#39;)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于模块内部的 getter，根节点状态会作为第三个参数暴露出来：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const moduleA &#x3D; &#123;</span><br><span class="line">  &#x2F;&#x2F; ...</span><br><span class="line">  getters: &#123;</span><br><span class="line">    sumWithRootCount (state, getters, rootState) &#123;</span><br><span class="line">      return state.count + rootState.count</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>复制代码那么对于getters、mutations、actions里面的方法我们像基本的store那样调用就可以了，不存在作用域限制，还是贴代码栗子吧，下面是我在store.js里面定义的模块B：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">const moduleB &#x3D; &#123;</span><br><span class="line">  state: &#123;</span><br><span class="line">    name: &#39;wang&#39;,</span><br><span class="line">    age: 22,</span><br><span class="line">    desc: &#39;nope&#39;</span><br><span class="line">  &#125;,</span><br><span class="line">  mutations: &#123;</span><br><span class="line">    modifyDesc(state, payload) &#123;</span><br><span class="line">      state.desc &#x3D; payload.newMsg;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  getters: &#123;</span><br><span class="line"></span><br><span class="line">  &#125;,</span><br><span class="line">  actions: &#123;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>复制代码在组件里面，我定义了以下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;h2&gt;7、module使用示例&lt;&#x2F;h2&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;p&gt;名字：&#123;&#123; name &#125;&#125;&lt;&#x2F;p&gt;</span><br><span class="line">      &lt;p&gt;描述：&#123;&#123; desc &#125;&#125;&lt;&#x2F;p&gt;</span><br><span class="line">      &lt;button @click&#x3D;&quot;handleClick&quot;&gt;修改描述&lt;&#x2F;button&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      name: this.$store.state.mb.name,</span><br><span class="line">      &#x2F;&#x2F; desc: this.$store.state.mb.desc 注意这个如果涉及到要在store里面会被改变的状态，一定要写在</span><br><span class="line">      &#x2F;&#x2F; computed属性里面，不然不能及时反馈到视图上</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  computed: &#123;</span><br><span class="line">    desc() &#123;</span><br><span class="line">      return this.$store.state.mb.desc;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    handleClick() &#123;</span><br><span class="line">      this.$store.commit(&#39;modifyDesc&#39;, &#123;newMsg: &#39;lao wang is beautiful!&#39;&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p>这样，就可以调用mutation里面的方法了，getters和actions同理</p>
+<h2 id="2-命名空间模块"><a href="#2-命名空间模块" class="headerlink" title="2.命名空间模块"></a>2.命名空间模块</h2><p>默认情况下，mutations、actions、getters这些都是注册在全局上面的，你可以直接调用，如果希望你的模块具有更高的封装度和复用性，你可以通过添加 namespaced: true 的方式使其成为带命名空间的模块。当模块被注册后，它的所有 getter、action 及 mutation 都会自动根据模块注册的路径调整命名。<br>首先我新建一个js文件用来声明模块C：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">export const moduleC &#x3D; &#123;</span><br><span class="line">  namespaced: true,</span><br><span class="line">  state: &#123;</span><br><span class="line">    name: &#39;moduleC&#39;,</span><br><span class="line">    desc: &#39;这是模块C，用来测试命名空间的！&#39;,</span><br><span class="line">    list: [1, 2, 3, 4]</span><br><span class="line">  &#125;,</span><br><span class="line">  getters: &#123;</span><br><span class="line">    filterList(state) &#123;</span><br><span class="line">      return state.list.filter((item, index, arrSelf) &#x3D;&gt; &#123;</span><br><span class="line">        return item % 2 !&#x3D;&#x3D; 0;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  mutations: &#123;</span><br><span class="line">    modifyName(state, payload) &#123;</span><br><span class="line">      state.name &#x3D; payload.newName;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  actions: &#123;</span><br><span class="line">    </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>复制代码然后在store.js里面引入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import &#123; moduleC &#125; from &#39;.&#x2F;module_c.js&#39;;</span><br><span class="line"></span><br><span class="line">export default new Vuex.Store(&#123;</span><br><span class="line">  modules: &#123;</span><br><span class="line">    mc: moduleC</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>要想这个模块成为带有命名空间的模块，在上面声明属性namespaced: true就可以了，那么里面的mutations、getters和actions里面的方法的调用就要多走一层路径，比如我在组件里面去调用mutations里面的方法（getters和actions同理）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">methods: &#123;</span><br><span class="line">  modify() &#123;</span><br><span class="line">    &#x2F;&#x2F; this.$store.commit(&#39;mc&#x2F;modifyName&#39;, &#123;</span><br><span class="line">    &#x2F;&#x2F;   newName: &#39;命名空间模块C&#39;</span><br><span class="line">    &#x2F;&#x2F; &#125;)</span><br><span class="line">    this.$store.commit(&#123;</span><br><span class="line">      type: &#39;mc&#x2F;modifyName&#39;,</span><br><span class="line">      newName: &#39;命名空间模块C&#39;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>复制代码当然模块里面再嵌套模块也可以，路径要不要多走一层主要看你的namespaced: true有没有声明，这里贴一下官方的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">const store &#x3D; new Vuex.Store(&#123;</span><br><span class="line">  modules: &#123;</span><br><span class="line">    account: &#123;</span><br><span class="line">      namespaced: true,</span><br><span class="line"></span><br><span class="line">      &#x2F;&#x2F; 模块内容（module assets）</span><br><span class="line">      state: &#123; ... &#125;, &#x2F;&#x2F; 模块内的状态已经是嵌套的了，使用 &#96;namespaced&#96; 属性不会对其产生影响</span><br><span class="line">      getters: &#123;</span><br><span class="line">        isAdmin () &#123; ... &#125; &#x2F;&#x2F; -&gt; getters[&#39;account&#x2F;isAdmin&#39;]</span><br><span class="line">      &#125;,</span><br><span class="line">      actions: &#123;</span><br><span class="line">        login () &#123; ... &#125; &#x2F;&#x2F; -&gt; dispatch(&#39;account&#x2F;login&#39;)</span><br><span class="line">      &#125;,</span><br><span class="line">      mutations: &#123;</span><br><span class="line">        login () &#123; ... &#125; &#x2F;&#x2F; -&gt; commit(&#39;account&#x2F;login&#39;)</span><br><span class="line">      &#125;,</span><br><span class="line"></span><br><span class="line">      &#x2F;&#x2F; 嵌套模块</span><br><span class="line">      modules: &#123;</span><br><span class="line">        &#x2F;&#x2F; 继承父模块的命名空间</span><br><span class="line">        myPage: &#123;</span><br><span class="line">          state: &#123; ... &#125;,</span><br><span class="line">          getters: &#123;</span><br><span class="line">            profile () &#123; ... &#125; &#x2F;&#x2F; -&gt; getters[&#39;account&#x2F;profile&#39;]</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 进一步嵌套命名空间</span><br><span class="line">        posts: &#123;</span><br><span class="line">          namespaced: true,</span><br><span class="line"></span><br><span class="line">          state: &#123; ... &#125;,</span><br><span class="line">          getters: &#123;</span><br><span class="line">            popular () &#123; ... &#125; &#x2F;&#x2F; -&gt; getters[&#39;account&#x2F;posts&#x2F;popular&#39;]</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>在带命名空间的模块内访问全局内容<br>如果想要在模块内部的getters、mutations和actions里面访问到全局的内容，这儿Vuex已经封装好了，你只需要多传几个参数即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">modules: &#123;</span><br><span class="line">  foo: &#123;</span><br><span class="line">    namespaced: true,</span><br><span class="line"></span><br><span class="line">    getters: &#123;</span><br><span class="line">      &#x2F;&#x2F; 在这个模块的 getter 中，&#96;getters&#96; 被局部化了</span><br><span class="line">      &#x2F;&#x2F; 你可以使用 getter 的第四个参数来调用 &#96;rootGetters&#96;</span><br><span class="line">      someGetter (state, getters, rootState, rootGetters) &#123;</span><br><span class="line">        getters.someOtherGetter &#x2F;&#x2F; -&gt; &#39;foo&#x2F;someOtherGetter&#39;</span><br><span class="line">        rootGetters.someOtherGetter &#x2F;&#x2F; -&gt; &#39;someOtherGetter&#39;</span><br><span class="line">      &#125;,</span><br><span class="line">      someOtherGetter: state &#x3D;&gt; &#123; ... &#125;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    actions: &#123;</span><br><span class="line">      &#x2F;&#x2F; 在这个模块中， dispatch 和 commit 也被局部化了</span><br><span class="line">      &#x2F;&#x2F; 他们可以接受 &#96;root&#96; 属性以访问根 dispatch 或 commit</span><br><span class="line">      someAction (&#123; dispatch, commit, getters, rootGetters &#125;) &#123;</span><br><span class="line">        getters.someGetter &#x2F;&#x2F; -&gt; &#39;foo&#x2F;someGetter&#39;</span><br><span class="line">        rootGetters.someGetter &#x2F;&#x2F; -&gt; &#39;someGetter&#39;</span><br><span class="line"></span><br><span class="line">        dispatch(&#39;someOtherAction&#39;) &#x2F;&#x2F; -&gt; &#39;foo&#x2F;someOtherAction&#39;</span><br><span class="line">        dispatch(&#39;someOtherAction&#39;, null, &#123; root: true &#125;) &#x2F;&#x2F; -&gt; &#39;someOtherAction&#39;</span><br><span class="line"></span><br><span class="line">        commit(&#39;someMutation&#39;) &#x2F;&#x2F; -&gt; &#39;foo&#x2F;someMutation&#39;</span><br><span class="line">        commit(&#39;someMutation&#39;, null, &#123; root: true &#125;) &#x2F;&#x2F; -&gt; &#39;someMutation&#39;</span><br><span class="line">      &#125;,</span><br><span class="line">      someOtherAction (ctx, payload) &#123; ... &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>复制代码在模块里面使用辅助函数mapState、mapGetters、mapMutations和mapActions<br>由于存在命名空间，在组件里面采用上面的写法会出现问题，这里要想使用辅助函数来映射模块里面的东西需要指定空间名称来告诉辅助函数应该去哪儿找这些。<br>这儿我以上面我的C模块为例，首先对于mapSatate函数可以这样玩，我在全局的modules里面声明了mc，那我的空间名称就是mc</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">computed: &#123;</span><br><span class="line">  ...mapState(&#39;mc&#39;, [&#39;name&#39;, &#39;desc&#39;]) &#x2F;&#x2F; 这里模块里面要使用辅助函数的话要多传一个参数才行</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>复制代码然后在模版里面写name，desc即可，或者可以这样</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">computed: &#123;</span><br><span class="line">  ...mapState(&#39;mc&#39;, &#123;</span><br><span class="line">    name(state) &#123;</span><br><span class="line">      return state.name;</span><br><span class="line">    &#125;,</span><br><span class="line">    desc(state) &#123;</span><br><span class="line">      return state.desc;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<p>复制代码对于actions、mutations和getters方式类似，主要是要指定空间名称</p>
+
+    </div>
+</article>
+            </div>
+            <div class="aside">
+    
+        <div class="box widget">
+    <div class="introduction">
+        <p><img src="/images/avatar.jpg" alt="head-sculpture" /></p>
+        <p class="name">
+            博落回
+        </p>
+        <p class="slogan">流连矣 忘景幻云催 峦栈醺醺说旧梦 重山迟迟映霞辉 向晚共邀归 —— 忆江南</p>
+    </div>
+</div>
+    
+        
+<div class="box widget">
+    <div class="title">Recent</div>
+    <ul class="item-box">
+        
+            
+                <li><a href="/2020/10/26/Vuex%E6%A8%A1%E5%9D%97%E5%8C%96/">Vuex模块化</a></li>
+            
+        
+            
+                <li><a href="/2020/10/26/Vuex%E5%9F%BA%E7%A1%80/">Vuex基础</a></li>
+            
+        
+            
+                <li><a href="/2020/10/22/Vue-Router%E5%9F%BA%E7%A1%80/">Vue-Router基础</a></li>
+            
+        
+            
+                <li><a href="/2020/10/19/js%E5%A4%A7%E9%87%8F%E6%95%B0%E6%8D%AE%E8%AE%A1%E7%AE%97%E5%AF%BC%E8%87%B4%E9%A1%B5%E9%9D%A2%E5%81%87%E6%AD%BB%EF%BC%88Web%20Worker%EF%BC%89/">js大量数据计算导致页面假死（Web Worker）</a></li>
+            
+        
+            
+                <li><a href="/2020/10/19/%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%8D%9A%E5%AE%A2/">如何搭建本博客</a></li>
+            
+        
+            
+                <li><a href="/2020/10/19/ES6%EF%BC%9Aasync%20await/">ES6：async await</a></li>
+            
+        
+            
+                <li><a href="/2020/10/15/Promise/">Promise</a></li>
+            
+        
+            
+                <li><a href="/2020/10/12/%E9%98%B2%E6%8A%96%E4%B8%8E%E8%8A%82%E6%B5%81/">防抖与节流</a></li>
+            
+        
+    </ul>
+</div>
+
+    
+        
+    
+        
+  <div class="box widget">
+    <div class="title">Archives</div>
+    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">2020-10</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">2020-06</a><span class="archive-list-count">2</span></li></ul>
+  </div>
+
+    
+        
+    
+</div>
+        </section>
+        <footer class="footer">
+    <div class="global-width footer-box">
+        <div class="copyright">
+            <span>Copyright &copy; 2019</span>
+            <span class="dotted">|</span>
+            <span>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a></span>
+            <span class="dotted">|</span>
+            <span>Theme by <a href="javascript:">Loren</a></span>
+            <span class="dotted">|</span>
+            <span><a href="http://www.beian.miit.gov.cn" target="_blank" rel="noopener">浙ICP备18016660号-1</a></span>
+        </div>
+    </div>
+</footer>
+    </div>
+
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</body>
+</html>
