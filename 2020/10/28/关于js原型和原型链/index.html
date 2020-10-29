@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+
+
+
+
+    <meta name="keywords" content=""/>
+
+
+
+    <meta name="description" content="123456function Person() &#123;  &#x2F;&#x2F;...&#125;var person &#x3D; new Person();person.name &#x3D; &#39;Tom&#39;;console.log(person.name) &#x2F..."/>
+
+
+<meta name="Robots" content="all">
+
+
+    <title>Kumiko77 | 关于js原型和原型链</title>
+
+
+<link rel="icon" href="/images/favicon.ico">
+
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+
+<link rel="stylesheet" href="/css/atom-one-dark.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script src="/js/highlight.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body>
+    <div class="main-container">
+        <header class="header">
+    <div class="global-width">
+        <nav class="nav-box">
+            
+                <a class="nav-item" href="/"
+                
+                >Home</a>
+            
+                <a class="nav-item" href="/resume"
+                
+                >Resume</a>
+            
+                <a class="nav-item" href="/mood"
+                
+                   target="_blank"
+                
+                >Mood</a>
+            
+                <a class="nav-item" href="/amusement/tetris"
+                
+                   target="_blank"
+                
+                >Amusement</a>
+            
+                <a class="nav-item" href="/about"
+                
+                >About</a>
+            
+        </nav>
+    </div>
+</header>
+
+        <section class="content global-width">
+            <div class="main">
+                <article class="box post">
+    <div class="post-title align-center detail-title">关于js原型和原型链</div>
+    <div class="post-meta align-center">
+        
+        <i class="fa fa-calendar"></i> <time>2020-10-28</time>
+        <span class="dotted">|</span>
+        <i class="fa fa-user"></i> 
+        
+    </div>
+
+    <div class="post-content">
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function Person() &#123;</span><br><span class="line">  &#x2F;&#x2F;...</span><br><span class="line">&#125;</span><br><span class="line">var person &#x3D; new Person();</span><br><span class="line">person.name &#x3D; &#39;Tom&#39;;</span><br><span class="line">console.log(person.name) &#x2F;&#x2F; Tom</span><br></pre></td></tr></table></figure>
+<p>这里的Person就是一个构造函数，我们用new创建了一个实例对象person</p>
+<h2 id="1-prototype"><a href="#1-prototype" class="headerlink" title="1. prototype"></a>1. prototype</h2><ol>
+<li>每一个<font color="LightSalmon"><b>函数</b></font>都有一个prototype属性</li>
+<li>每一个JavaScript对象（null除外）在创建的时候都会关联另外一个对象，这个对象就是我们所说的<font color="LightSalmon"><b>原型</b></font>，每一个对象都会从其原型上“继承”属性<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function Person() &#123;</span><br><span class="line">  &#x2F;&#x2F;...</span><br><span class="line">&#125;</span><br><span class="line">Person.prototype.name &#x3D; &#39;Tom&#39;;</span><br><span class="line">var person1 &#x3D; new Person();</span><br><span class="line">var person2 &#x3D; new Person();</span><br><span class="line">console.log(person1.name) &#x2F;&#x2F; Tom</span><br><span class="line">console.log(person2.name) &#x2F;&#x2F; Tom</span><br></pre></td></tr></table></figure>
+<div align="left"><img src="/2020/10/28/%E5%85%B3%E4%BA%8Ejs%E5%8E%9F%E5%9E%8B%E5%92%8C%E5%8E%9F%E5%9E%8B%E9%93%BE/1.png"></div>
+
+</li>
+</ol>
+<h2 id="2-proto"><a href="#2-proto" class="headerlink" title="2. proto"></a>2. proto</h2><p>每一个JavaScript对象(null除外)都具有的一个属性，叫proto，这个属性会指向该对象的原型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function Person() &#123;</span><br><span class="line">&#x2F;&#x2F;...</span><br><span class="line">&#125;</span><br><span class="line">var person &#x3D; new Person();</span><br><span class="line">console.log(person.__proto__ &#x3D;&#x3D;&#x3D; Person.prototype); &#x2F;&#x2F; true</span><br></pre></td></tr></table></figure>
+<div align="left"><img src="/2020/10/28/%E5%85%B3%E4%BA%8Ejs%E5%8E%9F%E5%9E%8B%E5%92%8C%E5%8E%9F%E5%9E%8B%E9%93%BE/2.png"></div>
+
+<h2 id="3-constructor"><a href="#3-constructor" class="headerlink" title="3. constructor"></a>3. constructor</h2><p>每个原型都有一个constructor属性，指向关联的构造函数</p>
+<div align="left"><img src="/2020/10/28/%E5%85%B3%E4%BA%8Ejs%E5%8E%9F%E5%9E%8B%E5%92%8C%E5%8E%9F%E5%9E%8B%E9%93%BE/3.png"></div>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function Person() &#123;</span><br><span class="line">&#x2F;&#x2F;...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var person &#x3D; new Person();</span><br><span class="line"></span><br><span class="line">console.log(person.__proto__ &#x3D;&#x3D; Person.prototype) &#x2F;&#x2F; true</span><br><span class="line">console.log(Person.prototype.constructor &#x3D;&#x3D; Person) &#x2F;&#x2F; true</span><br><span class="line">&#x2F;&#x2F; ES6</span><br><span class="line">console.log(Object.getPrototypeOf(person) &#x3D;&#x3D;&#x3D; Person.prototype) &#x2F;&#x2F; true</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-实例与原型"><a href="#3-实例与原型" class="headerlink" title="3. 实例与原型"></a>3. 实例与原型</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function Person() &#123;</span><br><span class="line">&#x2F;&#x2F;...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Person.prototype.name &#x3D; &#39;Kevin&#39;;</span><br><span class="line"></span><br><span class="line">var person &#x3D; new Person();</span><br><span class="line"></span><br><span class="line">person.name &#x3D; &#39;Daisy&#39;;</span><br><span class="line">console.log(person.name) &#x2F;&#x2F; Daisy</span><br><span class="line"></span><br><span class="line">delete person.name;</span><br><span class="line">console.log(person.name) &#x2F;&#x2F; Kevin</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，我们给实例对象 person 添加了 name 属性，当我们打印 person.name 的时候，结果自然为 Daisy。</p>
+<p>但是当我们删除了 person 的 name 属性时，读取 person.name，从 person对象中找不到name属性就会从person的原型也就是person.proto，也就是 Person.prototype中查找</p>
+<h2 id="4-原型链"><a href="#4-原型链" class="headerlink" title="4. 原型链"></a>4. 原型链</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(Object.prototype.__proto__ &#x3D;&#x3D;&#x3D; null) &#x2F;&#x2F; true</span><br></pre></td></tr></table></figure>
+<div align="left"><img src="/2020/10/28/%E5%85%B3%E4%BA%8Ejs%E5%8E%9F%E5%9E%8B%E5%92%8C%E5%8E%9F%E5%9E%8B%E9%93%BE/4.png"></div>
+
+
+    </div>
+</article>
+            </div>
+            <div class="aside">
+    
+        <div class="box widget">
+    <div class="introduction">
+        <p><img src="/images/avatar.jpg" alt="head-sculpture" /></p>
+        <p class="name">
+            博落回
+        </p>
+        <p class="slogan">流连矣 忘景幻云催 峦栈醺醺说旧梦 重山迟迟映霞辉 向晚共邀归 —— 忆江南</p>
+    </div>
+</div>
+    
+        
+<div class="box widget">
+    <div class="title">Recent</div>
+    <ul class="item-box">
+        
+            
+                <li><a href="/2020/10/28/%E5%85%B3%E4%BA%8Ejs%E5%8E%9F%E5%9E%8B%E5%92%8C%E5%8E%9F%E5%9E%8B%E9%93%BE/">关于js原型和原型链</a></li>
+            
+        
+            
+                <li><a href="/2020/10/26/Vuex%E6%A8%A1%E5%9D%97%E5%8C%96/">Vuex模块化</a></li>
+            
+        
+            
+                <li><a href="/2020/10/26/Vuex%E5%9F%BA%E7%A1%80/">Vuex基础</a></li>
+            
+        
+            
+                <li><a href="/2020/10/22/Vue-Router%E5%9F%BA%E7%A1%80/">Vue-Router基础</a></li>
+            
+        
+            
+                <li><a href="/2020/10/19/js%E5%A4%A7%E9%87%8F%E6%95%B0%E6%8D%AE%E8%AE%A1%E7%AE%97%E5%AF%BC%E8%87%B4%E9%A1%B5%E9%9D%A2%E5%81%87%E6%AD%BB%EF%BC%88Web%20Worker%EF%BC%89/">js大量数据计算导致页面假死（Web Worker）</a></li>
+            
+        
+            
+                <li><a href="/2020/10/19/%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%8D%9A%E5%AE%A2/">如何搭建本博客</a></li>
+            
+        
+            
+                <li><a href="/2020/10/19/ES6%EF%BC%9Aasync%20await/">ES6：async await</a></li>
+            
+        
+            
+                <li><a href="/2020/10/15/Promise/">Promise</a></li>
+            
+        
+    </ul>
+</div>
+
+    
+        
+    
+        
+  <div class="box widget">
+    <div class="title">Archives</div>
+    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">2020-10</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">2020-06</a><span class="archive-list-count">2</span></li></ul>
+  </div>
+
+    
+        
+    
+</div>
+        </section>
+        <footer class="footer">
+    <div class="global-width footer-box">
+        <div class="copyright">
+            <span>Copyright &copy; 2019</span>
+            <span class="dotted">|</span>
+            <span>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a></span>
+            <span class="dotted">|</span>
+            <span>Theme by <a href="javascript:">Loren</a></span>
+            <span class="dotted">|</span>
+            <span><a href="http://www.beian.miit.gov.cn" target="_blank" rel="noopener">浙ICP备18016660号-1</a></span>
+        </div>
+    </div>
+</footer>
+    </div>
+
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</body>
+</html>

@@ -74,6 +74,53 @@
                 
     
         <article class="box post post-item">
+            <div class="post-title"><a href="/2020/10/28/%E5%85%B3%E4%BA%8Ejs%E5%8E%9F%E5%9E%8B%E5%92%8C%E5%8E%9F%E5%9E%8B%E9%93%BE/">关于js原型和原型链</a></div>
+            <div class="post-meta">
+                
+                <i class="fa fa-calendar"></i> <time>2020-10-28</time>
+                <span class="dotted">|</span>
+                <i class="fa fa-user"></i> 
+            </div>
+
+            <div class="post-excerpt">
+                <a href="/2020/10/28/%E5%85%B3%E4%BA%8Ejs%E5%8E%9F%E5%9E%8B%E5%92%8C%E5%8E%9F%E5%9E%8B%E9%93%BE/">
+                    <p>
+                        
+                            123456function Person() &#123;  &#x2F;&#x2F;...&#125;var person &#x3D; new Person();person.name &#x3D; &#39;Tom&#39;;console.log(person.name) &#x2F;&#x2F; Tom
+这里的Person就是一个构造函数，我们用new创建了一个实例对象person
+1. prototype
+每一个函数都有一个prototype属性
+每一个JavaScript对象（null除外）在创建的时候都会关联另外一个对象，这个对象就是我们所说的原型，每一个对象都会从其原型上“继承”属性12345678function Person() &#123;  &#x2F;&#x2F;...&#125;Person.prototype.name &#x3D; &#39;Tom&#39;;var person1 &#x3D; new Person();var person2 &#x3D; new Person();console.log(person1.name) &#x2F;&#x2F; Tomconsole.log(person2.name) &#x2F;&#x2F; Tom
+
+
+
+
+2. proto每一个JavaScript对象(null除外)都具有的一个属性，叫proto，这个属性会指向该对象的原型
+12345function Person() &#123;&#x2F;&#x2F;...&#125;var person &#x3D; new Person();console.log(person.__proto__ &#x3D;&#x3D;&#x3D; Person.prototype); &#x2F;&#x2F; true
+
+
+3. constructor每个原型都有一个constructor属性，指向关联的构造函数
+
+12345678910function Person() &#123;&#x2F;&#x2F;...&#125;var person &#x3D; new Person();console.log(person.__proto__ &#x3D;&#x3D; Person.prototype) &#x2F;&#x2F; trueconsole.log(Person.prototype.constructor &#x3D;&#x3D; Person) &#x2F;&#x2F; true&#x2F;&#x2F; ES6console.log(Object.getPrototypeOf(person) &#x3D;&#x3D;&#x3D; Person.prototype) &#x2F;&#x2F; true
+
+3. 实例与原型12345678910111213function Person() &#123;&#x2F;&#x2F;...&#125;Person.prototype.name &#x3D; &#39;Kevin&#39;;var person &#x3D; new Person();person.name &#x3D; &#39;Daisy&#39;;console.log(person.name) &#x2F;&#x2F; Daisydelete person.name;console.log(person.name) &#x2F;&#x2F; Kevin
+在这个例子中，我们给实例对象 person 添加了 name 属性，当我们打印 person.name 的时候，结果自然为 Daisy。
+但是当我们删除了 person 的 name 属性时，读取 person.name，从 person对象中找不到name属性就会从person的原型也就是person.proto，也就是 Person.prototype中查找
+4. 原型链1console.log(Object.prototype.__proto__ &#x3D;&#x3D;&#x3D; null) &#x2F;&#x2F; true
+
+
+
+                        
+                    </p>
+                </a>
+            </div>
+
+            
+        </article>
+    
+
+    
+        <article class="box post post-item">
             <div class="post-title"><a href="/2020/10/26/Vuex%E6%A8%A1%E5%9D%97%E5%8C%96/">Vuex模块化</a></div>
             <div class="post-meta">
                 
@@ -626,40 +673,6 @@ let、const声明的全局变量不会挂载在顶层对象下面1.浏览器环
         </article>
     
 
-    
-        <article class="box post post-item">
-            <div class="post-title"><a href="/2020/06/18/%E5%85%B3%E4%BA%8E$emit%E7%9A%84%E7%90%86%E8%A7%A3/">关于$emit的理解</a></div>
-            <div class="post-meta">
-                
-                <i class="fa fa-calendar"></i> <time>2020-06-18</time>
-                <span class="dotted">|</span>
-                <i class="fa fa-user"></i> 
-            </div>
-
-            <div class="post-excerpt">
-                <a href="/2020/06/18/%E5%85%B3%E4%BA%8E$emit%E7%9A%84%E7%90%86%E8%A7%A3/">
-                    <p>
-                        
-                            $emit
-emit的意思是发出、射出。
-子组件可以通过props接收父组件传递过来的数据。
-子组件也可以用过$emit来触发父组件的自定事件，再说的通俗易懂一些就是子组件可以调用父组件的方法。用法1$emit( eventName, […args] )
-
-
-eventName：这是一个事件名，会绑定一个方法。当组件触发事件后，将调用这个方法。
-[…args]：附加的参数，会被抛出，由上述绑定的方法接收使用。例子子组件：123456789101112131415161718&lt;template&gt;  &lt;button @click="emitEvent"&gt;点击我&lt;/button&gt;&lt;/template&gt;&lt;script&gt;  export default &#123;    data() &#123;      return &#123;        msg: "我是子组件中的数据"      &#125;    &#125;,    methods: &#123;      emitEvent()&#123;        this.$emit('my-event', this.msg)        //通过按钮的点击事件触发方法，然后用$emit触发一个my-event的自定义方法，传递this.msg数据。      &#125;    &#125;  &#125;&lt;/script&gt;
-父组件：12345678910111213141516171819&lt;template&gt;  &lt;div id="app"&gt;    &lt;child-a @my-event="getMyEvent"&gt;&lt;/child-a&gt;    &lt;!--父组件中通过监测my-event事件执行一个方法，然后取到子组件中传递过来的值--&gt;  &lt;/div&gt;&lt;/template&gt;&lt;script&gt;  import ChildA from './components/child.vue'  export default &#123;    components: &#123;      ChildA    &#125;,    methods: &#123;      getMyEvent(msg)&#123;          console.log('接收的数据---------&gt;'+msg)//接收的数据---------&gt;我是子组件中的数据      &#125;    &#125;  &#125;&lt;/script&gt;
-
-
-                        
-                    </p>
-                </a>
-            </div>
-
-            
-        </article>
-    
-
 
 
     <nav class="page-nav">
@@ -683,6 +696,10 @@ eventName：这是一个事件名，会绑定一个方法。当组件触发事�
 <div class="box widget">
     <div class="title">Recent</div>
     <ul class="item-box">
+        
+            
+                <li><a href="/2020/10/28/%E5%85%B3%E4%BA%8Ejs%E5%8E%9F%E5%9E%8B%E5%92%8C%E5%8E%9F%E5%9E%8B%E9%93%BE/">关于js原型和原型链</a></li>
+            
         
             
                 <li><a href="/2020/10/26/Vuex%E6%A8%A1%E5%9D%97%E5%8C%96/">Vuex模块化</a></li>
@@ -712,10 +729,6 @@ eventName：这是一个事件名，会绑定一个方法。当组件触发事�
                 <li><a href="/2020/10/15/Promise/">Promise</a></li>
             
         
-            
-                <li><a href="/2020/10/12/%E9%98%B2%E6%8A%96%E4%B8%8E%E8%8A%82%E6%B5%81/">防抖与节流</a></li>
-            
-        
     </ul>
 </div>
 
@@ -725,7 +738,7 @@ eventName：这是一个事件名，会绑定一个方法。当组件触发事�
         
   <div class="box widget">
     <div class="title">Archives</div>
-    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">2020-10</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">2020-06</a><span class="archive-list-count">2</span></li></ul>
+    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">2020-10</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">2020-06</a><span class="archive-list-count">2</span></li></ul>
   </div>
 
     
