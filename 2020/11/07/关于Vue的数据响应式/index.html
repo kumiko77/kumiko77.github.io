@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+
+
+
+
+    <meta name="keywords" content=""/>
+
+
+
+    <meta name="description" content="什么是数据响应式我对数据响应式的理解是，当data中的数据发生改变时，Vue会通知有使用到该数据的代码将视图更新。这挺神奇，Vue的数据响应式主要是依赖Object.defineProperty(),整个过程是怎么实现的呢，下面我来捋一捋
+1.数据的改造为什么第一步是数据的改造呢，因为这是最基..."/>
+
+
+<meta name="Robots" content="all">
+
+
+    <title>Kumiko77 | 关于Vue的数据响应式</title>
+
+
+<link rel="icon" href="/images/favicon.ico">
+
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+
+<link rel="stylesheet" href="/css/atom-one-dark.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script src="/js/highlight.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body>
+    <div class="main-container">
+        <header class="header">
+    <div class="global-width">
+        <nav class="nav-box">
+            
+                <a class="nav-item" href="/"
+                
+                >Home</a>
+            
+                <a class="nav-item" href="/resume"
+                
+                >Resume</a>
+            
+                <a class="nav-item" href="/mood"
+                
+                   target="_blank"
+                
+                >Mood</a>
+            
+                <a class="nav-item" href="/amusement/tetris"
+                
+                   target="_blank"
+                
+                >Amusement</a>
+            
+                <a class="nav-item" href="/about"
+                
+                >About</a>
+            
+        </nav>
+    </div>
+</header>
+
+        <section class="content global-width">
+            <div class="main">
+                <article class="box post">
+    <div class="post-title align-center detail-title">关于Vue的数据响应式</div>
+    <div class="post-meta align-center">
+        
+        <i class="fa fa-calendar"></i> <time>2020-11-07</time>
+        <span class="dotted">|</span>
+        <i class="fa fa-user"></i> 
+        
+    </div>
+
+    <div class="post-content">
+        <h2 id="什么是数据响应式"><a href="#什么是数据响应式" class="headerlink" title="什么是数据响应式"></a>什么是数据响应式</h2><p>我对数据响应式的理解是，当data中的数据发生改变时，Vue会通知有使用到该数据的代码将视图更新。这挺神奇，Vue的数据响应式主要是依赖Object.defineProperty(),整个过程是怎么实现的呢，下面我来捋一捋</p>
+<h2 id="1-数据的改造"><a href="#1-数据的改造" class="headerlink" title="1.数据的改造"></a>1.数据的改造</h2><p>为什么第一步是数据的改造呢，因为这是最基础也是最为重要的一步，后面的环节都是依赖这一步执行的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">function defineReactive (obj,key,val) &#123;</span><br><span class="line">    Object.defineProperty(obj,key,&#123;</span><br><span class="line">        enumerable: true,</span><br><span class="line">        configurable: true,</span><br><span class="line">        get: function () &#123;</span><br><span class="line">            return val;</span><br><span class="line">        &#125;,</span><br><span class="line">        set: function (newVal) &#123;</span><br><span class="line">            &#x2F;&#x2F;判断新值与旧值是否相等</span><br><span class="line">            &#x2F;&#x2F;判断的后半段是为了验证新值与旧值都为NaN的情况  NaN不等于自身</span><br><span class="line">            if(newVal &#x3D;&#x3D;&#x3D; val || (newVal !&#x3D;&#x3D; newVal &amp;&amp; value !&#x3D;&#x3D; value))&#123;</span><br><span class="line">                return ;</span><br><span class="line">            &#125;</span><br><span class="line">            val &#x3D; newVal;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>例如const obj = {},然后再调用defineReactive(obj,’num’,2)方法，此时在函数内，val=2，然后每次获取obj.num的值的时候都是获取val的值，设置obj.num的时候也是设置val的值。（每次调用defineReactive都会产生一个闭包保存了val的值）</p>
+<h3 id="1-1流程"><a href="#1-1流程" class="headerlink" title="1.1流程"></a>1.1流程</h3><ol>
+<li>输入数据</li>
+<li>改造数据（调用defineReactive()）</li>
+<li>如果数据改变 =&gt; 触发方法</li>
+</ol>
+<p>看看第三步，如果数据改变如何触发事件呢？思考了一下，如果要改变数据，就必须要先set数据触发definePerperty的set()方法，所以我们直接在set()中添加事件不就完事了嘛</p>
+<h2 id="2-依赖收集"><a href="#2-依赖收集" class="headerlink" title="2.依赖收集"></a>2.依赖收集</h2><p>我们怎么知道在数据改变之后需要触发什么方法呢？</p>
+<p>Vue中，使用数据来渲染视图，在获取数据的时候是收集依赖的最佳时期，Vue在改造数据的时候生成来一个Dep实例，用于收集依赖</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">class Dep &#123;</span><br><span class="line">    constructor()&#123;</span><br><span class="line">        &#x2F;&#x2F;订阅的信息</span><br><span class="line">        this.subs &#x3D; [];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    addSub(sub)&#123;</span><br><span class="line">        this.subs.push(sub);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    removeSub (sub) &#123;</span><br><span class="line">        remove(this.subs, sub);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;此方法的作用等同于 this.subs.push(Watcher);</span><br><span class="line">    depend()&#123;</span><br><span class="line">        if (Dep.target) &#123;</span><br><span class="line">            Dep.target.addDep(this);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F;这个方法就是发布通知了 告诉你 有改变啦</span><br><span class="line">    notify()&#123;</span><br><span class="line">        const subs &#x3D; this.subs.slice()</span><br><span class="line">        for (let i &#x3D; 0, l &#x3D; subs.length; i &lt; l; i++) &#123;</span><br><span class="line">          subs[i].update();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">Dep.target &#x3D; null;</span><br></pre></td></tr></table></figure>
+<p>着重了解两个方法</p>
+<ul>
+<li><ol>
+<li>depend()<br>可以理解为收集依赖的事件，不考虑其他方面的话，功能等同于addSub()。</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>notify()<br>这个方法更为直观了，执行所有依赖的update()方法，就是之后的改变视图。</li>
+</ol>
+</li>
+</ul>
+<h3 id="2-1-继续改造代码"><a href="#2-1-继续改造代码" class="headerlink" title="2.1 继续改造代码"></a>2.1 继续改造代码</h3><p>有了实例Dep之后，defineReactive就变成这样了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">function defineReactive (obj,key,val) &#123;</span><br><span class="line">    const dep &#x3D; new Dep();</span><br><span class="line"></span><br><span class="line">    Object.defineProperty(obj,key,&#123;</span><br><span class="line">        enumerable: true,</span><br><span class="line">        configurable: true,</span><br><span class="line">        get: function () &#123;</span><br><span class="line">            if(Dep.target)&#123;</span><br><span class="line">                &#x2F;&#x2F;获取数据的时候收集依赖 等同于  dep.addSub(Dep.target)</span><br><span class="line">                dep.depend()</span><br><span class="line">            &#125;</span><br><span class="line">            return val;</span><br><span class="line">        &#125;,</span><br><span class="line">        set: function (newVal) &#123;</span><br><span class="line">            if(newVal &#x3D;&#x3D;&#x3D; val || (newVal !&#x3D;&#x3D; newVal &amp;&amp; val !&#x3D;&#x3D; val))&#123;</span><br><span class="line">                return ;</span><br><span class="line">            &#125;</span><br><span class="line">            val &#x3D; newVal;</span><br><span class="line">            &#x2F;&#x2F;发布改变</span><br><span class="line">            dep.notify();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="2-2-Dep-target是什么？为什么要有Dep-target才会收集依赖呢？"><a href="#2-2-Dep-target是什么？为什么要有Dep-target才会收集依赖呢？" class="headerlink" title="2.2 Dep.target是什么？为什么要有Dep.target才会收集依赖呢？"></a>2.2 Dep.target是什么？为什么要有Dep.target才会收集依赖呢？</h3><ul>
+<li>Dep是一个类，Dep.target是类的属性，并不是dep实例的属性。</li>
+<li>Dep类在全局可用，所以Dep.target在全局能访问到，可以任意改变它的值。</li>
+<li>get这个方法使用很平常，不可能每次使用获取数据值的时候都去调用dep.depend()。</li>
+<li>dep.depend()实际上就是dep.addSub(Dep.target)。</li>
+<li>那么最好方法就是，在使用之前把Dep.target设置成某个对象，在订阅完成之后设置Dep.target = null。<h2 id="3-测试一波"><a href="#3-测试一波" class="headerlink" title="3. 测试一波"></a>3. 测试一波</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">const obj &#x3D; &#123;&#125; 相当于初始化Vue中的data</span><br><span class="line"></span><br><span class="line">const watcher &#x3D; &#123;</span><br><span class="line">    addDep:function (dep) &#123;</span><br><span class="line">        dep.addSub(this);</span><br><span class="line">    &#125;,</span><br><span class="line">    update:function()&#123;</span><br><span class="line">        html();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;假装这个是渲染页面的</span><br><span class="line">function html () &#123;</span><br><span class="line">    document.querySelector(&#39;body&#39;).innerHTML &#x3D; obj.html;</span><br><span class="line">&#125;</span><br><span class="line">defineReactive(obj,&#39;html&#39;,&#39;how are you&#39;);&#x2F;&#x2F;定义响应式的数据</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;把Dep.targer的值设为watcher是为了把watcher添加到订阅信息的subs数组中</span><br><span class="line">Dep.target &#x3D; watcher;</span><br><span class="line">html();&#x2F;&#x2F;第一次渲染界面</span><br><span class="line">Dep.target &#x3D; null;</span><br></pre></td></tr></table></figure>
+一开始浏览器页面上显示的是how are you</li>
+</ul>
+<p>接着打开f12，输入obj.html = ‘hello’</p>
+<p>效果便实现了，页面上的内容变成了hello</p>
+
+    </div>
+</article>
+            </div>
+            <div class="aside">
+    
+        <div class="box widget">
+    <div class="introduction">
+        <p><img src="/images/avatar.jpg" alt="head-sculpture" /></p>
+        <p class="name">
+            博落回
+        </p>
+        <p class="slogan">流连矣 忘景幻云催 峦栈醺醺说旧梦 重山迟迟映霞辉 向晚共邀归 —— 忆江南</p>
+    </div>
+</div>
+    
+        
+<div class="box widget">
+    <div class="title">Recent</div>
+    <ul class="item-box">
+        
+            
+                <li><a href="/2020/11/07/%E5%85%B3%E4%BA%8EVue%E7%9A%84%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/">关于Vue的数据响应式</a></li>
+            
+        
+            
+                <li><a href="/2020/10/28/%E5%85%B3%E4%BA%8Ejs%E5%8E%9F%E5%9E%8B%E5%92%8C%E5%8E%9F%E5%9E%8B%E9%93%BE/">关于js原型和原型链</a></li>
+            
+        
+            
+                <li><a href="/2020/10/26/Vuex%E6%A8%A1%E5%9D%97%E5%8C%96/">Vuex模块化</a></li>
+            
+        
+            
+                <li><a href="/2020/10/26/Vuex%E5%9F%BA%E7%A1%80/">Vuex基础</a></li>
+            
+        
+            
+                <li><a href="/2020/10/22/Vue-Router%E5%9F%BA%E7%A1%80/">Vue-Router基础</a></li>
+            
+        
+            
+                <li><a href="/2020/10/19/js%E5%A4%A7%E9%87%8F%E6%95%B0%E6%8D%AE%E8%AE%A1%E7%AE%97%E5%AF%BC%E8%87%B4%E9%A1%B5%E9%9D%A2%E5%81%87%E6%AD%BB%EF%BC%88Web%20Worker%EF%BC%89/">js大量数据计算导致页面假死（Web Worker）</a></li>
+            
+        
+            
+                <li><a href="/2020/10/19/%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%8D%9A%E5%AE%A2/">如何搭建本博客</a></li>
+            
+        
+            
+                <li><a href="/2020/10/19/ES6%EF%BC%9Aasync%20await/">ES6：async await</a></li>
+            
+        
+    </ul>
+</div>
+
+    
+        
+    
+        
+  <div class="box widget">
+    <div class="title">Archives</div>
+    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">2020-11</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">2020-10</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">2020-06</a><span class="archive-list-count">2</span></li></ul>
+  </div>
+
+    
+        
+    
+</div>
+        </section>
+        <footer class="footer">
+    <div class="global-width footer-box">
+        <div class="copyright">
+            <span>Copyright &copy; 2019</span>
+            <span class="dotted">|</span>
+            <span>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a></span>
+            <span class="dotted">|</span>
+            <span>Theme by <a href="javascript:">Loren</a></span>
+            <span class="dotted">|</span>
+            <span><a href="http://www.beian.miit.gov.cn" target="_blank" rel="noopener">浙ICP备18016660号-1</a></span>
+        </div>
+    </div>
+</footer>
+    </div>
+
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</body>
+</html>

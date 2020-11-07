@@ -74,6 +74,63 @@
                 
     
         <article class="box post post-item">
+            <div class="post-title"><a href="/2020/10/12/ES6%EF%BC%9Avar%20let%20const/">ES6：var let const</a></div>
+            <div class="post-meta">
+                
+                <i class="fa fa-calendar"></i> <time>2020-10-12</time>
+                <span class="dotted">|</span>
+                <i class="fa fa-user"></i> 
+            </div>
+
+            <div class="post-excerpt">
+                <a href="/2020/10/12/ES6%EF%BC%9Avar%20let%20const/">
+                    <p>
+                        
+                            
+首先声明一点，js中声明之后无法修改的变量称为常量反之可以修改的称为变量
+在ES6之前常量与变量的声明都是使用var，例如：123var a &#x3D; 1;a &#x3D; 10;console.log(a);  &#x2F;&#x2F;10
+区别let/const 和 var的区别
+
+
+不可变量提升
+块级作用域
+不可重复声明
+暂存性死区
+let、const声明的变量均不会挂在在window对象上
+
+tips:
+1:通过const声明的变量必须马上赋值，否则会报错(Missing initializer in const declaration)
+2:通过const声明的数据不可更改除了对象、数组（其修改的是内部数据、而不是指针指向地址
+不使用块级作用域的弊端
+如果使用ES5的var来声明变量，内层变量会覆盖外层变量从而造成全局污染
+
+同第一点，用于循环记数的变量会泄漏为全局变量
+
+
+123456var time &#x3D; new Date();function tFunc() &#123;  console.log(time);   var time &#x3D; ‘123’;&#125;tFunc();  &#x2F;&#x2F;undefined
+12345var arr &#x3D; [1, 2, 3, 4, 5];for(var i &#x3D; 0; i &lt; arr.length; i++)&#123;  console.log(arr[i]);&#125;console.log(i)  &#x2F;&#x2F;5(此处的i全局范围内都可以读取到）
+关于块级作用域12345678function func()&#123;  let a &#x3D; 1;  if(true)&#123;    let a &#x3D; 2    console.log(a)  &#x2F;&#x2F;2 内层a  &#125;  console.log(a)  &#x2F;&#x2F;1 外层的a&#125;
+1234&#123;  let a &#x3D; &#39;Hello World&#39;&#125;console.log(a); &#x2F;&#x2F; 报错 获取不到子作用域的变量
+不可变量提升何为变量提升？在统一作用域下变量可在声明前使用且值为undefined
+1234567&#x2F;&#x2F; varconsole.log(a); &#x2F;&#x2F; 输出undefinedvar a &#x3D; 2;	&#x2F;&#x2F; letconsole.log(b); &#x2F;&#x2F; 报错ReferenceErrorlet b &#x3D; 2;
+暂存性死区只要块级作用域内存在let命令，它所声明的变量就“绑定”（binding）这个区域，不再受外部的影响
+12345var a &#x3D; 123;if (true) &#123;  a &#x3D; &#39;abc&#39;; &#x2F;&#x2F; 报错 因为本区域有tmp声明变量  let a; &#x2F;&#x2F; 绑定if这个块级的作用域 不能出现tmp变量&#125;
+不可重复声明变量let、const不允许在相同作用域内，重复声明同一个变量
+123456789function func(arg) &#123;  let arg; &#x2F;&#x2F; 报错&#125;function func(arg) &#123;  &#123;    let arg; &#x2F;&#x2F; 不报错  &#125;&#125;
+let、const声明的全局变量不会挂载在顶层对象下面1.浏览器环境顶层对象是: window
+2.var声明的全局变量会挂在顶层对象下面，而let、const不会挂在顶层对象下面。
+1234var a &#x3D; 1;window.a &#x2F;&#x2F; 1let b &#x3D; 1;window.b &#x2F;&#x2F; undefined
+                        
+                    </p>
+                </a>
+            </div>
+
+            
+        </article>
+    
+
+    
+        <article class="box post post-item">
             <div class="post-title"><a href="/2020/06/18/%E5%85%B3%E4%BA%8E$emit%E7%9A%84%E7%90%86%E8%A7%A3/">关于$emit的理解</a></div>
             <div class="post-meta">
                 
@@ -168,6 +225,10 @@ More info: Deployment
     <ul class="item-box">
         
             
+                <li><a href="/2020/11/07/%E5%85%B3%E4%BA%8EVue%E7%9A%84%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/">关于Vue的数据响应式</a></li>
+            
+        
+            
                 <li><a href="/2020/10/28/%E5%85%B3%E4%BA%8Ejs%E5%8E%9F%E5%9E%8B%E5%92%8C%E5%8E%9F%E5%9E%8B%E9%93%BE/">关于js原型和原型链</a></li>
             
         
@@ -195,10 +256,6 @@ More info: Deployment
                 <li><a href="/2020/10/19/ES6%EF%BC%9Aasync%20await/">ES6：async await</a></li>
             
         
-            
-                <li><a href="/2020/10/15/Promise/">Promise</a></li>
-            
-        
     </ul>
 </div>
 
@@ -208,7 +265,7 @@ More info: Deployment
         
   <div class="box widget">
     <div class="title">Archives</div>
-    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">2020-10</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">2020-06</a><span class="archive-list-count">2</span></li></ul>
+    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">2020-11</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">2020-10</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">2020-06</a><span class="archive-list-count">2</span></li></ul>
   </div>
 
     

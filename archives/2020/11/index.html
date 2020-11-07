@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+
+
+
+
+    <meta name="keywords" content=""/>
+
+
+
+    <meta name="description" content="Kumiko77"/>
+
+
+<meta name="Robots" content="all">
+
+
+    <title>Kumiko77</title>
+
+
+<link rel="icon" href="/images/favicon.ico">
+
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+
+<link rel="stylesheet" href="/css/atom-one-dark.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script src="/js/highlight.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body>
+    <div class="main-container">
+        <header class="header">
+    <div class="global-width">
+        <nav class="nav-box">
+            
+                <a class="nav-item" href="/"
+                
+                >Home</a>
+            
+                <a class="nav-item" href="/resume"
+                
+                >Resume</a>
+            
+                <a class="nav-item" href="/mood"
+                
+                   target="_blank"
+                
+                >Mood</a>
+            
+                <a class="nav-item" href="/amusement/tetris"
+                
+                   target="_blank"
+                
+                >Amusement</a>
+            
+                <a class="nav-item" href="/about"
+                
+                >About</a>
+            
+        </nav>
+    </div>
+</header>
+
+        <section class="content global-width">
+            <div class="main">
+                
+    
+        <article class="box post post-item">
+            <div class="post-title"><a href="/2020/11/07/%E5%85%B3%E4%BA%8EVue%E7%9A%84%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/">关于Vue的数据响应式</a></div>
+            <div class="post-meta">
+                
+                <i class="fa fa-calendar"></i> <time>2020-11-07</time>
+                <span class="dotted">|</span>
+                <i class="fa fa-user"></i> 
+            </div>
+
+            <div class="post-excerpt">
+                <a href="/2020/11/07/%E5%85%B3%E4%BA%8EVue%E7%9A%84%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/">
+                    <p>
+                        
+                            什么是数据响应式我对数据响应式的理解是，当data中的数据发生改变时，Vue会通知有使用到该数据的代码将视图更新。这挺神奇，Vue的数据响应式主要是依赖Object.defineProperty(),整个过程是怎么实现的呢，下面我来捋一捋
+1.数据的改造为什么第一步是数据的改造呢，因为这是最基础也是最为重要的一步，后面的环节都是依赖这一步执行的
+1234567891011121314151617function defineReactive (obj,key,val) &#123;    Object.defineProperty(obj,key,&#123;        enumerable: true,        configurable: true,        get: function () &#123;            return val;        &#125;,        set: function (newVal) &#123;            &#x2F;&#x2F;判断新值与旧值是否相等            &#x2F;&#x2F;判断的后半段是为了验证新值与旧值都为NaN的情况  NaN不等于自身            if(newVal &#x3D;&#x3D;&#x3D; val || (newVal !&#x3D;&#x3D; newVal &amp;&amp; value !&#x3D;&#x3D; value))&#123;                return ;            &#125;            val &#x3D; newVal;        &#125;    &#125;);&#125;
+例如const obj = {},然后再调用defineReactive(obj,’num’,2)方法，此时在函数内，val=2，然后每次获取obj.num的值的时候都是获取val的值，设置obj.num的时候也是设置val的值。（每次调用defineReactive都会产生一个闭包保存了val的值）
+1.1流程
+输入数据
+改造数据（调用defineReactive()）
+如果数据改变 =&gt; 触发方法
+
+看看第三步，如果数据改变如何触发事件呢？思考了一下，如果要改变数据，就必须要先set数据触发definePerperty的set()方法，所以我们直接在set()中添加事件不就完事了嘛
+2.依赖收集我们怎么知道在数据改变之后需要触发什么方法呢？
+Vue中，使用数据来渲染视图，在获取数据的时候是收集依赖的最佳时期，Vue在改造数据的时候生成来一个Dep实例，用于收集依赖
+1234567891011121314151617181920212223242526272829class Dep &#123;    constructor()&#123;        &#x2F;&#x2F;订阅的信息        this.subs &#x3D; [];    &#125;    addSub(sub)&#123;        this.subs.push(sub);    &#125;    removeSub (sub) &#123;        remove(this.subs, sub);    &#125;    &#x2F;&#x2F;此方法的作用等同于 this.subs.push(Watcher);    depend()&#123;        if (Dep.target) &#123;            Dep.target.addDep(this);        &#125;    &#125;    &#x2F;&#x2F;这个方法就是发布通知了 告诉你 有改变啦    notify()&#123;        const subs &#x3D; this.subs.slice()        for (let i &#x3D; 0, l &#x3D; subs.length; i &lt; l; i++) &#123;          subs[i].update();        &#125;    &#125;&#125;Dep.target &#x3D; null;
+着重了解两个方法
+
+
+depend()可以理解为收集依赖的事件，不考虑其他方面的话，功能等同于addSub()。
+
+
+
+notify()这个方法更为直观了，执行所有依赖的update()方法，就是之后的改变视图。
+
+
+
+2.1 继续改造代码有了实例Dep之后，defineReactive就变成这样了
+12345678910111213141516171819202122function defineReactive (obj,key,val) &#123;    const dep &#x3D; new Dep();    Object.defineProperty(obj,key,&#123;        enumerable: true,        configurable: true,        get: function () &#123;            if(Dep.target)&#123;                &#x2F;&#x2F;获取数据的时候收集依赖 等同于  dep.addSub(Dep.target)                dep.depend()            &#125;            return val;        &#125;,        set: function (newVal) &#123;            if(newVal &#x3D;&#x3D;&#x3D; val || (newVal !&#x3D;&#x3D; newVal &amp;&amp; val !&#x3D;&#x3D; val))&#123;                return ;            &#125;            val &#x3D; newVal;            &#x2F;&#x2F;发布改变            dep.notify();        &#125;    &#125;);
+2.2 Dep.target是什么？为什么要有Dep.target才会收集依赖呢？
+Dep是一个类，Dep.target是类的属性，并不是dep实例的属性。
+Dep类在全局可用，所以Dep.target在全局能访问到，可以任意改变它的值。
+get这个方法使用很平常，不可能每次使用获取数据值的时候都去调用dep.depend()。
+dep.depend()实际上就是dep.addSub(Dep.target)。
+那么最好方法就是，在使用之前把Dep.target设置成某个对象，在订阅完成之后设置Dep.target = null。3. 测试一波1234567891011121314151617181920const obj &#x3D; &#123;&#125; 相当于初始化Vue中的dataconst watcher &#x3D; &#123;    addDep:function (dep) &#123;        dep.addSub(this);    &#125;,    update:function()&#123;        html();    &#125;&#125;&#x2F;&#x2F;假装这个是渲染页面的function html () &#123;    document.querySelector(&#39;body&#39;).innerHTML &#x3D; obj.html;&#125;defineReactive(obj,&#39;html&#39;,&#39;how are you&#39;);&#x2F;&#x2F;定义响应式的数据&#x2F;&#x2F;把Dep.targer的值设为watcher是为了把watcher添加到订阅信息的subs数组中Dep.target &#x3D; watcher;html();&#x2F;&#x2F;第一次渲染界面Dep.target &#x3D; null;
+一开始浏览器页面上显示的是how are you
+
+接着打开f12，输入obj.html = ‘hello’
+效果便实现了，页面上的内容变成了hello
+
+                        
+                    </p>
+                </a>
+            </div>
+
+            
+        </article>
+    
+
+
+
+            </div>
+            <div class="aside">
+    
+        <div class="box widget">
+    <div class="introduction">
+        <p><img src="/images/avatar.jpg" alt="head-sculpture" /></p>
+        <p class="name">
+            博落回
+        </p>
+        <p class="slogan">流连矣 忘景幻云催 峦栈醺醺说旧梦 重山迟迟映霞辉 向晚共邀归 —— 忆江南</p>
+    </div>
+</div>
+    
+        
+<div class="box widget">
+    <div class="title">Recent</div>
+    <ul class="item-box">
+        
+            
+                <li><a href="/2020/11/07/%E5%85%B3%E4%BA%8EVue%E7%9A%84%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/">关于Vue的数据响应式</a></li>
+            
+        
+            
+                <li><a href="/2020/10/28/%E5%85%B3%E4%BA%8Ejs%E5%8E%9F%E5%9E%8B%E5%92%8C%E5%8E%9F%E5%9E%8B%E9%93%BE/">关于js原型和原型链</a></li>
+            
+        
+            
+                <li><a href="/2020/10/26/Vuex%E6%A8%A1%E5%9D%97%E5%8C%96/">Vuex模块化</a></li>
+            
+        
+            
+                <li><a href="/2020/10/26/Vuex%E5%9F%BA%E7%A1%80/">Vuex基础</a></li>
+            
+        
+            
+                <li><a href="/2020/10/22/Vue-Router%E5%9F%BA%E7%A1%80/">Vue-Router基础</a></li>
+            
+        
+            
+                <li><a href="/2020/10/19/js%E5%A4%A7%E9%87%8F%E6%95%B0%E6%8D%AE%E8%AE%A1%E7%AE%97%E5%AF%BC%E8%87%B4%E9%A1%B5%E9%9D%A2%E5%81%87%E6%AD%BB%EF%BC%88Web%20Worker%EF%BC%89/">js大量数据计算导致页面假死（Web Worker）</a></li>
+            
+        
+            
+                <li><a href="/2020/10/19/%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%8D%9A%E5%AE%A2/">如何搭建本博客</a></li>
+            
+        
+            
+                <li><a href="/2020/10/19/ES6%EF%BC%9Aasync%20await/">ES6：async await</a></li>
+            
+        
+    </ul>
+</div>
+
+    
+        
+    
+        
+  <div class="box widget">
+    <div class="title">Archives</div>
+    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">2020-11</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">2020-10</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">2020-06</a><span class="archive-list-count">2</span></li></ul>
+  </div>
+
+    
+        
+    
+</div>
+        </section>
+        <footer class="footer">
+    <div class="global-width footer-box">
+        <div class="copyright">
+            <span>Copyright &copy; 2019</span>
+            <span class="dotted">|</span>
+            <span>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a></span>
+            <span class="dotted">|</span>
+            <span>Theme by <a href="javascript:">Loren</a></span>
+            <span class="dotted">|</span>
+            <span><a href="http://www.beian.miit.gov.cn" target="_blank" rel="noopener">浙ICP备18016660号-1</a></span>
+        </div>
+    </div>
+</footer>
+    </div>
+
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</body>
+</html>
