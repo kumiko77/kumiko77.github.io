@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+
+
+
+
+    <meta name="keywords" content=""/>
+
+
+
+    <meta name="description" content="1.真实DOM与渲染过程在开始了解虚拟DOM之前，先了解一下真实DOM的渲染与浏览器的解析过程。
+1.1 浏览器引擎的工作过程1.1.1 创建DOM树解析HTML生成DOM树 - 渲染引擎首先解析HTML文档，生成DOM树。 用CSS分析器，分析CSS文件和元素上的inline样式，生成页面的..."/>
+
+
+<meta name="Robots" content="all">
+
+
+    <title>Kumiko77 | 关于Vue中的虚拟DOM</title>
+
+
+<link rel="icon" href="/images/favicon.ico">
+
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+
+<link rel="stylesheet" href="/css/atom-one-dark.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script src="/js/highlight.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body>
+    <div class="main-container">
+        <header class="header">
+    <div class="global-width">
+        <nav class="nav-box">
+            
+                <a class="nav-item" href="/"
+                
+                >Home</a>
+            
+                <a class="nav-item" href="/resume"
+                
+                >Resume</a>
+            
+                <a class="nav-item" href="/mood"
+                
+                   target="_blank"
+                
+                >Mood</a>
+            
+                <a class="nav-item" href="/amusement/tetris"
+                
+                   target="_blank"
+                
+                >Amusement</a>
+            
+                <a class="nav-item" href="/about"
+                
+                >About</a>
+            
+        </nav>
+    </div>
+</header>
+
+        <section class="content global-width">
+            <div class="main">
+                <article class="box post">
+    <div class="post-title align-center detail-title">关于Vue中的虚拟DOM</div>
+    <div class="post-meta align-center">
+        
+        <i class="fa fa-calendar"></i> <time>2020-11-07</time>
+        <span class="dotted">|</span>
+        <i class="fa fa-user"></i> 
+        
+    </div>
+
+    <div class="post-content">
+        <h2 id="1-真实DOM与渲染过程"><a href="#1-真实DOM与渲染过程" class="headerlink" title="1.真实DOM与渲染过程"></a>1.真实DOM与渲染过程</h2><p>在开始了解虚拟DOM之前，先了解一下真实DOM的渲染与浏览器的解析过程。</p>
+<h3 id="1-1-浏览器引擎的工作过程"><a href="#1-1-浏览器引擎的工作过程" class="headerlink" title="1.1 浏览器引擎的工作过程"></a>1.1 浏览器引擎的工作过程</h3><h4 id="1-1-1-创建DOM树"><a href="#1-1-1-创建DOM树" class="headerlink" title="1.1.1 创建DOM树"></a>1.1.1 创建DOM树</h4><p>解析HTML生成DOM树 - 渲染引擎首先解析HTML文档，生成DOM树。 用CSS分析器，分析CSS文件和元素上的inline样式，生成页面的样式表</p>
+<h4 id="1-1-2-生成render"><a href="#1-1-2-生成render" class="headerlink" title="1.1.2 生成render"></a>1.1.2 生成render</h4><p>将DOM树和样式表，关联起来，构建一颗Render(渲染)树</p>
+<h4 id="1-1-3-布局render树"><a href="#1-1-3-布局render树" class="headerlink" title="1.1.3 布局render树"></a>1.1.3 布局render树</h4><p>有了Render树，浏览器开始对渲染树的每个节点进行布局处理，确定其在屏幕上的显示位置</p>
+<h4 id="1-1-4-绘制render树"><a href="#1-1-4-绘制render树" class="headerlink" title="1.1.4 绘制render树"></a>1.1.4 绘制render树</h4><p>遍历渲染树并用UI后端层将每一个节点绘制出来</p>
+<h2 id="2-虚拟DOM"><a href="#2-虚拟DOM" class="headerlink" title="2.虚拟DOM"></a>2.虚拟DOM</h2><h3 id="2-1-虚拟DOM是什么？"><a href="#2-1-虚拟DOM是什么？" class="headerlink" title="2.1 虚拟DOM是什么？"></a>2.1 虚拟DOM是什么？</h3><p>当用原生js或者jq去操作真实DOM的时候，浏览器会从构建DOM树开始从头到尾执行一遍流程。当操作次数过多时，之前计算DOM节点坐标值等都是白白浪费的性能，虚拟DOM由此诞生。</p>
+<h3 id="2-2-虚拟DOM有什么好处？"><a href="#2-2-虚拟DOM有什么好处？" class="headerlink" title="2.2 虚拟DOM有什么好处？"></a>2.2 虚拟DOM有什么好处？</h3><p>假设一次操作中有10次更新DOM的动作，虚拟DOM不会立即操作DOM，而是将这10次更新的diff内容保存到本地一个JS对象中，最终将这个JS对象一次性attch到DOM树上，再进行后续操作，避免大量无谓的计算量。所以，用JS对象模拟DOM节点的好处是，页面的更新可以先全部反映在虚拟DOM上，操作内存中的JS对象的速度显然要更快，等更新完成后，再将最终的JS对象映射成真实的DOM，交由浏览器去绘制。</p>
+<h2 id="3-Vue中的虚拟DOM"><a href="#3-Vue中的虚拟DOM" class="headerlink" title="3. Vue中的虚拟DOM"></a>3. Vue中的虚拟DOM</h2><ul>
+<li>渲染函数：渲染函数是用来生成虚拟DOM的。Vue推荐使用模板来构建应用界面，在底层实现中Vue将模板编译成渲染函数</li>
+<li>Vnode虚拟节点：它可以代表一个真实的dom节点。通过createElement方法将vnode节点渲染成dom节点</li>
+<li>patch：虚拟DOM最核心的部分，它可以将vnode渲染成真实的DOM，这个过程是对比新旧虚拟节点之间有哪些不同，然后根据对比结果找出需要更新的的节点进行更新<h2 id="3-模拟实现"><a href="#3-模拟实现" class="headerlink" title="3.模拟实现"></a>3.模拟实现</h2><h3 id="3-1先我们创建虚拟DOM树"><a href="#3-1先我们创建虚拟DOM树" class="headerlink" title="3.1先我们创建虚拟DOM树"></a>3.1先我们创建虚拟DOM树</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; element&#x2F;index.js</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 虚拟DOM元素类，用来描述DOM</span><br><span class="line">function Element(type, props, children)&#123;</span><br><span class="line">  this.type &#x3D; type; &#x2F;&#x2F;节点类型</span><br><span class="line">  this.props &#x3D; props; &#x2F;&#x2F;属性</span><br><span class="line">  this.children &#x3D; children; &#x2F;&#x2F;子节点</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; 创建虚拟DOM</span><br><span class="line">function createElement(type, props, children)&#123;</span><br><span class="line">  return new Element(type, props, children);</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;向外输出</span><br><span class="line">export &#123;</span><br><span class="line">  Element,</span><br><span class="line">  createElement</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+在app.vue中调用createElement方法来创建虚拟DOM树<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;App.vue</span><br><span class="line">import &#123;createElement&#125; from &#39;.&#x2F;js&#x2F;element.js&#39;</span><br><span class="line"></span><br><span class="line">let V_DOM &#x3D; createElement(&#39;ul&#39;,&#123;class:&#39;list&#39;&#125;,[</span><br><span class="line">  createElement(&#39;li&#39;, &#123;class:&#39;item&#39;&#125;,[&#39;item1&#39;]),</span><br><span class="line">  createElement(&#39;li&#39;, &#123;class:&#39;item&#39;&#125;,[&#39;item2&#39;]),</span><br><span class="line">  createElement(&#39;li&#39;, &#123;class:&#39;item&#39;&#125;,[&#39;item3&#39;])</span><br><span class="line">])</span><br><span class="line">&#x2F;&#x2F;打印虚拟DOM</span><br><span class="line">console.log(V_DOM);</span><br></pre></td></tr></table></figure>
+打开f12控制台就能看到创建出的虚拟DOM树<h3 id="3-2-模拟渲染函数渲染虚拟DOM"><a href="#3-2-模拟渲染函数渲染虚拟DOM" class="headerlink" title="3.2 模拟渲染函数渲染虚拟DOM"></a>3.2 模拟渲染函数渲染虚拟DOM</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; element.js</span><br><span class="line"></span><br><span class="line">function render(dom) &#123;</span><br><span class="line">  &#x2F;&#x2F; 根据type类型来创建对应的元素</span><br><span class="line">  let el &#x3D; document.createElement(dom.type);</span><br><span class="line">  </span><br><span class="line">  &#x2F;&#x2F; 再去遍历props属性对象，然后给创建的元素el设置属性</span><br><span class="line">  for (let key in dom.props) &#123;</span><br><span class="line">      &#x2F;&#x2F; 设置属性的方法</span><br><span class="line">      el.setAttribute(key, dom.props[key]);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  &#x2F;&#x2F; 遍历子节点</span><br><span class="line">  &#x2F;&#x2F; &#x2F;&#x2F; 如果子节点也是虚拟DOM，递归构建DOM节点</span><br><span class="line">  &#x2F;&#x2F; 不是就代表是文本节点，直接创建</span><br><span class="line">  dom.children.forEach(child &#x3D;&gt; &#123;</span><br><span class="line">      child &#x3D; (child instanceof Element) ? render(child) : document.createTextNode(child);</span><br><span class="line">      &#x2F;&#x2F; 添加到对应元素内</span><br><span class="line">      el.appendChild(child);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  return el;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;向外输出</span><br><span class="line">export &#123;</span><br><span class="line">  Element,</span><br><span class="line">  createElement,</span><br><span class="line">  render,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+回到app.vue中调用render方法<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import &#123;createElement, render, renderDom&#125; from &#39;.&#x2F;js&#x2F;element.js&#39;</span><br><span class="line"></span><br><span class="line">let V_DOM &#x3D; createElement(&#39;ul&#39;,&#123;class:&#39;list&#39;&#125;,[</span><br><span class="line">  createElement(&#39;li&#39;, &#123;class:&#39;item&#39;&#125;,[&#39;item1&#39;]),</span><br><span class="line">  createElement(&#39;li&#39;, &#123;class:&#39;item&#39;&#125;,[&#39;item2&#39;]),</span><br><span class="line">  createElement(&#39;li&#39;, &#123;class:&#39;item&#39;&#125;,[&#39;item3&#39;])</span><br><span class="line">])</span><br><span class="line">&#x2F;&#x2F;打印虚拟DOM</span><br><span class="line">console.log(V_DOM);</span><br><span class="line">var el &#x3D; render(V_DOM);</span><br><span class="line">console.log(el);</span><br><span class="line">document.body.appendChild(el);</span><br></pre></td></tr></table></figure>
+这样就虚拟DOM对象渲染成来真实DOM对象</li>
+</ul>
+
+    </div>
+</article>
+            </div>
+            <div class="aside">
+    
+        <div class="box widget">
+    <div class="introduction">
+        <p><img src="/images/avatar.jpg" alt="head-sculpture" /></p>
+        <p class="name">
+            博落回
+        </p>
+        <p class="slogan">流连矣 忘景幻云催 峦栈醺醺说旧梦 重山迟迟映霞辉 向晚共邀归 —— 忆江南</p>
+    </div>
+</div>
+    
+        
+<div class="box widget">
+    <div class="title">Recent</div>
+    <ul class="item-box">
+        
+            
+                <li><a href="/2020/11/07/%E5%85%B3%E4%BA%8EVue%E4%B8%AD%E7%9A%84%E8%99%9A%E6%8B%9FDOM/">关于Vue中的虚拟DOM</a></li>
+            
+        
+            
+                <li><a href="/2020/11/07/%E5%85%B3%E4%BA%8EVue%E7%9A%84%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/">关于Vue的数据响应式</a></li>
+            
+        
+            
+                <li><a href="/2020/10/28/%E5%85%B3%E4%BA%8Ejs%E5%8E%9F%E5%9E%8B%E5%92%8C%E5%8E%9F%E5%9E%8B%E9%93%BE/">关于js原型和原型链</a></li>
+            
+        
+            
+                <li><a href="/2020/10/26/Vuex%E6%A8%A1%E5%9D%97%E5%8C%96/">Vuex模块化</a></li>
+            
+        
+            
+                <li><a href="/2020/10/26/Vuex%E5%9F%BA%E7%A1%80/">Vuex基础</a></li>
+            
+        
+            
+                <li><a href="/2020/10/22/Vue-Router%E5%9F%BA%E7%A1%80/">Vue-Router基础</a></li>
+            
+        
+            
+                <li><a href="/2020/10/19/js%E5%A4%A7%E9%87%8F%E6%95%B0%E6%8D%AE%E8%AE%A1%E7%AE%97%E5%AF%BC%E8%87%B4%E9%A1%B5%E9%9D%A2%E5%81%87%E6%AD%BB%EF%BC%88Web%20Worker%EF%BC%89/">js大量数据计算导致页面假死（Web Worker）</a></li>
+            
+        
+            
+                <li><a href="/2020/10/19/%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%8D%9A%E5%AE%A2/">如何搭建本博客</a></li>
+            
+        
+    </ul>
+</div>
+
+    
+        
+    
+        
+  <div class="box widget">
+    <div class="title">Archives</div>
+    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">2020-11</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">2020-10</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">2020-06</a><span class="archive-list-count">2</span></li></ul>
+  </div>
+
+    
+        
+    
+</div>
+        </section>
+        <footer class="footer">
+    <div class="global-width footer-box">
+        <div class="copyright">
+            <span>Copyright &copy; 2019</span>
+            <span class="dotted">|</span>
+            <span>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a></span>
+            <span class="dotted">|</span>
+            <span>Theme by <a href="javascript:">Loren</a></span>
+            <span class="dotted">|</span>
+            <span><a href="http://www.beian.miit.gov.cn" target="_blank" rel="noopener">浙ICP备18016660号-1</a></span>
+        </div>
+    </div>
+</footer>
+    </div>
+
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</body>
+</html>

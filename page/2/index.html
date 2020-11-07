@@ -74,6 +74,58 @@
                 
     
         <article class="box post post-item">
+            <div class="post-title"><a href="/2020/10/12/%E9%98%B2%E6%8A%96%E4%B8%8E%E8%8A%82%E6%B5%81/">防抖与节流</a></div>
+            <div class="post-meta">
+                
+                <i class="fa fa-calendar"></i> <time>2020-10-12</time>
+                <span class="dotted">|</span>
+                <i class="fa fa-user"></i> 
+            </div>
+
+            <div class="post-excerpt">
+                <a href="/2020/10/12/%E9%98%B2%E6%8A%96%E4%B8%8E%E8%8A%82%E6%B5%81/">
+                    <p>
+                        
+                            防抖函数和节流函数是在日常开发中使用频率比较高的两个函数，可以有效的优化浏览器性能
+防抖函数(debounce)在事件被触发 n 秒后再执行回调，如果在这 n 秒内又被触发，则重新计时
+例子1如果有人进电梯（触发事件），那电梯将在 10 秒钟后启动（执行事件），这时如果又有人进电梯了（在 10 秒内再次触发该事件），我们又得等 10 秒再启动（重新计时）
+例子2** 滚动条监听 ** ，对于这么一个常用的功能来说，很多网站都会提供一个返回顶部的按钮。这个按钮只会在滚动到距离顶部一定位置之后才出现，假设说我们现在有这么一个需求，监听浏览器滚动事件，返回当前滚条与顶部的距离
+12345function showTop  () &#123;    var scrollTop &#x3D; document.body.scrollTop || document.documentElement.scrollTop;　　console.log(&#39;滚动条位置：&#39; + scrollTop);&#125;window.onscroll  &#x3D; showTop
+但是这样写代码，在运行的时候会发现存在一个问题：这个函数的默认执行频率，太！高！了！。 高到什么程度呢？以chrome为例，我们可以点击选中一个页面的滚动条，然后点击一次键盘的【向下方向键】，会发现函数执行了8-9次
+然而实际上我们并不需要如此高频的反馈，毕竟浏览器的性能是有限的，不应该浪费在这里。所以这里就需要防抖函数来处理
+基于上述场景给出一种思路，在第一次触发时不执行该操作，给出一个延迟值比如200ms，接着
+
+如果在200ms内没有再次触发滚动条操作，则执行该操作
+如果在200ms内再次触发滚动条操作则清楚计时器重新计时
+
+效果： 在短时间内重复执行相同操作，只执行一次
+1234567891011121314function debounce(fn,delay)&#123;    let timer &#x3D; null &#x2F;&#x2F;闭包    return function() &#123;        if(timer)&#123;            clearTimeout(timer)         &#125;        timer &#x3D; setTimeout(fn,delay)    &#125;&#125;function showTop  () &#123;    var scrollTop &#x3D; document.body.scrollTop || document.documentElement.scrollTop;　　console.log(&#39;滚动条位置：&#39; + scrollTop);&#125;window.onscroll &#x3D; debounce(showTop,1000) &#x2F;&#x2F; 为了方便观察效果我们取个大点的间断值，实际使用根据需要来配置
+此时会发现，必须在停止滚动1秒以后，才会打印出滚动条位置。
+节流函数(throttle)继续说上面的问题，上述场景出现的问题用防抖来解决也会出现一个问题：
+如果在限定时间，有个用户闲着无聊一直拖着滚动条移来移去不断触发滚动条时间，理论上是永远不会当前距离顶部的距离
+但是万一需求提出就算用户不断拖动滚动条，也能在某个时间间隔给出反馈
+对于此需求，我们可以设计一种类似控制阀门一样定期开放的函数，也就是让函数执行一次后，在某个时间段内暂时失效，过了这段时间后再重新激活
+效果： 如果短时间内大量触发同一事件，那么在函数执行一次之后，该函数在指定的时间期限内不再工作，直至过了这段时间才重新生效。
+1234567891011121314151617181920function throttle(fn,delay)&#123;    let valid &#x3D; true    return function() &#123;       if(!valid)&#123;           &#x2F;&#x2F;休息时间           return false        &#125;       &#x2F;&#x2F; 工作时间，执行函数并且在间隔期内把状态位设为无效        valid &#x3D; false        setTimeout(() &#x3D;&gt; &#123;            fn()            valid &#x3D; true;        &#125;, delay)    &#125;&#125;function showTop  () &#123;    var scrollTop &#x3D; document.body.scrollTop || document.documentElement.scrollTop;　　console.log(&#39;滚动条位置：&#39; + scrollTop);&#125;window.onscroll &#x3D; throttle(showTop,1000)
+如果一直拖着滚动条进行滚动，那么会以1s的时间间隔，持续输出当前位置和顶部的距离
+应用场景节流1.搜索框input事件，例如要支持输入实时搜索可以使用节流方案（间隔一段时间就必须查询相关内容），或者实现输入间隔大于某个值（如500ms），就当做用户输入完成，然后开始搜索，具体使用哪种方案要看业务需求。
+
+自动保存草稿功能，当用户在输入的时候(一直触发事件),单位时间内只保存一次草稿防抖
+表单的连续点击，防止重复提交。比如重复发送一篇文章。
+
+2.类百度的搜索，连续输入等输入停止后再搜索。
+
+                        
+                    </p>
+                </a>
+            </div>
+
+            
+        </article>
+    
+
+    
+        <article class="box post post-item">
             <div class="post-title"><a href="/2020/10/12/ES6%EF%BC%9Avar%20let%20const/">ES6：var let const</a></div>
             <div class="post-meta">
                 
@@ -225,6 +277,10 @@ More info: Deployment
     <ul class="item-box">
         
             
+                <li><a href="/2020/11/07/%E5%85%B3%E4%BA%8EVue%E4%B8%AD%E7%9A%84%E8%99%9A%E6%8B%9FDOM/">关于Vue中的虚拟DOM</a></li>
+            
+        
+            
                 <li><a href="/2020/11/07/%E5%85%B3%E4%BA%8EVue%E7%9A%84%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E5%BC%8F/">关于Vue的数据响应式</a></li>
             
         
@@ -252,10 +308,6 @@ More info: Deployment
                 <li><a href="/2020/10/19/%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%8D%9A%E5%AE%A2/">如何搭建本博客</a></li>
             
         
-            
-                <li><a href="/2020/10/19/ES6%EF%BC%9Aasync%20await/">ES6：async await</a></li>
-            
-        
     </ul>
 </div>
 
@@ -265,7 +317,7 @@ More info: Deployment
         
   <div class="box widget">
     <div class="title">Archives</div>
-    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">2020-11</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">2020-10</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">2020-06</a><span class="archive-list-count">2</span></li></ul>
+    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">2020-11</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">2020-10</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">2020-06</a><span class="archive-list-count">2</span></li></ul>
   </div>
 
     
