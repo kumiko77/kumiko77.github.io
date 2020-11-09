@@ -74,6 +74,31 @@
                 
     
         <article class="box post post-item">
+            <div class="post-title"><a href="/2020/11/09/%E6%97%A5%E5%B8%B8%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">日常问题记录</a></div>
+            <div class="post-meta">
+                
+                <i class="fa fa-calendar"></i> <time>2020-11-09</time>
+                <span class="dotted">|</span>
+                <i class="fa fa-user"></i> 
+            </div>
+
+            <div class="post-excerpt">
+                <a href="/2020/11/09/%E6%97%A5%E5%B8%B8%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">
+                    <p>
+                        
+                            1.脚本&lt;script&gt;放在&lt;head&gt;和放到&lt;body&gt;底部的区别放在上面是先加载script脚本，加载时body并没有渲染完成，如果脚本中内容有涉及到dom操作之类的可能会报错，如果放在body后面就是先完成body渲染在进行加载script脚本,能够有效的访问到body中的元素，就不会出现上述情况
+
+                        
+                    </p>
+                </a>
+            </div>
+
+            
+        </article>
+    
+
+    
+        <article class="box post post-item">
             <div class="post-title"><a href="/2020/11/09/reduce%E5%8E%BB%E9%87%8D/">reduce去重</a></div>
             <div class="post-meta">
                 
@@ -584,43 +609,6 @@ hexo deploy之后可能会要你输入GitHub的用户名和密码成功之后就
         </article>
     
 
-    
-        <article class="box post post-item">
-            <div class="post-title"><a href="/2020/10/19/ES6%EF%BC%9Aasync%20await/">ES6：async await</a></div>
-            <div class="post-meta">
-                
-                <i class="fa fa-calendar"></i> <time>2020-10-19</time>
-                <span class="dotted">|</span>
-                <i class="fa fa-user"></i> 
-            </div>
-
-            <div class="post-excerpt">
-                <a href="/2020/10/19/ES6%EF%BC%9Aasync%20await/">
-                    <p>
-                        
-                            ES6：async/await在ES6中我们可以使用Generator来控制执行流程
-12345function* foo(x) &#123;    yield x + 1;    yield x + 2;    return x + 3;&#125;
-我们可以不断调用Generator对象的next()方法来控制函数的流程，但是这样好像不是特别的语义化。所以终于在ES7中有来Generator函数的语法糖async函数，用关键字Async来表示，其函数内部用await来表示异步操作该函数有效的解决来JavaScript中的异步操作问题。
-相较于 Generator，Async函数的优点在于：Generator 函数的执行必须依靠执行器，而 Async（） 函数自带执行器，调用方式跟普通函数的调用一样。Async 和 await相较于 * 和 yield 更加语义化。async 函数返回值是 Promise 对象，比 Generator函数返回的 Iterator 对象方便，可以直接使用 then（）方法进行调用。
-12345678910111213141516171819&#x2F;&#x2F;未使用async&#x2F;awaitfn &#x3D; () &#x3D;&gt; &#123;  return new Promise((resolve, reject) &#x3D;&gt; &#123;    setTimeout(() &#x3D;&gt; &#123;      resolve(1)    &#125;, 2000)  &#125;)&#125;const Fn &#x3D; () &#x3D;&gt;&#123;  fn().then((res) &#x3D;&gt; &#123;    console.log(res)  &#125;)&#125;Fn()console.log(2)&#x2F;&#x2F;输出&#x2F;&#x2F;先打印2&#x2F;&#x2F;两秒后打印1
-12345678910111213141516171819&#x2F;&#x2F;使用async&#x2F;awaitfn &#x3D; () &#x3D;&gt; &#123;  return new Promise((resolve, reject) &#x3D;&gt; &#123;    setTimeout(() &#x3D;&gt; &#123;      resolve(1)    &#125;, 2000)  &#125;)&#125;const Fn &#x3D; async () &#x3D;&gt; &#123;  await fn().then((res) &#x3D;&gt; &#123;    console.log(res)  &#125;)  console.log(2)&#125;Fn()&#x2F;&#x2F;输出&#x2F;&#x2F;过两秒输出1&#x2F;&#x2F;2
-async的字面意思是异步，其用于定义一个异步函数，返回的是一个Promise对象。await的意思是等待，Promise是一个承诺，其承诺的是无论成功与否都会将返回值传递到then()的回调函数中，await也是一个承诺，其承诺的是不管怎样我都会等待你的操作执行完成在执行下一步操作。上述代码运行了async/await的作用就是等待fn()执行完成之后，在执行之后的操作
-例子在写JS循环时，JS提供了许多好用数组api接口，forEach就是其中一个，但是碰上了async/await，可能就悲剧了，得到了不是你想要的结果
-123456789101112131415161718function getUserInfo (id) &#123;  return new Promise(resolve &#x3D;&gt; &#123;    setTimeout(() &#x3D;&gt; &#123;      resolve(&#123;        id: id,        name: &#39;xxx&#39;,        age: &#39;xxx&#39;      &#125;)    &#125;, 200)  &#125;)&#125;const users &#x3D; [&#123;id: 1&#125;, &#123;id: 2&#125;, &#123;id: 3&#125;]let userInfos &#x3D; []users.forEach(async user &#x3D;&gt; &#123;  let info &#x3D; await getUserInfo(user.id)  userInfos.push(info)&#125;)console.log(userInfos) &#x2F;&#x2F; []
-上面这段代码是不是很熟悉，模拟获取多个用户的用户信息，然后得到一个用户信息数组，但是很遗憾，上面的userInfos得到的是一个空数组，上面这段代码加上了async/await后，forEach循环就变成了异步的，因此不会等到所有用户信息都请求完才打印userInfos，想要等待结果的返回再打印，还是要回到老式的for循环，来看代码：
-123456789101112131415161718192021function getUserInfo (id) &#123;  return new Promise(resolve &#x3D;&gt; &#123;    setTimeout(() &#x3D;&gt; &#123;      resolve(&#123;        id: id,        name: &#39;xxx&#39;,        age: &#39;xxx&#39;      &#125;)    &#125;, 200)  &#125;)&#125;const users &#x3D; [&#123;id: 1&#125;, &#123;id: 2&#125;, &#123;id: 3&#125;]let userInfos &#x3D; []async function call() &#123;  for (user of users) &#123;    let info &#x3D; await getUserInfo(user.id)    userInfos.push(info)  &#125;  console.log(userInfos)&#125;call()
-上面这种写法是继发式的，也就是会等前面一个任务执行完，再执行下一个，但是也许你并不关心执行过程，只要拿到想要的结果就行了，这时并发式的效率会更高，来看代码：
-123456789101112131415161718function getUserInfo (id) &#123;  return new Promise(resolve &#x3D;&gt; &#123;    setTimeout(() &#x3D;&gt; &#123;      resolve(&#123;        id: id,        name: &#39;xxx&#39;,        age: &#39;xxx&#39;      &#125;)    &#125;, 200)  &#125;)&#125;const users &#x3D; [&#123;id: 1&#125;, &#123;id: 2&#125;, &#123;id: 3&#125;]let userInfos &#x3D; []const promises &#x3D; users.map(user &#x3D;&gt; getUserInfo(user.id))Promise.all(promises).then(res &#x3D;&gt; &#123;  userInfos &#x3D; res  console.log(userInfos)&#125;)
-
-                        
-                    </p>
-                </a>
-            </div>
-
-            
-        </article>
-    
-
 
 
     <nav class="page-nav">
@@ -644,6 +632,10 @@ async的字面意思是异步，其用于定义一个异步函数，返回的是
 <div class="box widget">
     <div class="title">Recent</div>
     <ul class="item-box">
+        
+            
+                <li><a href="/2020/11/09/%E6%97%A5%E5%B8%B8%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">日常问题记录</a></li>
+            
         
             
                 <li><a href="/2020/11/09/reduce%E5%8E%BB%E9%87%8D/">reduce去重</a></li>
@@ -673,10 +665,6 @@ async的字面意思是异步，其用于定义一个异步函数，返回的是
                 <li><a href="/2020/10/22/Vue-Router%E5%9F%BA%E7%A1%80/">Vue-Router基础</a></li>
             
         
-            
-                <li><a href="/2020/10/19/js%E5%A4%A7%E9%87%8F%E6%95%B0%E6%8D%AE%E8%AE%A1%E7%AE%97%E5%AF%BC%E8%87%B4%E9%A1%B5%E9%9D%A2%E5%81%87%E6%AD%BB%EF%BC%88Web%20Worker%EF%BC%89/">js大量数据计算导致页面假死（Web Worker）</a></li>
-            
-        
     </ul>
 </div>
 
@@ -686,7 +674,7 @@ async的字面意思是异步，其用于定义一个异步函数，返回的是
         
   <div class="box widget">
     <div class="title">Archives</div>
-    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">2020-11</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">2020-10</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">2020-06</a><span class="archive-list-count">2</span></li></ul>
+    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">2020-11</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">2020-10</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">2020-06</a><span class="archive-list-count">2</span></li></ul>
   </div>
 
     

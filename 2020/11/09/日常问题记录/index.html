@@ -12,13 +12,13 @@
 
 
 
-    <meta name="description" content="Kumiko77"/>
+    <meta name="description" content="1.脚本&lt;script&gt;放在&lt;head&gt;和放到&lt;body&gt;底部的区别放在上面是先加载script脚本，加载时body并没有渲染完成，如果脚本中内容有涉及到dom操作之类的可能会报错，如果放在body后面就是先完成body渲染在进行加载script脚本,能够有..."/>
 
 
 <meta name="Robots" content="all">
 
 
-    <title>Kumiko77</title>
+    <title>Kumiko77 | 日常问题记录</title>
 
 
 <link rel="icon" href="/images/favicon.ico">
@@ -71,80 +71,21 @@
 
         <section class="content global-width">
             <div class="main">
-                
-    
-        <article class="box post post-item">
-            <div class="post-title"><a href="/2020/06/18/%E5%85%B3%E4%BA%8E$emit%E7%9A%84%E7%90%86%E8%A7%A3/">关于$emit的理解</a></div>
-            <div class="post-meta">
-                
-                <i class="fa fa-calendar"></i> <time>2020-06-18</time>
-                <span class="dotted">|</span>
-                <i class="fa fa-user"></i> 
-            </div>
+                <article class="box post">
+    <div class="post-title align-center detail-title">日常问题记录</div>
+    <div class="post-meta align-center">
+        
+        <i class="fa fa-calendar"></i> <time>2020-11-09</time>
+        <span class="dotted">|</span>
+        <i class="fa fa-user"></i> 
+        
+    </div>
 
-            <div class="post-excerpt">
-                <a href="/2020/06/18/%E5%85%B3%E4%BA%8E$emit%E7%9A%84%E7%90%86%E8%A7%A3/">
-                    <p>
-                        
-                            $emit
-emit的意思是发出、射出。
-子组件可以通过props接收父组件传递过来的数据。
-子组件也可以用过$emit来触发父组件的自定事件，再说的通俗易懂一些就是子组件可以调用父组件的方法。用法1$emit( eventName, […args] )
+    <div class="post-content">
+        <h2 id="1-脚本-lt-script-gt-放在-lt-head-gt-和放到-lt-body-gt-底部的区别"><a href="#1-脚本-lt-script-gt-放在-lt-head-gt-和放到-lt-body-gt-底部的区别" class="headerlink" title="1.脚本&lt;script&gt;放在&lt;head&gt;和放到&lt;body&gt;底部的区别"></a>1.脚本&lt;script&gt;放在&lt;head&gt;和放到&lt;body&gt;底部的区别</h2><p>放在上面是先加载script脚本，加载时body并没有渲染完成，如果脚本中内容有涉及到dom操作之类的可能会报错，如果放在body后面就是先完成body渲染在进行加载script脚本,能够有效的访问到body中的元素，就不会出现上述情况</p>
 
-
-eventName：这是一个事件名，会绑定一个方法。当组件触发事件后，将调用这个方法。
-[…args]：附加的参数，会被抛出，由上述绑定的方法接收使用。例子子组件：123456789101112131415161718&lt;template&gt;  &lt;button @click="emitEvent"&gt;点击我&lt;/button&gt;&lt;/template&gt;&lt;script&gt;  export default &#123;    data() &#123;      return &#123;        msg: "我是子组件中的数据"      &#125;    &#125;,    methods: &#123;      emitEvent()&#123;        this.$emit('my-event', this.msg)        //通过按钮的点击事件触发方法，然后用$emit触发一个my-event的自定义方法，传递this.msg数据。      &#125;    &#125;  &#125;&lt;/script&gt;
-父组件：12345678910111213141516171819&lt;template&gt;  &lt;div id="app"&gt;    &lt;child-a @my-event="getMyEvent"&gt;&lt;/child-a&gt;    &lt;!--父组件中通过监测my-event事件执行一个方法，然后取到子组件中传递过来的值--&gt;  &lt;/div&gt;&lt;/template&gt;&lt;script&gt;  import ChildA from './components/child.vue'  export default &#123;    components: &#123;      ChildA    &#125;,    methods: &#123;      getMyEvent(msg)&#123;          console.log('接收的数据---------&gt;'+msg)//接收的数据---------&gt;我是子组件中的数据      &#125;    &#125;  &#125;&lt;/script&gt;
-
-
-                        
-                    </p>
-                </a>
-            </div>
-
-            
-        </article>
-    
-
-    
-        <article class="box post post-item">
-            <div class="post-title"><a href="/2020/06/12/hello-world/">Hello World</a></div>
-            <div class="post-meta">
-                
-                <i class="fa fa-calendar"></i> <time>2020-06-12</time>
-                <span class="dotted">|</span>
-                <i class="fa fa-user"></i> 
-            </div>
-
-            <div class="post-excerpt">
-                <a href="/2020/06/12/hello-world/">
-                    <p>
-                        
-                            Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick StartCreate a new post1$ hexo new "My New Post"
-
-More info: Writing
-Run server1$ hexo server
-
-More info: Server
-Generate static files1$ hexo generate
-
-More info: Generating
-Deploy to remote sites1$ hexo deploy
-
-More info: Deployment
-
-                        
-                    </p>
-                </a>
-            </div>
-
-            
-        </article>
-    
-
-
-
+    </div>
+</article>
             </div>
             <div class="aside">
     
