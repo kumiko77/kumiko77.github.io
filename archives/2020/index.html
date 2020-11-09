@@ -74,6 +74,35 @@
                 
     
         <article class="box post post-item">
+            <div class="post-title"><a href="/2020/11/09/reduce%E5%8E%BB%E9%87%8D/">reduce去重</a></div>
+            <div class="post-meta">
+                
+                <i class="fa fa-calendar"></i> <time>2020-11-09</time>
+                <span class="dotted">|</span>
+                <i class="fa fa-user"></i> 
+            </div>
+
+            <div class="post-excerpt">
+                <a href="/2020/11/09/reduce%E5%8E%BB%E9%87%8D/">
+                    <p>
+                        
+                            1.reduce去重解析
+先使用Array.sort()对数组进行从小到大排序
+每次进入reduce循环先判断新数组长度，若长度为0，则是第一项就直接往里push
+之后每次都用当前项与新数组末尾项做对比如果相同则说明数组里存在这一项所以不需要做操作，若不相等则不存在，就往新数组里push该项12345678const arr &#x3D; [1,3,6,4,3,1,2,3,5,3,2,4,5]let result &#x3D; arr.sort().reduce((newArr, item) &#x3D;&gt; &#123;  if(newArr.length &#x3D;&#x3D;&#x3D; 0 || newArr[newArr.length - 1] !&#x3D;&#x3D; item) &#123;    newArr.push(item)  &#125;  return newArr&#125;, [])console.log(result)  &#x2F;&#x2F;[1,2,3,4,5,6]
+
+
+                        
+                    </p>
+                </a>
+            </div>
+
+            
+        </article>
+    
+
+    
+        <article class="box post post-item">
             <div class="post-title"><a href="/2020/11/07/%E5%85%B3%E4%BA%8EVue%E4%B8%AD%E7%9A%84%E8%99%9A%E6%8B%9FDOM/">关于Vue中的虚拟DOM</a></div>
             <div class="post-meta">
                 
@@ -592,78 +621,6 @@ async的字面意思是异步，其用于定义一个异步函数，返回的是
         </article>
     
 
-    
-        <article class="box post post-item">
-            <div class="post-title"><a href="/2020/10/15/Promise/">Promise</a></div>
-            <div class="post-meta">
-                
-                <i class="fa fa-calendar"></i> <time>2020-10-15</time>
-                <span class="dotted">|</span>
-                <i class="fa fa-user"></i> 
-            </div>
-
-            <div class="post-excerpt">
-                <a href="/2020/10/15/Promise/">
-                    <p>
-                        
-                            PromisePromise 是异步编程的一种解决方案，比传统的解决方案回调函数和事件更合理和更强大。有了Promise对象，就可以将异步操作以同步操作的流程表达出来，避免了层层嵌套的回调函数
-同步与异步总所周知JavaScript的运行环境是“单线程”。所谓单线程，就是指JS引擎中负责执行JavaScript代码的线程只有一个。也就是说一次只能完成一个任务，要先等这个任务完成了之后才能执行下一个任务，并且它会“阻塞”其他任务，这个任务称之为“主线程”
-同步如上所说，同步模式一次只能执行一个任务，如果这个任务没执行完，下一个任务就无法执行，如果这个任务执行时间过长，就会造成“线程阻塞”
-12while(true);console.log(&#39;hello&#39;);
-这就是一个例子，while是一个死循环，所以之后的操作永远不会执行
-异步异步模式与同步模式相反，可以多个任务一起执行，函数调用后不会立即返回执行结果，如果任务A需要等待，会先继续执行任务B，等任务A执行完了在继续执行回调
-1234567setTimeout(function() &#123;    console.log(&#39;taskA&#39;);&#125;, 0);console.log(&#39;taskB&#39;);输出：&#x2F;&#x2F;taskB&#x2F;&#x2F;taskA
-定时器的延时为0，但taskA还是晚于taskB输出。这是为什么呢？由于定时器是异步的，异步任务会在当前脚本的所有同步任务执行完才会执行
-为什么要使用PromisePromise用于处理异步操作，既然我们可以用过回调来解决异步操作，为什么要还要使用Promise呢？上代码
-12345678910111213function sendRequest(url, param) &#123;    return new Promise(function (resolve, reject) &#123;        request(url, param, resolve, reject);    &#125;);&#125;sendRequest(&#39;test&#39;, &#39;&#39;).then(function(data) &#123;    &#x2F;&#x2F;异步操作成功后的回调    console.log(&#39;请求成功, 这是返回的数据:&#39;, data);&#125;, function(error) &#123;    &#x2F;&#x2F;异步操作失败后的回调    console.log(&#39;sorry, 请求失败了, 这是失败信息:&#39;, error);&#125;);
-这么一看，并没有什么区别，还比直接使用回调复杂，得先声明Promise再定义其回调。其实，Promise的真正强大之处在于它的多重链式调用，可以避免层层嵌套回调。如果我们在第一次ajax请求后，还要用它返回的结果再次请求呢？
-12345678910111213141516request(&#39;test1.html&#39;, &#39;&#39;, function(data1) &#123;    console.log(&#39;第一次请求成功, 这是返回的数据:&#39;, data1);    request(&#39;test2.html&#39;, data1, function (data2) &#123;        console.log(&#39;第二次请求成功, 这是返回的数据:&#39;, data2);        request(&#39;test3.html&#39;, data2, function (data3) &#123;            console.log(&#39;第三次请求成功, 这是返回的数据:&#39;, data3);            &#x2F;&#x2F;request... 继续请求        &#125;, function(error3) &#123;            console.log(&#39;第三次请求失败, 这是失败信息:&#39;, error3);        &#125;);    &#125;, function(error2) &#123;        console.log(&#39;第二次请求失败, 这是失败信息:&#39;, error2);    &#125;);&#125;, function(error1) &#123;    console.log(&#39;第一次请求失败, 这是失败信息:&#39;, error1);&#125;);
-多层回调，头皮发麻，体验十分难受，后期代码也很难维护，但是如果使用Promise我们就可以使用then来进行“链式回调”，将异步的操作以同步操作的流程展示出来
-123456789101112sendRequest(&#39;test1.html&#39;, &#39;&#39;).then(data1 &#x3D;&gt; &#123;    console.log(&#39;第一次请求成功, 这是返回的数据:&#39;, data1);    return sendRequest(&#39;test2.html&#39;, data1);&#125;).then(data2 &#x3D;&gt; &#123;    console.log(&#39;第二次请求成功, 这是返回的数据:&#39;, data2);    return sendRequest(&#39;test3.html&#39;, data2);&#125;).then(data3 &#x3D;&gt; &#123;    console.log(&#39;第三次请求成功, 这是返回的数据:&#39;, data3);&#125;).catch(error &#x3D;&gt; &#123;    &#x2F;&#x2F;用catch捕捉前面的错误    console.log(&#39;sorry, 请求失败了, 这是失败信息:&#39;, error);&#125;);
-这段代码看起来就比上面的清晰来很多
-Promise的基本用法首先说说Promise的3种状态
-
-pending：初始值
-fulfilled：代表操作成功
-rejected：代表操作失败Promise有两种改变状态的方式，既可以从pending变成fulfilled，也可以从pending变成rejected，状态一旦改变，就会一直保持这个状态，不能在变成另一个状态，状态发生改变时就会执行Promise.then()
-
-缺点1.Promise一旦声明，就会立即执行，无法取消
-2.如果不设置回调函数，就无法把错误反映到外部
-声明一个promise12345678var promise &#x3D; new Promise(function (resolve, reject) &#123;    if (&#x2F;* 操作成功 *&#x2F;) &#123;        resolve(data);    &#125; else &#123;        &#x2F;* 操作失败 *&#x2F;        reject(error);    &#125;&#125;);
-Promise通过new来声明，并接受一个function作为参数，该函数携带两个参数，分别是resolve和reject
-
-resolve：在异步操作成功时调用，并将异步操作的结果作为参数传递出去
-reject：在异步操作失败时调用，并将异步操作的执行错误作为参数传递出去12345promise.then(function(data) &#123;  &#x2F;&#x2F; do something when success&#125;, function(error) &#123;  &#x2F;&#x2F; do something when failure&#125;);
-Promise.then()会返回一个Promise对象。携带两个参数，第一个参数为状态从pending变成fulfilled时执行，第二个参数为状态从pending变成rejceted时执行，第一个参数必须有，第二个参数可有可无基本API.then()1Promise.then(onFulfilled, onRejected)
-在Promise状态发生改变时才会被调用.catch()该方法等同于.then(‘’, onRejected)的别名，用于指定发生错误时的回调函数1234567891011promise.then(function(data) &#123;    console.log(&#39;success&#39;);&#125;).catch(function(error) &#123;    console.log(&#39;error&#39;, error);&#125;);promise.then(function(data) &#123;    console.log(&#39;success&#39;);&#125;).then(undefined, function(error) &#123;    console.log(&#39;error&#39;, error);&#125;);
-reject方法等同于抛出一个错误123456789101112var promise &#x3D; new Promise(function (resolve, reject) &#123;    throw new Error(&#39;test&#39;);&#125;);&#x2F;*******等同于*******&#x2F;var promise &#x3D; new Promise(function (resolve, reject) &#123;    reject(new Error(&#39;test&#39;));&#125;);&#x2F;&#x2F;用catch捕获promise.catch(function (error) &#123;    console.log(error);&#125;);
-但是Promise的状态一旦发生改成就不会在变化了，即状态一旦变成fulfilled，再抛出错误也不会变成rejcet，所以也就不会被catch捕获到
-
-如果没有catch那Promise的错误就不会被传到外界，这就是Promise的缺点之一
-.all()该方法接受一个数组，数组里均为Promise对象，将数组里的所有promise变成一个Promise对象，该对象的状态由数组里Promise对象的状态决定
-
-当数组里所有Promise对象的状态都变成fulfilled时这个新Promise对象的状态才会变成fulfilled
-当数组里有一个Promise对象的状态变成rejected时这个新Promise对象的状态就会变成rejected，并将数组里第一个Promise的reject的返回值传递给新Promise对象的回调函数123456789101112131415var p1 &#x3D; new Promise(function (resolve, reject) &#123;    setTimeout(resolve, 3000, &quot;first&quot;);&#125;);var p2 &#x3D; new Promise(function (resolve, reject) &#123;    resolve(&#39;second&#39;);&#125;);var p3 &#x3D; new Promise((resolve, reject) &#x3D;&gt; &#123;  setTimeout(resolve, 1000, &quot;third&quot;);&#125;); Promise.all([p1, p2, p3]).then(function(values) &#123;   console.log(values); &#125;);约三秒后输出[&quot;first&quot;, &quot;second&quot;, &quot;third&quot;]
-1234567891011121314151617var p1 &#x3D; new Promise((resolve, reject) &#x3D;&gt; &#123;   setTimeout(resolve, 1000, &quot;one&quot;); &#125;); var p2 &#x3D; new Promise((resolve, reject) &#x3D;&gt; &#123;   setTimeout(reject, 2000, &quot;two&quot;); &#125;);var p3 &#x3D; new Promise((resolve, reject) &#x3D;&gt; &#123;  reject(&quot;three&quot;);&#125;);Promise.all([p1, p2, p3]).then(function (value) &#123;    console.log(&#39;resolve&#39;, value);&#125;, function (error) &#123;    console.log(&#39;reject&#39;, error);    &#x2F;&#x2F; &#x3D;&gt; reject three&#125;);输出 reject three
-.race()使用方法同.all(),不同的是使用.race()生成的新Promise对象的状态值会随着数组里Promise对象的状态改变而改变，并将第一个执行完毕的Promise对象的结果返回1234567891011121314var p1 &#x3D; new Promise(function(resolve, reject) &#123;     setTimeout(reject, 500, &quot;one&quot;); &#125;);var p2 &#x3D; new Promise(function(resolve, reject) &#123;     setTimeout(resolve, 100, &quot;two&quot;); &#125;);Promise.race([p1, p2]).then(function(value) &#123;    console.log(&#39;resolve&#39;, value); &#125;, function(error) &#123;    console.log(&#39;reject&#39;, error); &#125;);输出 resolve two
-在第一个Promise对象被resolve之后并不会影响后边的操作1234567891011121314151617181920var fastPromise &#x3D; new Promise(function (resolve) &#123;    setTimeout(function () &#123;        console.log(&#39;fastPromise&#39;);        resolve(&#39;resolve fastPromise&#39;);    &#125;, 100);&#125;);var slowPromise &#x3D; new Promise(function (resolve) &#123;    setTimeout(function () &#123;        console.log(&#39;slowPromise&#39;);        resolve(&#39;resolve slowPromise&#39;);    &#125;, 1000);&#125;);&#x2F;&#x2F; 第一个promise变为resolve后程序停止Promise.race([fastPromise, slowPromise]).then(function (value) &#123;    console.log(value);    &#x2F;&#x2F; &#x3D;&gt; resolve fastPromise&#125;);输出fastPromiseresolve fastPromiseslowPromise     &#x2F;&#x2F;仍会执行
-.resolve()123Promise.resolve(value);Promise.resolve(promise);Promise.resolve(thenable);
-它可以看做new Promise()的快捷方式123456Promise.resolve(&#39;Success&#39;);&#x2F;*******等同于*******&#x2F;new Promise(function (resolve) &#123;    resolve(&#39;Success&#39;);&#125;);
-这段代码会让这个Promise对象立即进入resolved状态，并将结果success传递给then指定的onFulfilled回调函数1234Promise.resolve(&#39;success&#39;).then(function (value) &#123;    console.log(value);&#125;);输出 Success
-Promise.resolve()的另一个作用就是将thenable对象（即带有then方法的对象）转换为promise对象。
-
-123456789101112var p1 &#x3D; Promise.resolve(&#123;     then: function (resolve, reject) &#123;         resolve(&quot;this is an thenable object!&quot;);    &#125;&#125;);console.log(p1 instanceof Promise);     &#x2F;&#x2F; &#x3D;&gt; truep1.then(function(value) &#123;    console.log(value);     &#x2F;&#x2F; &#x3D;&gt; this is an thenable object!  &#125;, function(e) &#123;    &#x2F;&#x2F;not called&#125;);
-.reject()同.resolve()
-
-                        
-                    </p>
-                </a>
-            </div>
-
-            
-        </article>
-    
-
 
 
     <nav class="page-nav">
@@ -687,6 +644,10 @@ Promise.resolve()的另一个作用就是将thenable对象（即带有then方法
 <div class="box widget">
     <div class="title">Recent</div>
     <ul class="item-box">
+        
+            
+                <li><a href="/2020/11/09/reduce%E5%8E%BB%E9%87%8D/">reduce去重</a></li>
+            
         
             
                 <li><a href="/2020/11/07/%E5%85%B3%E4%BA%8EVue%E4%B8%AD%E7%9A%84%E8%99%9A%E6%8B%9FDOM/">关于Vue中的虚拟DOM</a></li>
@@ -716,10 +677,6 @@ Promise.resolve()的另一个作用就是将thenable对象（即带有then方法
                 <li><a href="/2020/10/19/js%E5%A4%A7%E9%87%8F%E6%95%B0%E6%8D%AE%E8%AE%A1%E7%AE%97%E5%AF%BC%E8%87%B4%E9%A1%B5%E9%9D%A2%E5%81%87%E6%AD%BB%EF%BC%88Web%20Worker%EF%BC%89/">js大量数据计算导致页面假死（Web Worker）</a></li>
             
         
-            
-                <li><a href="/2020/10/19/%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%8D%9A%E5%AE%A2/">如何搭建本博客</a></li>
-            
-        
     </ul>
 </div>
 
@@ -729,7 +686,7 @@ Promise.resolve()的另一个作用就是将thenable对象（即带有then方法
         
   <div class="box widget">
     <div class="title">Archives</div>
-    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">2020-11</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">2020-10</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">2020-06</a><span class="archive-list-count">2</span></li></ul>
+    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">2020-11</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">2020-10</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">2020-06</a><span class="archive-list-count">2</span></li></ul>
   </div>
 
     
