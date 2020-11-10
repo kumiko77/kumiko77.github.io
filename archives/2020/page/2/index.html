@@ -74,6 +74,57 @@
                 
     
         <article class="box post post-item">
+            <div class="post-title"><a href="/2020/10/19/%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%8D%9A%E5%AE%A2/">如何搭建本博客</a></div>
+            <div class="post-meta">
+                
+                <i class="fa fa-calendar"></i> <time>2020-10-19</time>
+                <span class="dotted">|</span>
+                <i class="fa fa-user"></i> 
+            </div>
+
+            <div class="post-excerpt">
+                <a href="/2020/10/19/%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%8D%9A%E5%AE%A2/">
+                    <p>
+                        
+                            什么是HexoHexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。优点！！！不需要服务器可以直接部署在你的GitHub上##安装###1.安装GitWindows: git官网 下载后会有一个Git Bash命令行工具Linux：
+1sudo apt-get install git
+2.安装Node.js Hexo是基于Node.js编写，所以需要安装一下Node.js和里面的npm包管理工具Windows：Node.js官网选择LTS版本Linux：
+12sudo apt-get install nodejssudo apt-get install npm
+安装完成后打开命令行检查一下是否安装成功
+12node -vnpm -v
+3.安装Hexo安装完Git和Node.js就可以来安装Hexo了，可以先在桌面创建一个blog文件夹，然后在命令行中cd到该目录下，在命令行中键入命令
+1npm install -g hexo-cli
+老规矩Hexo -v看一下版本号到此就安装完成了接下来我们初始化一下我们的Hexo
+123hexo init blogcd blognpm install
+我们来看看项目结构node_modules: 依赖包public：存放生成的页面scaffolds：生成文章的一些模板source：用来存放你的文章themes：主题_config.yml: 博客的配置文件运行服务，走你
+1hexo server
+在浏览器输入localhost:4000就可以看到你生成的博客了可以用ctrl+c将服务关掉
+4.GitHub上创建个人仓库首先你得有一个GitHub账号如果没有的话的就注册一个吧GitHub官网注册完成后点击New repository新建一个仓库仓库名称必须为你的用户名.github.io只有这样以将你博客部署到GitHub的时候才会被识别假设我的用户名是kumiko77那我的仓库名就是kumiko77.github.io点击create repository创建完成
+5.生成SSH添加到GitHub打开你的GitBash
+1ssh-keygen -t rsa -b 4096 -C &quot;你的GitHub邮箱&quot;
+然后一路回车 ，此时他会告诉你SSH文件已经生成了在GitHub的setting中，找到SSH keys的设置选项，点击New SSH key把你的id_rsa.pub里面的信息复制进去然后在GitBash中查看是否成功
+1ssh -T git@github.com
+6.将Hexo部署到GitHun上到这一步就可以讲我们的博客和Hexo关联起来了打开我们的配置文件_config.yml翻到最下面将内容修改为
+1234deploy:  type: git  repo: https:&#x2F;&#x2F;github.com&#x2F;用户名&#x2F;用户名.github.io.git  branch: master
+然后我们先安装deploy-git ，也就是部署的命令,这样你才能用命令部署到GitHub
+1npm install hexo-deployer-git --save
+接着我们
+123hexo cleanhexo generatehexo deploy
+可以使用缩写
+12hexo generate &#x3D;&gt; hexo ghexo deploy &#x3D;&gt; hexo d
+hexo deploy之后可能会要你输入GitHub的用户名和密码成功之后就可以在http://用户名.github.io看到你的博客了
+
+                        
+                    </p>
+                </a>
+            </div>
+
+            
+        </article>
+    
+
+    
+        <article class="box post post-item">
             <div class="post-title"><a href="/2020/10/19/ES6%EF%BC%9Aasync%20await/">ES6：async await</a></div>
             <div class="post-meta">
                 
@@ -386,6 +437,10 @@ More info: Deployment
     <ul class="item-box">
         
             
+                <li><a href="/2020/11/10/%E5%85%B3%E4%BA%8E%E8%B7%A8%E5%9F%9F/">关于跨域</a></li>
+            
+        
+            
                 <li><a href="/2020/11/09/%E6%97%A5%E5%B8%B8%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">日常问题记录</a></li>
             
         
@@ -413,10 +468,6 @@ More info: Deployment
                 <li><a href="/2020/10/26/Vuex%E5%9F%BA%E7%A1%80/">Vuex基础</a></li>
             
         
-            
-                <li><a href="/2020/10/22/Vue-Router%E5%9F%BA%E7%A1%80/">Vue-Router基础</a></li>
-            
-        
     </ul>
 </div>
 
@@ -426,7 +477,7 @@ More info: Deployment
         
   <div class="box widget">
     <div class="title">Archives</div>
-    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">2020-11</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">2020-10</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">2020-06</a><span class="archive-list-count">2</span></li></ul>
+    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">2020-11</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">2020-10</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">2020-06</a><span class="archive-list-count">2</span></li></ul>
   </div>
 
     

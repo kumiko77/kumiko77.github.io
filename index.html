@@ -74,6 +74,81 @@
                 
     
         <article class="box post post-item">
+            <div class="post-title"><a href="/2020/11/10/%E5%85%B3%E4%BA%8E%E8%B7%A8%E5%9F%9F/">关于跨域</a></div>
+            <div class="post-meta">
+                
+                <i class="fa fa-calendar"></i> <time>2020-11-10</time>
+                <span class="dotted">|</span>
+                <i class="fa fa-user"></i> 
+            </div>
+
+            <div class="post-excerpt">
+                <a href="/2020/11/10/%E5%85%B3%E4%BA%8E%E8%B7%A8%E5%9F%9F/">
+                    <p>
+                        
+                            1.什么是跨域？简单的说，跨域就是一个域下的文档或者是执行脚本要访问另一个域下的资源或与另一个域进行通信时，就会发生跨域。比如说A域名读取B域名下的图片时、js利用AJAX调用后台域名接口时或者父级页面与不同域名下的iframe通信时等等
+要了解跨域，首先要知道域是什么
+2.什么是域？跨域的域并不是域名的域，而是由浏览器同源政策限定出的一种概念。
+SOP即同源政策，英文全拼为Same origin policy，这个约定在1995年由NetScape公司引入浏览器，它是浏览器最核心合适最基础的安全功能，如果浏览器缺少了同源政策，就很容易收到XSS、XSFR等攻击
+同源指的是资源或者目标的协议、域名、端口者相同，即使是不同的域名指向同一个IP地址也会出现跨域
+2.1非同源限制
+无法读取非同源网页的Cooike、LocalStorage等
+无法接触非同源网页的DOM
+无法向非同源地址发送AJAX请求3. 如果解决跨域3.1 JSONP跨域&lt;script&gt;标签的src属性并不会被同源政策所约束，所以可以获取任何服务器上的脚本并执行
+
+JSONP的核心思想就是通过添加添加一个&lt;script&gt;标签，向服务器请求JSON数据，服务器接受请求后，将数据放在一个制定名字的回调函数的参数中传递回来
+1234567&lt;script src&#x3D;&quot;http:&#x2F;&#x2F;test.com&#x2F;api&#x2F;getData?callback&#x3D;backData&quot;&gt;&lt;&#x2F;script&gt;&#x2F;&#x2F; 处理服务器返回回调函数的数据&lt;script type&#x3D;&quot;text&#x2F;javascript&quot;&gt;    function backData(res)&#123;        console.log(res.data)    &#125;&lt;&#x2F;script&gt;
+同时JQuery也支持JSONP
+123456789$.ajax(&#123;    url: &#39;http:&#x2F;&#x2F;www.api.com:8080&#x2F;login&#39;,    type: &#39;get&#39;,    dataType: &#39;jsonp&#39;,    jsonp: &quot;callback&quot;,    success: () &#x3D;&gt; &#123;      &#x2F;&#x2F;...    &#125;&#125;);
+3.2 优缺点3.2.1 优点
+兼容低版本浏览器3.2.2 缺点
+只支持get请求
+错误处理机制不完善4.1 CORS跨域CORS是跨域资源分享（Cross-Origin Resource Sharing）的缩写。它是W3C标准，属于跨域AJAX请求的根本解决方案。它允许浏览器向跨域源发起XMLHttpRequest请求，从而解决了AJAX只能同源使用的限制
+
+整个CORS的通信过程，都是浏览器自动完成，不需要用户参与。浏览器一旦发现AJAX请求跨域就会自动添加一些附加的头信息，有时还会多出一次附加的请求
+
+普通跨域请求：只需要服务端设置Access-Control-Allow-Origin
+带cookie跨域请求：前后端都需要进行配置
+
+并且浏览器会将CORS请求分成两类，简单请求和非简单请求，浏览器对这两种请求的处理是不一样的
+4.2.1 简单请求满足以下两个条件的请求就是简单请求
+
+请求方法是HEAD、GET、POST三种方法之一
+HTTP的头请求信息不能超出下列字段
+
+
+Accept
+Accept-Language
+Content-Language
+Last-Event-ID
+Content-Type（只限于三个值application/x-www-form-urlencoded、multipart/form-data、text/plain）4.2.2 非简单请求处理上边的简单请求外，剩下的都是非简单请求
+
+对于非简单请求，浏览器在正式通信之前，都会做一次查询请求，整个查询请求叫做预检请求，也叫OPTIONS请求，所以它使用的请求方式是OPTIONS
+在OPTIONS请求里，头信息除了有表明来源的Origin字段外，还有一个Access-Control-Request-Method自字段和Access-Control-Request-Headers字段，它们分别表明了本次CORS请求用的HTTP方法和请求会额外发送的头信息字段
+预检请求的回应服务器收到预检请求以后，检查了Origin、Access-Control-Request-Method和Access-Contorl-Request-Headers字段以后，确认允许跨域请求，就可以作出回应
+只有得到肯定的答复，浏览器才会正式发出XMLHttpRequest请求，否则就会报跨域错误
+
+Access-Control-Allow-Origin :该字段是必须的。它的值要么是请求时Origin字段的值，要么是一个*，表示接受任意域名的请求
+Access-Control-Allow-Credentials: 该字段可选。它的值是一个布尔值，表示是否允许发送Cookie。默认情况下，Cookie不包括在CORS请求之中。设为true，即表示服务器明确许可，Cookie可以包含在请求中，一起发给服务器。这个值也只能设为true，如果服务器不要浏览器发送Cookie，删除该字段即可。
+Access-Control-Expose-Headers:该字段可选。CORS请求时，XMLHttpRequest对象的getResponseHeader()方法只能拿到6个基本字段：Cache-Control、Content-Language、Content-Type、Expires、Last-Modified、Pragma。如果想拿到其他字段，就必须在Access-Control-Expose-Headers里面指定
+Access-Control-Max-Age： 该字段可选，用来指定本次预检请求的有效期，单位为秒。在此期间，不用发出另一条预检请求。4.3 优缺点4.3.1 优点
+支持多种请求方式
+处理机制完善
+对于复杂请求，多一次验证，安全性更好4.3.2 缺点
+不支持IE10以下浏览器
+
+
+                        
+                    </p>
+                </a>
+            </div>
+
+            
+        </article>
+    
+
+    
+        <article class="box post post-item">
             <div class="post-title"><a href="/2020/11/09/%E6%97%A5%E5%B8%B8%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">日常问题记录</a></div>
             <div class="post-meta">
                 
@@ -558,57 +633,6 @@ Work线程内部关闭1self.close();
         </article>
     
 
-    
-        <article class="box post post-item">
-            <div class="post-title"><a href="/2020/10/19/%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%8D%9A%E5%AE%A2/">如何搭建本博客</a></div>
-            <div class="post-meta">
-                
-                <i class="fa fa-calendar"></i> <time>2020-10-19</time>
-                <span class="dotted">|</span>
-                <i class="fa fa-user"></i> 
-            </div>
-
-            <div class="post-excerpt">
-                <a href="/2020/10/19/%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%8D%9A%E5%AE%A2/">
-                    <p>
-                        
-                            什么是HexoHexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。优点！！！不需要服务器可以直接部署在你的GitHub上##安装###1.安装GitWindows: git官网 下载后会有一个Git Bash命令行工具Linux：
-1sudo apt-get install git
-2.安装Node.js Hexo是基于Node.js编写，所以需要安装一下Node.js和里面的npm包管理工具Windows：Node.js官网选择LTS版本Linux：
-12sudo apt-get install nodejssudo apt-get install npm
-安装完成后打开命令行检查一下是否安装成功
-12node -vnpm -v
-3.安装Hexo安装完Git和Node.js就可以来安装Hexo了，可以先在桌面创建一个blog文件夹，然后在命令行中cd到该目录下，在命令行中键入命令
-1npm install -g hexo-cli
-老规矩Hexo -v看一下版本号到此就安装完成了接下来我们初始化一下我们的Hexo
-123hexo init blogcd blognpm install
-我们来看看项目结构node_modules: 依赖包public：存放生成的页面scaffolds：生成文章的一些模板source：用来存放你的文章themes：主题_config.yml: 博客的配置文件运行服务，走你
-1hexo server
-在浏览器输入localhost:4000就可以看到你生成的博客了可以用ctrl+c将服务关掉
-4.GitHub上创建个人仓库首先你得有一个GitHub账号如果没有的话的就注册一个吧GitHub官网注册完成后点击New repository新建一个仓库仓库名称必须为你的用户名.github.io只有这样以将你博客部署到GitHub的时候才会被识别假设我的用户名是kumiko77那我的仓库名就是kumiko77.github.io点击create repository创建完成
-5.生成SSH添加到GitHub打开你的GitBash
-1ssh-keygen -t rsa -b 4096 -C &quot;你的GitHub邮箱&quot;
-然后一路回车 ，此时他会告诉你SSH文件已经生成了在GitHub的setting中，找到SSH keys的设置选项，点击New SSH key把你的id_rsa.pub里面的信息复制进去然后在GitBash中查看是否成功
-1ssh -T git@github.com
-6.将Hexo部署到GitHun上到这一步就可以讲我们的博客和Hexo关联起来了打开我们的配置文件_config.yml翻到最下面将内容修改为
-1234deploy:  type: git  repo: https:&#x2F;&#x2F;github.com&#x2F;用户名&#x2F;用户名.github.io.git  branch: master
-然后我们先安装deploy-git ，也就是部署的命令,这样你才能用命令部署到GitHub
-1npm install hexo-deployer-git --save
-接着我们
-123hexo cleanhexo generatehexo deploy
-可以使用缩写
-12hexo generate &#x3D;&gt; hexo ghexo deploy &#x3D;&gt; hexo d
-hexo deploy之后可能会要你输入GitHub的用户名和密码成功之后就可以在http://用户名.github.io看到你的博客了
-
-                        
-                    </p>
-                </a>
-            </div>
-
-            
-        </article>
-    
-
 
 
     <nav class="page-nav">
@@ -632,6 +656,10 @@ hexo deploy之后可能会要你输入GitHub的用户名和密码成功之后就
 <div class="box widget">
     <div class="title">Recent</div>
     <ul class="item-box">
+        
+            
+                <li><a href="/2020/11/10/%E5%85%B3%E4%BA%8E%E8%B7%A8%E5%9F%9F/">关于跨域</a></li>
+            
         
             
                 <li><a href="/2020/11/09/%E6%97%A5%E5%B8%B8%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">日常问题记录</a></li>
@@ -661,10 +689,6 @@ hexo deploy之后可能会要你输入GitHub的用户名和密码成功之后就
                 <li><a href="/2020/10/26/Vuex%E5%9F%BA%E7%A1%80/">Vuex基础</a></li>
             
         
-            
-                <li><a href="/2020/10/22/Vue-Router%E5%9F%BA%E7%A1%80/">Vue-Router基础</a></li>
-            
-        
     </ul>
 </div>
 
@@ -674,7 +698,7 @@ hexo deploy之后可能会要你输入GitHub的用户名和密码成功之后就
         
   <div class="box widget">
     <div class="title">Archives</div>
-    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">2020-11</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">2020-10</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">2020-06</a><span class="archive-list-count">2</span></li></ul>
+    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">2020-11</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">2020-10</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">2020-06</a><span class="archive-list-count">2</span></li></ul>
   </div>
 
     
